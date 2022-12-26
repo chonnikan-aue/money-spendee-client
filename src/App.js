@@ -6,6 +6,7 @@ import Home from "./components/Home/Home"
 import AddTransaction from "./AddTransaction/AddTransaction"
 import UpdateInfo from "./UpdateInfo/UpdateInfo"
 import { Route, Routes, Link, Navigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
@@ -42,6 +43,10 @@ function App() {
     })        
   }
 
+  useEffect(() => {
+    getWitdrawals()
+  }, [])
+
   return (
     <div className="App">
       <div>
@@ -51,11 +56,13 @@ function App() {
         <Link to="/">
           <Button>Home</Button>
         </Link>
-        <Link to="/table-view">
-          <Button>View Transaction</Button>
+        {/* BUG: Wrong links */}
+        <Link to="/table-view"> 
           <select class="form-select" id="">
-            <option value="">Choose...</option>
+            <option value="">View Transaction</option>
             <option value="">Table View</option>
+            <option value="">Dashboard View</option>
+            <option value="">Summary View</option>
           </select>
         </Link>
         <Link to="/add-transaction">
