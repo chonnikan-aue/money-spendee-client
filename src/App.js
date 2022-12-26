@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import TableView from "./components/TableView/TableView"
 import Home from "./components/Home/Home"
+import AddTransaction from "./AddTransaction/AddTransaction"
+import UpdateInfo from "./UpdateInfo/UpdateInfo"
 import { Route, Routes, Link, Navigate } from "react-router-dom";
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
         <Link to="/add-transaction">
           <h2>Add Transaction</h2>
         </Link>
-        <Link to="/update-personal-info">
+        <Link to="/update-info">
           <h2>Update Personal Info</h2>
         </Link>
       </nav>
@@ -29,8 +31,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/table-view" element={<TableView />}/>
-          {/* <Route path="/add-transaction" element={<AddTransaction />}/> */}
-          {/* <Route path="/update-personal-info" element={<UpdatePersonalInfo />}/> */}
+          <Route path="/add-transaction" element={<AddTransaction />}/>
+          <Route path="/update-info" element={<UpdateInfo />}/>
         </Routes>
 
       </main>
