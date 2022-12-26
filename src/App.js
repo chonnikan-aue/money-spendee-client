@@ -6,6 +6,24 @@ import Home from "./components/Home/Home"
 import { Route, Routes, Link, Navigate } from "react-router-dom";
 
 function App() {
+
+  const [transactions, setTransactions] = useState({
+    depositions: [],
+    witdrawals: []
+  })
+
+  const getDepositions = () => {
+    axios.get('http://localhost:3001/depositions')
+    .then(res => {
+      console.log(res.data);
+      setTransactions()
+    })        
+  }
+
+  useEffect(() => {
+    getDepositions()
+  }, [])
+
   return (
     <div className="App">
       <div>
