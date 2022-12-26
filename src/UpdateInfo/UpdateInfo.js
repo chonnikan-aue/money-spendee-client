@@ -10,6 +10,8 @@ const UpdateInfo = () => {
     invest: '',
   })
 
+  const [alert, setAlert] = useState(true)
+
   const handleChange = e => {
     const intValue = parseInt(e.target.value, 10);
     setBudget((prevState) => ({
@@ -61,12 +63,19 @@ const UpdateInfo = () => {
           name="invest"
           placeholder="20%" // need to update to default value from DB
           onChange={handleChange}
+          />
+      
+        <input
+          type="checkbox"
+          name="alert"
+          checked={alert}
+          onChange={() => setAlert(!alert)}
         />
+        <p>Alert me when I spend more than 90% of my budget limit</p>
 
         <form onSubmit={handleSubmit}>
           <input type="submit" value="Save" />
         </form>
-
       </span>
 
     </div>
