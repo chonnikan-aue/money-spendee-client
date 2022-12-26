@@ -4,9 +4,9 @@ import axios from "axios"
 const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
 const account = ["income", "saving"]
 
-const [data, setData] = useState({})
 
 const AddTransaction = () => {
+  const [data, setData] = useState({})
   return (
     <div>
       <h3>Title:</h3> <input type="text" placeholder="What did you pay?"></input>
