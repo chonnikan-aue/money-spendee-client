@@ -6,25 +6,41 @@ import Home from "./components/Home/Home"
 import AddTransaction from "./AddTransaction/AddTransaction"
 import UpdateInfo from "./UpdateInfo/UpdateInfo"
 import { Route, Routes, Link, Navigate } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 
 function App() {
 
+  // TBD: Data structure 
   const [transactions, setTransactions] = useState({
     depositions: [],
     witdrawals: []
-  })
+  }) 
 
+  // BUG: url, setTransactions' argument 
   const getDepositions = () => {
     axios.get('http://localhost:3001/depositions')
     .then(res => {
       console.log(res.data);
-      setTransactions()
+      setTransactions(res.data)
     })        
   }
 
   useEffect(() => {
     getDepositions()
   }, [])
+
+  // BUG: url, setTransactions' argument 
+  const getWitdrawals = () => {
+    axios.get('http://localhost:3001/withdrawals')
+    .then(res => {
+      console.log(res.data);
+      setTransactions((prevState) => ({
+        ...prevState,
+        [transactions.witdrawals]: res.data
+      }))
+    })        
+  }
 
   return (
     <div className="App">
@@ -33,16 +49,20 @@ function App() {
       </div>
       <nav>
         <Link to="/">
-          <h2>Home</h2>
+          <Button>Home</Button>
         </Link>
         <Link to="/table-view">
-          <h2>View Transaction</h2>
+          <Button>View Transaction</Button>
+          <select class="form-select" id="">
+            <option value="">Choose...</option>
+            <option value="">Table View</option>
+          </select>
         </Link>
         <Link to="/add-transaction">
-          <h2>Add Transaction</h2>
+          <Button>Add Transaction</Button>
         </Link>
         <Link to="/update-info">
-          <h2>Update Personal Info</h2>
+          <Button>Update Personal Info</Button>
         </Link>
       </nav>
       <main>
