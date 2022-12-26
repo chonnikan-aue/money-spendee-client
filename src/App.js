@@ -10,7 +10,7 @@ import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 
 function App() {
-
+     
   // TBD: Data structure 
   const [transactions, setTransactions] = useState({
     depositions: [],
