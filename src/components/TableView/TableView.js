@@ -11,7 +11,27 @@ const TableView = props => {
           <th scope="col">Type</th>
           <th scope="col">Amount</th>
         </tr>
-      </thead> 
+      </thead>
+      <tbody>
+    <tr>
+      <th scope="row">2 Jan 2023</th>
+      <td>Fixed Income</td>
+      <td>Income</td>
+      <td>1,000</td>
+    </tr>
+    <tr>
+      <th scope="row">1 Jan 2023</th>
+      <td>Shopping</td>
+      <td>Daily Expenses</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th scope="row">1 Jan 2023</th>
+      <td>Bank Deposit</td>
+      <td>Savings</td>
+      <td>500</td>
+    </tr>
+  </tbody> 
     </Table>
   )
 }
