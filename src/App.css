@@ -17,5 +17,6 @@ nav {
   display: flex;
   flex-flow: row;
   justify-content: space-evenly;
+  margin: 3% 0 2% 0;
 }
 
