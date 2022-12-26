@@ -15,23 +15,42 @@ const AddTransaction = () => {
   })
 
   const handleChange = e => {
+    let value = e.target.value;
+    if (e.target.name === 'amount') {
+      value = parseInt(value, 10);
+    }
     setData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
-    }))
+      [e.target.name]: value
+    }));
   }
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(data)
   }
 
   return (
     <div>
-      <h3>Title:</h3> <input type="text" name="title" placeholder="What did you pay?" onChange={handleChange} />
-      <h3>Amount:</h3> <input type="text" name="amount" placeholder="THB" onChange={handleChange} />
+      <h3>Title:</h3>
+      <input
+        type="text"
+        name="title"
+        placeholder="What did you pay?"
+        onChange={handleChange}
+      />
+      <h3>Amount:</h3>
+      <input
+        type="text"
+        name="amount"
+        placeholder="THB"
+        onChange={handleChange}
+      />
 
       <h3>Type:</h3>
-      <select name="type" onChange={handleChange} >
+      <select
+        name="type"
+        onChange={handleChange} >
         <option disabled selected>Select Type</option>
         {
           type.map(type => (
@@ -41,7 +60,9 @@ const AddTransaction = () => {
       </select>
 
       <h3>Account:</h3>
-      <select name="account" onChange={handleChange}>
+      <select
+        name="account"
+        onChange={handleChange}>
         <option disabled selected>Select Account</option>
         {
           account.map(account => (
