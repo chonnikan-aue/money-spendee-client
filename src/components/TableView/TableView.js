@@ -3,7 +3,7 @@ import axios from "axios"
 
 const TableView = props => {
   return (
-    <h1>Test render TableView.js</h1>
+    <p>Test render TableView.js</p>
   )
 }
 
