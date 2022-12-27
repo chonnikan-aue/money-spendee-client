@@ -13,7 +13,7 @@ const AddTransaction = () => {
     let value = e.target.value;
     if (e.target.name === 'amount') {
       value = parseInt(value, 10);
-    } 
+    }
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: value
@@ -26,14 +26,15 @@ const AddTransaction = () => {
     console.log(data)
 
     axios.post("http://localhost:3001/withdraw", data)
-    .then(res => {
+      .then(res => {
         console.log(res)
-    })
+      })
   }
 
   return (
     <div>
-      <h3 className='input'>Title:</h3>
+      <h4 className='input'>Title:</h4>
+      
       <input
         type="text"
         name="name"
@@ -41,7 +42,7 @@ const AddTransaction = () => {
         onChange={handleChange}
       />
       <br />
-      <h3 className='input'>Amount:</h3>
+      <h4 className='input'>Amount:</h4>
       <input
         type="text"
         name="amount"
@@ -49,7 +50,7 @@ const AddTransaction = () => {
         onChange={handleChange}
       />
       <br />
-      <h3 className='input'>Type:</h3>
+      <h4 className='input'>Type:</h4>
       <select
         name="typeId"
         onChange={handleChange} >
@@ -61,7 +62,7 @@ const AddTransaction = () => {
         }
       </select>
       <br />
-      <h3 className='input'>Account:</h3>
+      <h4 className='input'>Account:</h4>
       <select
         name="withdrawFromId"
         onChange={handleChange}>
