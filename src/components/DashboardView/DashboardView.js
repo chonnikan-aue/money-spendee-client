@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 const DashboardView = props => {
   return (

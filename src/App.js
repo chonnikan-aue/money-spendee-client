@@ -9,7 +9,7 @@ import AddTransaction from "./components/AddTransaction/AddTransaction"
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
 import { Route, Routes, Link, Navigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Dropdown } from 'react-bootstrap'
+import { Button, Container, Row, Column, Dropdown } from 'react-bootstrap'
 
 function App() {
      
