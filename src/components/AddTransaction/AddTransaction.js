@@ -1,3 +1,4 @@
+import './AddTransaction.css'
 import React, { useState } from "react"
 // import axios from "axios"
 
@@ -30,27 +31,32 @@ const AddTransaction = () => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(data)
-    console.log(type)
+
+    // axios.post("http://localhost:3001/fruits", data)
+    // .then(res => {
+    //     console.log(res)
+    // })
   }
 
   return (
     <div>
-      <h3>Title:</h3>
+      <h3 className='input'>Title:</h3>
       <input
         type="text"
         name="title"
         placeholder="What did you pay?"
         onChange={handleChange}
       />
-      <h3>Amount:</h3>
+      <br />
+      <h3 className='input'>Amount:</h3>
       <input
         type="text"
         name="amount"
         placeholder="THB"
         onChange={handleChange}
       />
-
-      <h3>Type:</h3>
+      <br />
+      <h3 className='input'>Type:</h3>
       <select
         name="type"
         onChange={handleChange} >
@@ -61,8 +67,8 @@ const AddTransaction = () => {
           ))
         }
       </select>
-
-      <h3>Account:</h3>
+      <br />
+      <h3 className='input'>Account:</h3>
       <select
         name="account"
         onChange={handleChange}>
