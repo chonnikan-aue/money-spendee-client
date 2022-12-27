@@ -65,6 +65,16 @@ function App() {
             <option value="">Summary View</option>
           </select>
         {/* </Link> */}
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            View Transaction
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item href="/table-view">Table View</Dropdown.Item>
+            <Dropdown.Item href="/dashboard-view">Table View</Dropdown.Item>
+
+          </Dropdown.Menu>
+        </Dropdown>
         <Link to="/add-transaction">
           <Button>Add Transaction</Button>
         </Link>
