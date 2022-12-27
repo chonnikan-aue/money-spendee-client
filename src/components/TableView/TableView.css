@@ -1,3 +1,7 @@
+/* #pagination-row {
+  border: 0px;
+} */
+
 .pagination {
   display: flex;
   flex-flow: row;

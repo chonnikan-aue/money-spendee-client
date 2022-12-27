@@ -1,12 +1,8 @@
-.row:not(#income-box,#savings-box,#daily-expenses-box,#investment-box) {
-  border: 2px solid grey;
-}
-
 #total-box {
   display: flex;
   flex-flow: row;
   justify-content: flex-start;
-  padding: 2vh 0 2vh 15vw;
+  padding: 2vh 0 2vh 10vw;
   background-color: lightgray;
 }
 
@@ -19,5 +15,5 @@
   display: flex;
   flex-flow: row;
   align-items: center;
-  padding-left: 15vw;
+  padding-left: 10vw;
 }
