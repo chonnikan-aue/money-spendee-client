@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import axios from "axios"
+// import axios from "axios"
 
 const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
 const account = ["income", "saving"]
@@ -13,11 +13,13 @@ const AddTransaction = () => {
     type: '',
     account: '',
   })
-
   const handleChange = e => {
     let value = e.target.value;
     if (e.target.name === 'amount') {
       value = parseInt(value, 10);
+    } else if (e.target.name === 'type' || e.target.name === 'account') {
+      value = value
+      console.log(value)
     }
     setData((prevState) => ({
       ...prevState,
@@ -28,6 +30,7 @@ const AddTransaction = () => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(data)
+    console.log(type)
   }
 
   return (
@@ -53,8 +56,8 @@ const AddTransaction = () => {
         onChange={handleChange} >
         <option disabled selected>Select Type</option>
         {
-          type.map(type => (
-            <option value={type}>{type}</option>
+          type.map((type, index) => (
+            <option value={index}>{type}</option>
           ))
         }
       </select>
@@ -65,8 +68,8 @@ const AddTransaction = () => {
         onChange={handleChange}>
         <option disabled selected>Select Account</option>
         {
-          account.map(account => (
-            <option value={account}>{account}</option>
+          account.map((account, index) => (
+            <option value={index}>{account}</option>
           ))
         }
       </select>
