@@ -20,33 +20,33 @@ function App() {
   }) 
 
   // BUG: url, setTransactions' argument 
-  const getDepositions = () => {
-    axios.get('http://localhost:3001/depositions')
-    .then(res => {
-      console.log(res.data);
-      setTransactions(res.data)
-    })        
-  }
+  // const getDepositions = () => {
+  //   axios.get('http://localhost:3001/depositions')
+  //   .then(res => {
+  //     console.log(res.data);
+  //     setTransactions(res.data)
+  //   })        
+  // }
 
-  useEffect(() => {
-    getDepositions()
-  }, [])
+  // useEffect(() => {
+  //   getDepositions()
+  // }, [])
 
   // BUG: url, setTransactions' argument 
-  const getWitdrawals = () => {
-    axios.get('http://localhost:3001/withdrawals')
-    .then(res => {
-      console.log(res.data);
-      setTransactions((prevState) => ({
-        ...prevState,
-        [transactions.witdrawals]: res.data
-      }))
-    })        
-  }
+  // const getWitdrawals = () => {
+  //   axios.get('http://localhost:3001/withdrawals')
+  //   .then(res => {
+  //     console.log(res.data);
+  //     setTransactions((prevState) => ({
+  //       ...prevState,
+  //       [transactions.witdrawals]: res.data
+  //     }))
+  //   })        
+  // }
 
-  useEffect(() => {
-    getWitdrawals()
-  }, [])
+  // useEffect(() => {
+  //   getWitdrawals()
+  // }, [])
 
   return (
     <div className="App">

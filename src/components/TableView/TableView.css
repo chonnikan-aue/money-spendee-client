@@ -1,9 +1,10 @@
-/* #pagination-row {
-  border: 0px;
-} */
-
 .pagination {
   display: flex;
   flex-flow: row;
   justify-content: center;
+}
+
+img {
+  width: 2rem;
+  height: 2rem;
 }
