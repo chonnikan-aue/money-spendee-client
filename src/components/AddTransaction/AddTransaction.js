@@ -1,6 +1,6 @@
 import './AddTransaction.css'
 import React, { useState } from "react"
-// import axios from "axios"
+import axios from "axios"
 
 const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
 const account = ["income", "saving"]
@@ -8,20 +8,12 @@ const account = ["income", "saving"]
 
 const AddTransaction = () => {
 
-  const [data, setData] = useState({
-    title: '',
-    amount: '',
-    type: '',
-    account: '',
-  })
+  const [data, setData] = useState({})
   const handleChange = e => {
     let value = e.target.value;
     if (e.target.name === 'amount') {
       value = parseInt(value, 10);
-    } else if (e.target.name === 'type' || e.target.name === 'account') {
-      value = value
-      console.log(value)
-    }
+    } 
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: value
@@ -30,12 +22,13 @@ const AddTransaction = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+
     console.log(data)
 
-    // axios.post("http://localhost:3001/fruits", data)
-    // .then(res => {
-    //     console.log(res)
-    // })
+    axios.post("http://localhost:3001/withdraw", data)
+    .then(res => {
+        console.log(res)
+    })
   }
 
   return (
@@ -43,7 +36,7 @@ const AddTransaction = () => {
       <h3 className='input'>Title:</h3>
       <input
         type="text"
-        name="title"
+        name="name"
         placeholder="What did you pay?"
         onChange={handleChange}
       />
@@ -58,7 +51,7 @@ const AddTransaction = () => {
       <br />
       <h3 className='input'>Type:</h3>
       <select
-        name="type"
+        name="typeId"
         onChange={handleChange} >
         <option disabled selected>Select Type</option>
         {
@@ -70,7 +63,7 @@ const AddTransaction = () => {
       <br />
       <h3 className='input'>Account:</h3>
       <select
-        name="account"
+        name="withdrawFromId"
         onChange={handleChange}>
         <option disabled selected>Select Account</option>
         {

@@ -24,6 +24,10 @@ const UpdateInfo = () => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(budget)
+    // axios.post("http://localhost:3001/", budget)
+    // .then(res => {
+    //     console.log(res)
+    // })
   }
 
   return (
