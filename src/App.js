@@ -57,14 +57,15 @@ function App() {
           <Button>Home</Button>
         </Link>
         {/* BUG: Wrong links */}
-        <Link to="/table-view"> 
+        {/* <Link to="/table-view">  */}
           <select class="form-select" id="">
-            <option value="">View Transaction</option>
             <option value="">Table View</option>
+            <option value="" onclick = {() => {window.location.href = "/table-view"}}>Table View</option>
+            <option value="" >View Transaction</option>
             <option value="">Dashboard View</option>
             <option value="">Summary View</option>
           </select>
-        </Link>
+        {/* </Link> */}
         <Link to="/add-transaction">
           <Button>Add Transaction</Button>
         </Link>
