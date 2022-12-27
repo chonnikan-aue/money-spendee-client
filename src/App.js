@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import TableView from "./components/TableView/TableView"
 import Home from "./components/Home/Home"
-import AddTransaction from "./AddTransaction/AddTransaction"
-import UpdateInfo from "./UpdateInfo/UpdateInfo"
+import AddTransaction from "./components/AddTransaction/AddTransaction"
+import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
 import { Route, Routes, Link, Navigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
