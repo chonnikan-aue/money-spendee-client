@@ -1,0 +1,19 @@
+#total-box {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  padding: 2vh 0 2vh 10vw;
+  background-color: lightgray;
+}
+
+#income-savings-box,#daily-expenses-investment-box {
+  border-left: 4px solid grey;
+  padding: 2vh 0 2vh 10vw;
+}
+
+#balance-box,#expenses-box {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  padding-left: 10vw;
+}
