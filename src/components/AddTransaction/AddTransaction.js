@@ -36,7 +36,7 @@ const AddTransaction = () => {
 
   return (
     <div>
-      <div className="box">
+      <div className="container box">
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
