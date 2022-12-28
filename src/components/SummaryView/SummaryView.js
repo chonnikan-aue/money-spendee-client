@@ -1,16 +1,53 @@
-import React, { useState } from "react"
-import axios from "axios"
+import React from "react"
 import './SummaryView.css';
 import { Container, Row, Col } from 'react-bootstrap'
 
 const SummaryView = props => {
 
+  // Q: What type income is?
+  // BUG: 
+  // Version 1
+  // const sumIncome = props.transactions.deposits
+  //   .filter((deposit) => deposit.name === "Fixed Income")
+  //   .reduce((sum, withdraw) => {
+  //     return sum + withdraw.amount
+  //   }, 0)  
+  // Version 2
+  // const sumIncome = props.transactions.deposits.reduce((sum, deposit) => {
+  //   return sum + deposit.amount
+  // }, 0)  
+  // console.log(sumIncome);      
+  
+  // BUG:
+  // const sumSavings = props.transactions.withdraws.reduce((sum, withdraw) => {
+  //   return sum + withdraw.amount
+  // }, 0)
+  // console.log(sumSavings);    
+  
+  const sumDailyExpenses = props.transactions.withdraws
+    .filter((withdraw) => withdraw.typeId === 1)
+    .reduce((sum, withdraw) => {
+      return sum + withdraw.amount
+    }, 0)  
+  // console.log(sumDailyExpenses);  
+  
+  const sumInvestment = props.transactions.withdraws
+  .filter((withdraw) => withdraw.typeId === 2)
+  .reduce((sum, withdraw) => {
+    return sum + withdraw.amount
+  }, 0)  
+// console.log(sumDailyExpenses);  
+
   // TO DO: make it dynamic
   let incomeValue = 20000
+  // let incomeValue = sumIncome
   let savingsValue = 50000
+  // let savingsValue = sumSavings
   let balanceValue = incomeValue + savingsValue
-  let dailyExpensesValue = 5000
-  let investmentValue = 10000
+  // let dailyExpensesValue = 5000
+  let dailyExpensesValue = sumDailyExpenses
+  // let investmentValue = 10000
+  let investmentValue = sumInvestment
   let expensesValue = dailyExpensesValue + investmentValue
   let totalValue = balanceValue + expensesValue
 
