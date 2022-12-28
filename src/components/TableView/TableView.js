@@ -37,24 +37,30 @@ const TableView = props => {
               <td>Fixed Income</td>
               <td>Income</td>
               <td>1,000</td>
-              <img src={editIcon} alt="Edit icon" href=""></img>
-              <img src={deleteIcon} alt="Delete icon" href=""></img>
+              <td>
+                <img src={editIcon} alt="Edit icon" href=""></img>
+                <img src={deleteIcon} alt="Delete icon" href=""></img>
+              </td>
             </tr>
             <tr>
               <th scope="row">1 Jan 2023</th>
               <td>Shopping</td>
               <td>Daily Expenses</td>
               <td>500</td>
-              <img src={editIcon} alt="Edit icon" href=""></img>
-              <img src={deleteIcon} alt="Delete icon" href=""></img>
+              <td>
+                <img src={editIcon} alt="Edit icon" href=""></img>
+                <img src={deleteIcon} alt="Delete icon" href=""></img>
+              </td>
             </tr>
             <tr>
               <th scope="row">1 Jan 2023</th>
               <td>Bank Deposit</td>
               <td>Savings</td>
               <td>500</td>
-              <img src={editIcon} alt="Edit icon" href=""></img>
-              <img src={deleteIcon} alt="Delete icon" href=""></img>
+              <td>
+                <img src={editIcon} alt="Edit icon" href=""></img>
+                <img src={deleteIcon} alt="Delete icon" href=""></img>
+              </td>
             </tr>
           </tbody>
         </Table>

@@ -24,12 +24,11 @@ function App() {
     .then(res => {
       let deposits = res.data
       // console.log(deposits)
-      // setTransactions(deposits)
-      // console.log(transactions);
       setTransactions((prevState) => ({
         ...prevState, 
         deposits: deposits
       }))
+      // console.log(transactions);
     })
     .catch((err) => {
       console.error(err);
@@ -89,7 +88,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="/table-view" element={<TableView />}/>
+          <Route path="/table-view" element={<TableView transactions={transactions}/>}/>
           <Route path="/dashboard-view" element={<DashboardView />}/>
           <Route path="/summary-view" element={<SummaryView />}/>
           <Route path="/add-transaction" element={<AddTransaction />}/>
