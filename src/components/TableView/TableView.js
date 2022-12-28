@@ -1,9 +1,8 @@
-import React, { useState } from "react"
-import axios from "axios"
+import React from "react"
 import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
 import './TableView.css';
-import { Container, Row, Column, Table, Pagination } from "react-bootstrap"
+import { Container, Row, Table, Pagination } from "react-bootstrap"
 
 const TableView = props => {
   

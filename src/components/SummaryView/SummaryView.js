@@ -1,12 +1,17 @@
-import React, { useState } from "react"
-import axios from "axios"
+import React from "react"
 import './SummaryView.css';
 import { Container, Row, Col } from 'react-bootstrap'
 
 const SummaryView = props => {
 
+  const sumIncome = props.transactions.deposits.reduce((sum, deposit) => {
+    return sum + deposit.amount
+  }, 0)  
+  console.log(sumIncome);
+
   // TO DO: make it dynamic
-  let incomeValue = 20000
+  // let incomeValue = 20000
+  let incomeValue = sumIncome
   let savingsValue = 50000
   let balanceValue = incomeValue + savingsValue
   let dailyExpensesValue = 5000

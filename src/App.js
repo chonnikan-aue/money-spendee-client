@@ -7,9 +7,9 @@ import DashboardView from "./components/DashboardView/DashboardView"
 import SummaryView from "./components/SummaryView/SummaryView"
 import AddTransaction from "./components/AddTransaction/AddTransaction"
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
-import { Route, Routes, Link, Navigate } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Row, Column, Dropdown } from 'react-bootstrap'
+import { Button, Dropdown } from 'react-bootstrap'
 
 function App() {
      
@@ -22,13 +22,14 @@ function App() {
   const getDeposits = () => {
     axios.get('http://localhost:3004/deposit')
     .then(res => {
-      let deposits = res.data
-      // console.log(deposits)
       setTransactions((prevState) => ({
         ...prevState, 
-        deposits: deposits
+        deposits: res.data
       }))
-      // console.log(transactions);
+
+      console.log(res.data)
+
+      console.log(transactions);
     })
     .catch((err) => {
       console.error(err);
@@ -42,12 +43,13 @@ function App() {
   const getWithdraws = () => {
     axios.get('http://localhost:3004/withdraw')
     .then(res => {      
-      let withdraws = res.data
-      console.log(withdraws);
       setTransactions((prevState) => ({
         ...prevState, 
-        withdraws: withdraws
+        withdraws: res.data
       }))
+
+      console.log(res.data)
+
       console.log(transactions);
     })
     .catch((err) => {
@@ -89,8 +91,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/table-view" element={<TableView transactions={transactions}/>}/>
-          <Route path="/dashboard-view" element={<DashboardView />}/>
-          <Route path="/summary-view" element={<SummaryView />}/>
+          <Route path="/dashboard-view" element={<DashboardView transactions={transactions}/>}/>
+          <Route path="/summary-view" element={<SummaryView transactions={transactions}/>}/>
           <Route path="/add-transaction" element={<AddTransaction />}/>
           <Route path="/update-info" element={<UpdateInfo />}/>
         </Routes>
