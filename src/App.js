@@ -42,7 +42,7 @@ function App() {
   
   const getWithdraws = () => {
     axios.get('http://localhost:3004/withdraw')
-    .then(res => {
+    .then(res => {      
       let withdraws = res.data
       console.log(withdraws);
       setTransactions((prevState) => ({
