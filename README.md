@@ -4,6 +4,7 @@
 - https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 - https://bobbyhadz.com/blog/javascript-get-sum-of-array-of-numbers
 - https://bobbyhadz.com/blog/react-filter-array-of-objects
+- https://medium.com/how-to-react/using-env-file-in-react-js-b2714235e77e
 
 # Getting Started with Create React App
 
