@@ -11,7 +11,7 @@ const TableView = props => {
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
         <td>{deposit.name}</td>
-        <td>{deposit.typeId === 2 ? "Checkings" : "Savings"}</td> 
+        <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td> 
         {/* Q: Shouldn't 'fixed income' be savings in DB? */}
         <td>{deposit.amount}</td>
         <td>
