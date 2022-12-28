@@ -8,7 +8,9 @@ const account = ["income", "saving"]
 
 const AddTransaction = () => {
 
-  const [data, setData] = useState({})
+  const [data, setData] = useState({
+    userId: 1
+  })
   const handleChange = e => {
     let value = e.target.value;
     if (e.target.name === 'amount') {
@@ -27,7 +29,7 @@ const AddTransaction = () => {
 
     axios.post("http://localhost:3001/withdraw", data)
       .then(res => {
-        console.log(res)
+        console.log(res) 
       })
   }
 
@@ -73,6 +75,13 @@ const AddTransaction = () => {
           ))
         }
       </select>
+
+      <h4 className='input'>Date:</h4>
+      <input
+        type="date"
+        name="date"
+        onChange={handleChange}
+      />
 
       <form onSubmit={handleSubmit}>
         <input type="submit" value="Save" />
