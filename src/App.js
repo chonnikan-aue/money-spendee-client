@@ -27,9 +27,9 @@ function App() {
         deposits: res.data
       }))
 
-      console.log(res.data)
+      // console.log(res.data)
 
-      console.log(transactions);
+      // console.log(transactions);
     })
     .catch((err) => {
       console.error(err);
@@ -48,9 +48,9 @@ function App() {
         withdraws: res.data
       }))
 
-      console.log(res.data)
+      // console.log(res.data)
 
-      console.log(transactions);
+      // console.log(transactions);
     })
     .catch((err) => {
       console.error(err);

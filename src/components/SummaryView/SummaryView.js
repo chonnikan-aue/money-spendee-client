@@ -7,7 +7,7 @@ const SummaryView = props => {
   const sumIncome = props.transactions.deposits.reduce((sum, deposit) => {
     return sum + deposit.amount
   }, 0)  
-  console.log(sumIncome);
+  console.log(sumIncome);      
 
   // TO DO: make it dynamic
   // let incomeValue = 20000
