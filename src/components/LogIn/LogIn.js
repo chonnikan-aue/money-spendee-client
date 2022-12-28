@@ -10,7 +10,7 @@ const LogIn = props => {
   const handleChange = (e) => {
     setLogInData((prevState) => ({
       ...prevState,
-      [e.target.type === "text" ? "username" : "password"]: e.target.value
+      [e.target.type === "text" ? "username" : e.target.type]: e.target.value
     }))
   }
   
@@ -49,7 +49,7 @@ const LogIn = props => {
             <Form.Control type="password" onChange={handleChange} placeholder="Enter Password" />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Stay signed in for 30 days" />
+            <Form.Check type="checkbox" onChange={handleChange} label="Stay signed in for 30 days" />
           </Form.Group>
           <Button variant="primary" type="submit">
             Submit
