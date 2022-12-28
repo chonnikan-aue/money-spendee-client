@@ -7,9 +7,10 @@ import DashboardView from "./components/DashboardView/DashboardView"
 import SummaryView from "./components/SummaryView/SummaryView"
 import AddTransaction from "./components/AddTransaction/AddTransaction"
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
+import LogIn from "./components/LogIn/LogIn"
 import { Route, Routes, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Dropdown } from 'react-bootstrap'
+import { Button, Container, Row, Col, Dropdown } from 'react-bootstrap'
 
 function App() {
      
@@ -63,43 +64,77 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <h1>Welcome to MONey Spendee</h1>
-      </div>
-      <nav>
-        <Link to="/">
-          <Button>Home</Button>
-        </Link>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
-            View Transaction
-          </Dropdown.Toggle>
-          <Dropdown.Menu>
-            <Dropdown.Item as={Link} to="/table-view">Table View</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/dashboard-view">Dashboard View</Dropdown.Item>
-            <Dropdown.Item as={Link} to="/summary-view">Summary View</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-        <Link to="/add-transaction">
-          <Button>Add Transaction</Button>
-        </Link>
-        <Link to="/update-info">
-          <Button>Update Personal Info</Button>
-        </Link>
-      </nav>
+      <Container>
+        <Row id="app-header">
+          <div>
+            <h1>Welcome to MONey Spendee</h1>
+          </div>
+        </Row>
+        <Row id="nav-bar">
+          <nav>
+            <Col>
+              <Link to="/">
+                <Button>Home</Button>
+              </Link>
+            </Col>
+            <Col>
+              <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                  View Transaction
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to="/table-view">
+                    Table View
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/dashboard-view">
+                    Dashboard View
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/summary-view">
+                    Summary View
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Col>
+            <Col>
+              <Link to="/add-transaction">
+                <Button>Add Transaction</Button>
+              </Link>
+            </Col>
+            <Col>
+              <Link to="/update-info">
+                <Button>Update Personal Info</Button>
+              </Link>
+            </Col>
+            <Col>
+              <Link to="/log-in">
+                <Button>Log In</Button>
+              </Link>
+            </Col>
+          </nav>
+        </Row>
+      </Container>
       <main>
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/table-view" element={<TableView transactions={transactions}/>}/>
-          <Route path="/dashboard-view" element={<DashboardView transactions={transactions}/>}/>
-          <Route path="/summary-view" element={<SummaryView transactions={transactions}/>}/>
-          <Route path="/add-transaction" element={<AddTransaction />}/>
-          <Route path="/update-info" element={<UpdateInfo />}/>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/table-view"
+            element={<TableView transactions={transactions} />}
+          />
+          <Route
+            path="/dashboard-view"
+            element={<DashboardView transactions={transactions} />}
+          />
+          <Route
+            path="/summary-view"
+            element={<SummaryView transactions={transactions} />}
+          />
+          <Route path="/add-transaction" element={<AddTransaction />} />
+          <Route path="/update-info" element={<UpdateInfo />} />
+          <Route path="/log-in" element={<LogIn />} />
         </Routes>
-
       </main>
     </div>
-  );
+  )
 }
 
 export default App;

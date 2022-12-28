@@ -6,6 +6,10 @@
   background-color: lightgray;
 }
 
+.col#total-box,.col#balance-box,.col#expenses-box,.col#expenses-box,#income-savings-box,#daily-expenses-investment-box  {
+  border: 2px solid grey;
+}
+
 #income-savings-box,#daily-expenses-investment-box {
   border-left: 4px solid grey;
   padding: 2vh 0 2vh 10vw;
