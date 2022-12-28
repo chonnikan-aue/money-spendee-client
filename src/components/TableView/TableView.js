@@ -6,6 +6,36 @@ import './TableView.css';
 import { Container, Row, Column, Table, Pagination } from "react-bootstrap"
 
 const TableView = props => {
+  
+  const depositsList = props.transactions.deposits.map((deposit, index) => {
+    return ( 
+      <tr key={index}>
+        <th scope="row">{deposit.date}</th>
+        <td>{deposit.name}</td>
+        <td>{deposit.typeId}</td>
+        <td>{deposit.amount}</td>
+        <td>
+          <img src={editIcon} alt="Edit icon" href=""></img>
+          <img src={deleteIcon} alt="Delete icon" href=""></img>
+        </td>
+      </tr>
+    ) 
+  })
+
+  const withdrawsList = props.transactions.withdraws.map((withdraw, index) => {
+    return ( 
+      <tr key={index}>
+        <th scope="row">{withdraw.date}</th>
+        <td>{withdraw.name}</td>
+        <td>{withdraw.typeId}</td>
+        <td>{withdraw.amount}</td>
+        <td>
+          <img src={editIcon} alt="Edit icon" href=""></img>
+          <img src={deleteIcon} alt="Delete icon" href=""></img>
+        </td>
+      </tr>
+    ) 
+  })
 
   let active = 1;
   let items = [];
@@ -32,36 +62,8 @@ const TableView = props => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row">2 Jan 2023</th>
-              <td>Fixed Income</td>
-              <td>Income</td>
-              <td>1,000</td>
-              <td>
-                <img src={editIcon} alt="Edit icon" href=""></img>
-                <img src={deleteIcon} alt="Delete icon" href=""></img>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1 Jan 2023</th>
-              <td>Shopping</td>
-              <td>Daily Expenses</td>
-              <td>500</td>
-              <td>
-                <img src={editIcon} alt="Edit icon" href=""></img>
-                <img src={deleteIcon} alt="Delete icon" href=""></img>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">1 Jan 2023</th>
-              <td>Bank Deposit</td>
-              <td>Savings</td>
-              <td>500</td>
-              <td>
-                <img src={editIcon} alt="Edit icon" href=""></img>
-                <img src={deleteIcon} alt="Delete icon" href=""></img>
-              </td>
-            </tr>
+            {depositsList}
+            {withdrawsList}
           </tbody>
         </Table>
       </Row>
