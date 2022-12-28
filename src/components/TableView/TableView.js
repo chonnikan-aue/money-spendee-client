@@ -12,7 +12,8 @@ const TableView = props => {
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
         <td>{deposit.name}</td>
-        <td>{deposit.typeId}</td>
+        <td>{deposit.typeId === 2 ? "Checkings" : "Savings"}</td> 
+        {/* Q: Shouldn't 'fixed income' be savings in DB? */}
         <td>{deposit.amount}</td>
         <td>
           <img src={editIcon} alt="Edit icon" href=""></img>
@@ -27,7 +28,7 @@ const TableView = props => {
       <tr key={index}>
         <th scope="row">{withdraw.date}</th>
         <td>{withdraw.name}</td>
-        <td>{withdraw.typeId}</td>
+        <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
         <td>{withdraw.amount}</td>
         <td>
           <img src={editIcon} alt="Edit icon" href=""></img>
