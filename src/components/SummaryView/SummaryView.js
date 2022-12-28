@@ -4,17 +4,33 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 const SummaryView = props => {
 
-  const sumIncome = props.transactions.deposits.reduce((sum, deposit) => {
-    return sum + deposit.amount
-  }, 0)  
-  console.log(sumIncome);      
+  // BUG:
+  // const sumIncome = props.transactions.deposits.reduce((sum, deposit) => {
+  //   return sum + deposit.amount
+  // }, 0)  
+  // console.log(sumIncome);      
+  
+  // BUG:
+  // const sumSavings = props.transactions.withdraws.reduce((sum, withdraw) => {
+  //   return sum + withdraw.amount
+  // }, 0)
+  // console.log(sumSavings);    
+  
+  const sumDailyExpenses = props.transactions.withdraws
+    .filter((withdraw) => withdraw.typeId === 1)
+    .reduce((sum, withdraw) => {
+      return sum + withdraw.amount
+    }, 0)  
+  // console.log(sumDailyExpenses);   
 
   // TO DO: make it dynamic
-  // let incomeValue = 20000
-  let incomeValue = sumIncome
+  let incomeValue = 20000
+  // let incomeValue = sumIncome
   let savingsValue = 50000
+  // let savingsValue = sumSavings
   let balanceValue = incomeValue + savingsValue
-  let dailyExpensesValue = 5000
+  // let dailyExpensesValue = 5000
+  let dailyExpensesValue = sumDailyExpenses
   let investmentValue = 10000
   let expensesValue = dailyExpensesValue + investmentValue
   let totalValue = balanceValue + expensesValue

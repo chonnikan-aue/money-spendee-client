@@ -3,6 +3,7 @@
 - https://stackoverflow.com/questions/70619448/how-to-make-an-href-dropdown-item-that-does-not-reload-the-page-with-react-boost
 - https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 - https://bobbyhadz.com/blog/javascript-get-sum-of-array-of-numbers
+- https://bobbyhadz.com/blog/react-filter-array-of-objects
 
 # Getting Started with Create React App
 
