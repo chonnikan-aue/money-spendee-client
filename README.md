@@ -1,3 +1,7 @@
+<!-- Ougrid's Read Me -->
+- https://bootstrap-table.com/docs/getting-started/introduction/
+- https://stackoverflow.com/questions/70619448/how-to-make-an-href-dropdown-item-that-does-not-reload-the-page-with-react-boost
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

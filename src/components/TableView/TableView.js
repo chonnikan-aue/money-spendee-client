@@ -19,8 +19,9 @@ const TableView = props => {
 
   return (
     <Container>
-      <Row>
-        <Table>
+      {/* {<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>}  */}
+      <Row id="table-row">
+        <Table bordered responsive>
           <thead>
             <tr>
               <th scope="col">Date</th>

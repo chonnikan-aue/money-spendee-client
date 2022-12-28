@@ -62,9 +62,12 @@ function App() {
             View Transaction
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item href="/table-view">Table View</Dropdown.Item>
-            <Dropdown.Item href="/dashboard-view">Dashboard View</Dropdown.Item>
-            <Dropdown.Item href="/summary-view">Summary View</Dropdown.Item>
+            {/* <Dropdown.Item href="/table-view">Table View</Dropdown.Item> */}
+            <Dropdown.Item as={Link} to="/table-view">Table View</Dropdown.Item>
+            {/* <Dropdown.Item href="/dashboard-view">Dashboard View</Dropdown.Item> */}
+            <Dropdown.Item as={Link} to="/dashboard-view">Dashboard View</Dropdown.Item>
+            {/* <Dropdown.Item href="/summary-view">Summary View</Dropdown.Item> */}
+            <Dropdown.Item as={Link} to="/summary-view">Summary View</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
         <Link to="/add-transaction">
