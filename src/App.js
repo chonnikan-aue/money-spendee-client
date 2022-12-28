@@ -15,38 +15,50 @@ function App() {
      
   // TBD: Data structure 
   const [transactions, setTransactions] = useState({
-    depositions: [],
-    witdrawals: []
+    deposits: [],
+    withdraws: []
   }) 
 
-  // BUG: url, setTransactions' argument 
-  // const getDepositions = () => {
-  //   axios.get('http://localhost:3001/depositions')
-  //   .then(res => {
-  //     console.log(res.data);
-  //     setTransactions(res.data)
-  //   })        
-  // }
+  const getDeposits = () => {
+    axios.get('http://localhost:3004/deposit')
+    .then(res => {
+      let deposits = res.data
+      // console.log(deposits)
+      // setTransactions(deposits)
+      // console.log(transactions);
+      setTransactions((prevState) => ({
+        ...prevState, 
+        deposits: deposits
+      }))
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+  
+  useEffect(() => {
+    getDeposits()
+  }, [])
+  
+  const getWithdraws = () => {
+    axios.get('http://localhost:3004/withdraw')
+    .then(res => {
+      let withdraws = res.data
+      console.log(withdraws);
+      setTransactions((prevState) => ({
+        ...prevState, 
+        withdraws: withdraws
+      }))
+      console.log(transactions);
+    })
+    .catch((err) => {
+      console.error(err);
+    });        
+  }
 
-  // useEffect(() => {
-  //   getDepositions()
-  // }, [])
-
-  // BUG: url, setTransactions' argument 
-  // const getWitdrawals = () => {
-  //   axios.get('http://localhost:3001/withdrawals')
-  //   .then(res => {
-  //     console.log(res.data);
-  //     setTransactions((prevState) => ({
-  //       ...prevState,
-  //       [transactions.witdrawals]: res.data
-  //     }))
-  //   })        
-  // }
-
-  // useEffect(() => {
-  //   getWitdrawals()
-  // }, [])
+  useEffect(() => {
+    getWithdraws()
+  }, [])
 
   return (
     <div className="App">
@@ -62,11 +74,8 @@ function App() {
             View Transaction
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {/* <Dropdown.Item href="/table-view">Table View</Dropdown.Item> */}
             <Dropdown.Item as={Link} to="/table-view">Table View</Dropdown.Item>
-            {/* <Dropdown.Item href="/dashboard-view">Dashboard View</Dropdown.Item> */}
             <Dropdown.Item as={Link} to="/dashboard-view">Dashboard View</Dropdown.Item>
-            {/* <Dropdown.Item href="/summary-view">Summary View</Dropdown.Item> */}
             <Dropdown.Item as={Link} to="/summary-view">Summary View</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
