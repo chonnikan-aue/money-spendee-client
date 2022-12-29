@@ -39,8 +39,6 @@ const AddTransaction = () => {
       });
   }, []);
 
-
-
   // Pass over all data to database
   const handleSubmit = e => {
     e.preventDefault();
@@ -51,8 +49,11 @@ const AddTransaction = () => {
       .then(res => {
         console.log(res)
       })
-  }
+      .catch(err => {
+        console.log(err)
+      })
 
+    }
 
   return (
     <div>
