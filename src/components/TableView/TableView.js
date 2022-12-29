@@ -4,6 +4,7 @@ import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
 import './TableView.css';
 import { Container, Row, Table, Pagination } from "react-bootstrap"
+import { redirect } from "react-router-dom";
 
 const TableView = props => {
 
@@ -16,6 +17,7 @@ const TableView = props => {
     axios.delete(`http://localhost:3004/${type}/${id}`)
         .then(res => {
           console.log(res.data);
+          
         })
         .catch((err) => {
           console.log(err);

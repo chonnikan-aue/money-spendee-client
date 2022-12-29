@@ -17,16 +17,25 @@ const LogIn = props => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    axios.post("http://localhost:3004/auth/login", logInData)
-    .then(res => {
-        console.log(res.data);
-        let token = res.data
-        localStorage.setItem("jwt", token)
-    })
+    // // Version 1
+    // axios.post("http://localhost:3004/auth/login", logInData)
+    // .then(res => {
+    //     console.log(res.data);
+    //     let token = res.data
+    //     localStorage.setItem("jwt", token)
+    // })
 
     // console.log(logInData.username);
     // console.log(logInData.password);
     // console.log(logInData);
+
+    // Version 2
+    axios.get("http://localhost:3004/auth/", logInData)
+    .then(res => {
+        // console.log(res.data);
+        // let token = res.data
+        // localStorage.setItem("jwt", token)
+    })
   }
 
   return (
