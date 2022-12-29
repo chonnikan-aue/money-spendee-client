@@ -1,9 +1,15 @@
-<!-- Ougrid's Read Me -->
+<!-- 
+Ougrid's Read Me
+## Resources:
 - https://bootstrap-table.com/docs/getting-started/introduction/
 - https://stackoverflow.com/questions/70619448/how-to-make-an-href-dropdown-item-that-does-not-reload-the-page-with-react-boost
+- https://bootstrap-table.com/docs/getting-started/introduction/
 - https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 - https://bobbyhadz.com/blog/javascript-get-sum-of-array-of-numbers
 - https://bobbyhadz.com/blog/react-filter-array-of-objects
+- https://medium.com/how-to-react/using-env-file-in-react-js-b2714235e77e 
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+-->
 
 # Getting Started with Create React App
 

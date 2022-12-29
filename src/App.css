@@ -19,8 +19,3 @@ nav {
   justify-content: space-evenly;
   margin: 3% 0 2% 0;
 }
-
-.row:not(#income-box,#savings-box,#daily-expenses-box,#investment-box,#pagination-row,#dashboard-header-row,#pie-chart-row,#table-row) {
-  border: 2px solid grey;
-}
-

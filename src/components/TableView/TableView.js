@@ -5,6 +5,10 @@ import './TableView.css';
 import { Container, Row, Table, Pagination } from "react-bootstrap"
 
 const TableView = props => {
+
+  const deleteFunc = () => {
+    return console.log("deleted");
+  } 
   
   const depositsList = props.transactions.deposits.map((deposit, index) => {
     return ( 
@@ -31,7 +35,7 @@ const TableView = props => {
         <td>{withdraw.amount}</td>
         <td>
           <img src={editIcon} alt="Edit icon" href=""></img>
-          <img src={deleteIcon} alt="Delete icon" href=""></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteFunc}></img>
         </td>
       </tr>
     ) 
