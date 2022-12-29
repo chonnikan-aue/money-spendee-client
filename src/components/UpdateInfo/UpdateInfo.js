@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import axios from "axios"
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 const UpdateInfo = () => {
   const [budget, setBudget] = useState({
@@ -13,11 +13,11 @@ const UpdateInfo = () => {
   const [alert, setAlert] = useState(true);
 
   const handleChange = e => {
-    const intValue = parseInt(e.target.value, 10);
     setBudget((prevState) => ({
       ...prevState,
-      [e.target.name]: intValue
-    }));
+      [e.target.name]: parseInt(e.target.value, 10)
+    })
+    );
   };
 
   const handleSubmit = e => {
@@ -38,13 +38,16 @@ const UpdateInfo = () => {
       .then(res => {
         setDepositTypeData(res.data);
         console.log(res.data)
-      });
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, []);
 
   return (
     <Container className="box">
       <Form onSubmit={handleSubmit}>
-        <h2 className="header text-center mb-4">Update Budget Information</h2>
+        <h2 className="header">Update Budget Information</h2>
         <Row>
           <Col xs={12} md={6}>
             <h3 className="header mb-3">Fix Income</h3>
@@ -107,7 +110,6 @@ const UpdateInfo = () => {
           Update
         </Button>
       </Form>
-      <hr />
       <Form.Group controlId="formWithdrawFrom">
         <Form.Label>Withdraw From</Form.Label>
         <Form.Control
@@ -122,8 +124,9 @@ const UpdateInfo = () => {
             ))
           }
         </Form.Control>
+        
       </Form.Group>
-      
+
     </Container>
   );
 };
