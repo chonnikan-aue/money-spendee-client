@@ -20,13 +20,14 @@ function App() {
     withdraws: []
   }) 
 
-  // TO DO: Make it fetch the first user's data dynamically.
+  // TO DO: Make it fetch user's data dynamically.
   const [userData, setUserData] = useState({
+    id: 1,
     username: "Mai"
   })
 
   const getDeposits = () => {
-    axios.get('http://localhost:3004/deposit')
+    axios.get(`http://localhost:3004/deposit/user/${userData.id}`)
     .then(res => {
       setTransactions((prevState) => ({
         ...prevState, 
@@ -47,7 +48,7 @@ function App() {
   }, [])
   
   const getWithdraws = () => {
-    axios.get('http://localhost:3004/withdraw')
+    axios.get(`http://localhost:3004/withdraw/user/${userData.id}`)
     .then(res => {      
       setTransactions((prevState) => ({
         ...prevState, 
