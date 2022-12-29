@@ -3,10 +3,6 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 
-// const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
-const account = ["income", "saving"]
-
-
 const AddTransaction = () => {
 
   // Collect the overall data 
@@ -24,12 +20,22 @@ const AddTransaction = () => {
     }));
   }
 
-  const [typeData, setTypeData] = useState([]);
 
+  // show type dropdown
+  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:3001/withdraw-type')
+      .then(res => {
+        setWithdrawTypeData(res.data);
+      });
+  }, []);
+
+  // show withdraw from dropdown
+  const [depositTypeData, setDepositTypeData] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:3001/deposit-type')
       .then(res => {
-        setTypeData(res.data);
+        setDepositTypeData(res.data);
       });
   }, []);
 
@@ -46,7 +52,7 @@ const AddTransaction = () => {
         console.log(res)
       })
   }
-  
+
 
   return (
     <div>
@@ -82,7 +88,7 @@ const AddTransaction = () => {
             >
               <option disabled selected>Select Type</option>
               {
-                typeData.map(type => (
+                withdrawTypeData.map(type => (
                   <option value={type.id}>{type.name}</option>
                 ))
               }
@@ -97,8 +103,8 @@ const AddTransaction = () => {
             >
               <option disabled selected>Select Account</option>
               {
-                account.map((account, index) => (
-                  <option value={index}>{account}</option>
+                depositTypeData.map((account, index) => (
+                  <option value={index}>{account.name}</option>
                 ))
               }
             </select>
