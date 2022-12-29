@@ -1,14 +1,10 @@
 .input {
     display: inline-block;
 }
-.box {
-    display: flex;
-    justify-content: center;
-    margin: 0 20px;
-    border: 1px solid black;
-    padding: 20px;
-  }
   .input-label {
     margin-right: 10px;
-    font-size: 26px;
+    font-size: 22px;
+  }
+  .header {
+    text-align: center;
   }

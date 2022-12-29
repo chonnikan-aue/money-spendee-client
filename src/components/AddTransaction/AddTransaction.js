@@ -1,14 +1,15 @@
 import './AddTransaction.css'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 
-const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
+// const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
 const account = ["income", "saving"]
 
 
 const AddTransaction = () => {
 
+  // Collect the overall data 
   const [data, setData] = useState({
     userId: 1
   })
@@ -23,6 +24,18 @@ const AddTransaction = () => {
     }));
   }
 
+  const [typeData, setTypeData] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/deposit-type')
+      .then(res => {
+        setTypeData(res.data);
+      });
+  }, []);
+
+
+
+  // Pass over all data to database
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -33,13 +46,14 @@ const AddTransaction = () => {
         console.log(res)
       })
   }
+  
 
   return (
     <div>
       <div className="container box">
-
         <form onSubmit={handleSubmit}>
           <div className="form-group">
+            <h2 className="header">Add your transactions here</h2>
             <label htmlFor="name">Title:</label>
             <input
               type="text"
@@ -68,8 +82,8 @@ const AddTransaction = () => {
             >
               <option disabled selected>Select Type</option>
               {
-                type.map((type, index) => (
-                  <option value={index}>{type}</option>
+                typeData.map(type => (
+                  <option value={type.id}>{type.name}</option>
                 ))
               }
             </select>

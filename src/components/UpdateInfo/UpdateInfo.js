@@ -31,7 +31,7 @@ const UpdateInfo = () => {
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <span className="changeIncome">
-            <h2>Fix income</h2>
+            <h2 className="header">Fix income</h2>
             <p>- this will be automatically added to transactions every 1st of each month -</p>
             <div className="input-group">
             <label htmlFor="income" className="input-label">Amount:</label>
@@ -45,7 +45,7 @@ const UpdateInfo = () => {
             </div>
           </span>
           <span className="changeBudget">
-            <h2>Budget</h2>
+            <h2 className="header">Budget</h2>
             <div className="input-group">
               <label htmlFor="expenses" className="input-label">Daily Expenses:</label>
               <input
