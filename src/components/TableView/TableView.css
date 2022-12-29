@@ -9,3 +9,7 @@ img {
   width: 1.25rem;
   height: 1.25rem;
 }
+
+img:hover {
+  opacity: 0.3;
+}
