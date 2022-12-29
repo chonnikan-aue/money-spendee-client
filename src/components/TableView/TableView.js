@@ -55,7 +55,7 @@ const TableView = props => {
     <Container>
       {/* {<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>}  */}
       <Row id="table-row">
-        <Table bordered responsive>
+        <Table bordered responsive hover>
           <thead>
             <tr>
               <th scope="col">Date</th>
