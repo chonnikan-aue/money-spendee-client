@@ -36,7 +36,7 @@ function App() {
 
       // console.log(res.data)
 
-      // console.log(transactions);
+      console.log(transactions);
     })
     .catch((err) => {
       console.error(err);
