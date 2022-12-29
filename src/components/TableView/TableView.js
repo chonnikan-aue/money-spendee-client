@@ -1,16 +1,34 @@
 import React from "react"
+import axios from "axios"
 import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
 import './TableView.css';
 import { Container, Row, Table, Pagination } from "react-bootstrap"
+import { redirect } from "react-router-dom";
 
 const TableView = props => {
 
-  const deleteFunc = () => {
-    return console.log("deleted");
+  const editTransaction = () => {
+    
+    return console.log("editted");
+  } 
+
+  const deleteTransaction = (type, id) => {
+    axios.delete(`http://localhost:3004/${type}/${id}`)
+        .then(res => {
+          console.log(res.data);
+          
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    return console.log(`delete transaction <type: ${type}, id: ${id}>`);
   } 
   
   const depositsList = props.transactions.deposits.map((deposit, index) => {
+
+    let type = "deposit"
+
     return ( 
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
@@ -19,8 +37,8 @@ const TableView = props => {
         {/* Q: Shouldn't 'fixed income' be savings in DB? */}
         <td>{deposit.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href=""></img>
-          <img src={deleteIcon} alt="Delete icon" href=""></img>
+          <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
         </td>
       </tr>
     ) 
@@ -34,8 +52,8 @@ const TableView = props => {
         <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
         <td>{withdraw.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href=""></img>
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteFunc}></img>
+          <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction}></img>
         </td>
       </tr>
     ) 
@@ -55,7 +73,7 @@ const TableView = props => {
     <Container>
       {/* {<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>}  */}
       <Row id="table-row">
-        <Table bordered responsive>
+        <Table bordered responsive hover>
           <thead>
             <tr>
               <th scope="col">Date</th>
