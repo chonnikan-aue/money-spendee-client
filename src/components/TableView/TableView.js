@@ -4,7 +4,6 @@ import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
 import './TableView.css';
 import { Container, Row, Table, Pagination } from "react-bootstrap"
-import { redirect } from "react-router-dom";
 
 const TableView = props => {
 
