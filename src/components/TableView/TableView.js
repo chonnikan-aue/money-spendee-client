@@ -13,13 +13,14 @@ const TableView = props => {
   } 
 
   const deleteTransaction = (type, id) => {
-    // axios.delete(`http://localhost:3004/${type}/${id}`)
-    //     .then(res => {
-    //       console.log(res.data);
-    //     })
-    console.log(type);
-    console.log(id);
-    return console.log("deleted");
+    axios.delete(`http://localhost:3004/${type}/${id}`)
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    return console.log(`delete transaction <type: ${type}, id: ${id}>`);
   } 
   
   const depositsList = props.transactions.deposits.map((deposit, index) => {
@@ -35,7 +36,7 @@ const TableView = props => {
         <td>{deposit.amount}</td>
         <td>
           <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction(type, deposit.id)}></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
         </td>
       </tr>
     ) 
