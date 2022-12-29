@@ -12,6 +12,9 @@ Ougrid's Read Me
 - https://www.w3schools.com/css/tryit.asp?filename=trycss_css_image_overlay_opacity
 - https://canvasjs.com/docs/charts/integration/react/
 - https://canvasjs.com/react-charts/pie-chart-index-data-label-inside/
+
+## DB:
+INSERT INTO "Deposits" VALUES (DEFAULT,'Fixed Income',10000,'2023-01-04',1,1);
 -->
 
 # Getting Started with Create React App

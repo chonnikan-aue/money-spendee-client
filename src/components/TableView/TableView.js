@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios"
 import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
 import './TableView.css';
@@ -6,17 +7,25 @@ import { Container, Row, Table, Pagination } from "react-bootstrap"
 
 const TableView = props => {
 
-  const editFunc = () => {
+  const editTransaction = () => {
     
     return console.log("editted");
   } 
 
-  const deleteFunc = () => {
-    
+  const deleteTransaction = (type, id) => {
+    // axios.delete(`http://localhost:3004/${type}/${id}`)
+    //     .then(res => {
+    //       console.log(res.data);
+    //     })
+    console.log(type);
+    console.log(id);
     return console.log("deleted");
   } 
   
   const depositsList = props.transactions.deposits.map((deposit, index) => {
+
+    let type = "deposit"
+
     return ( 
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
@@ -25,8 +34,8 @@ const TableView = props => {
         {/* Q: Shouldn't 'fixed income' be savings in DB? */}
         <td>{deposit.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href="" onClick={editFunc}></img>
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteFunc}></img>
+          <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction(type, deposit.id)}></img>
         </td>
       </tr>
     ) 
@@ -40,8 +49,8 @@ const TableView = props => {
         <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
         <td>{withdraw.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href="" onClick={editFunc}></img>
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteFunc}></img>
+          <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction}></img>
         </td>
       </tr>
     ) 
