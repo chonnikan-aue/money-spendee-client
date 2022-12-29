@@ -9,6 +9,8 @@ Ougrid's Read Me
 - https://bobbyhadz.com/blog/react-filter-array-of-objects
 - https://medium.com/how-to-react/using-env-file-in-react-js-b2714235e77e 
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+- https://www.w3schools.com/css/tryit.asp?filename=trycss_css_image_overlay_opacity
+- 
 -->
 
 # Getting Started with Create React App

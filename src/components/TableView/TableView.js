@@ -6,7 +6,13 @@ import { Container, Row, Table, Pagination } from "react-bootstrap"
 
 const TableView = props => {
 
+  const editFunc = () => {
+    
+    return console.log("editted");
+  } 
+
   const deleteFunc = () => {
+    
     return console.log("deleted");
   } 
   
@@ -19,8 +25,8 @@ const TableView = props => {
         {/* Q: Shouldn't 'fixed income' be savings in DB? */}
         <td>{deposit.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href=""></img>
-          <img src={deleteIcon} alt="Delete icon" href=""></img>
+          <img src={editIcon} alt="Edit icon" href="" onClick={editFunc}></img>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteFunc}></img>
         </td>
       </tr>
     ) 
@@ -34,7 +40,7 @@ const TableView = props => {
         <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
         <td>{withdraw.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href=""></img>
+          <img src={editIcon} alt="Edit icon" href="" onClick={editFunc}></img>
           <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteFunc}></img>
         </td>
       </tr>
