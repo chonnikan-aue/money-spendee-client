@@ -14,12 +14,16 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Dropdown } from 'react-bootstrap'
 
 function App() {
-     
-  // TBD: Data structure 
+    
   const [transactions, setTransactions] = useState({
     deposits: [],
     withdraws: []
   }) 
+
+  // TO DO: Make it fetch the first user's data dynamically.
+  const [userData, setUserData] = useState({
+    username: "Mai"
+  })
 
   const getDeposits = () => {
     axios.get('http://localhost:3004/deposit')
@@ -70,6 +74,9 @@ function App() {
           <div>
             <h1>Welcome to MONey Spendee</h1>
           </div>
+        </Row>
+        <Row>
+          <h4>Currently Signed In as :  "{userData.username}"</h4>
         </Row>
         <Row id="nav-bar">
           <nav>
