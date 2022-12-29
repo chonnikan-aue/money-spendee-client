@@ -24,9 +24,9 @@ const LogIn = props => {
         localStorage.setItem("jwt", token)
     })
 
-    console.log(logInData.username);
-    console.log(logInData.password);
-    console.log(logInData);
+    // console.log(logInData.username);
+    // console.log(logInData.password);
+    // console.log(logInData);
   }
 
   return (

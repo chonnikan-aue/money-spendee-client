@@ -7,6 +7,7 @@ import DashboardView from "./components/DashboardView/DashboardView"
 import SummaryView from "./components/SummaryView/SummaryView"
 import AddTransaction from "./components/AddTransaction/AddTransaction"
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
+import SignUp from "./components/SignUp/SignUp"
 import LogIn from "./components/LogIn/LogIn"
 import { Route, Routes, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -72,12 +73,12 @@ function App() {
         </Row>
         <Row id="nav-bar">
           <nav>
-            <Col>
+            <Col xs={4} md={2}>
               <Link to="/">
                 <Button>Home</Button>
               </Link>
             </Col>
-            <Col>
+            <Col xs={4} md={2}>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   View Transaction
@@ -95,17 +96,22 @@ function App() {
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
-            <Col>
+            <Col xs={4} md={2}>
               <Link to="/add-transaction">
                 <Button>Add Transaction</Button>
               </Link>
             </Col>
-            <Col>
+            <Col xs={4} md={2}>
               <Link to="/update-info">
                 <Button>Update Personal Info</Button>
               </Link>
             </Col>
-            <Col>
+            <Col xs={4} md={2}>
+              <Link to="/sign-up">
+                <Button>Sign Up</Button>
+              </Link>
+            </Col>
+            <Col xs={4} md={2}>
               <Link to="/log-in">
                 <Button>Log In</Button>
               </Link>
@@ -131,6 +137,7 @@ function App() {
           <Route path="/add-transaction" element={<AddTransaction />} />
           <Route path="/update-info" element={<UpdateInfo />} />
           <Route path="/log-in" element={<LogIn />} />
+          <Route path="/sign-up" element={<SignUp />} />
         </Routes>
       </main>
     </div>
