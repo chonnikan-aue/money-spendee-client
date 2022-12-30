@@ -64,80 +64,87 @@ function App() {
   useEffect(() => {
     getDeposits();
     getWithdraws();
+    if (localStorage.getItem("userData")) {
+      setUserData(JSON.parse(localStorage.getItem("userData")));
+    }
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(userData).length !== 0) {
+      localStorage.setItem("userData", JSON.stringify(userData));
+    }
+  }, [userData]);
 
   return (
     <div className="App">
       <Container>
-        <main>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  loginData={loginData}
-                  setLoginData={setLoginData}
-                  getUserData={getUserData}
-                />
-              }
-            />
-            <Route
-              path="/table-view"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <TableView transactions={transactions} />
-                </>
-              }
-            />
-            <Route
-              path="/dashboard-view"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <DashboardView transactions={transactions} />
-                </>
-              }
-            />
-            <Route
-              path="/summary-view"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <SummaryView transactions={transactions} />
-                </>
-              }
-            />
-            <Route
-              path="/add-transaction"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <AddTransaction />
-                </>
-              }
-            />
-            <Route
-              path="/update-info"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <UpdateInfo />
-                </>
-              }
-            />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                loginData={loginData}
+                setLoginData={setLoginData}
+                getUserData={getUserData}
+              />
+            }
+          />
+          <Route
+            path="/table-view"
+            element={
+              <>
+                <Header userData={userData} />
+                <TableView transactions={transactions} />
+              </>
+            }
+          />
+          <Route
+            path="/dashboard-view"
+            element={
+              <>
+                <Header userData={userData} />
+                <DashboardView transactions={transactions} />
+              </>
+            }
+          />
+          <Route
+            path="/summary-view"
+            element={
+              <>
+                <Header userData={userData} />
+                <SummaryView transactions={transactions} />
+              </>
+            }
+          />
+          <Route
+            path="/add-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <AddTransaction />
+              </>
+            }
+          />
+          <Route
+            path="/update-info"
+            element={
+              <>
+                <Header userData={userData} />
+                <UpdateInfo />
+              </>
+            }
+          />
 
-            <Route
-              path="/edit-transaction"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <EditTransaction />
-                </>
-              }
-            />
-          </Routes>
-        </main>
+          <Route
+            path="/edit-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <EditTransaction />
+              </>
+            }
+          />
+        </Routes>
       </Container>
     </div>
   );
