@@ -12,29 +12,26 @@ const TableView = props => {
   //
   //
 
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
 
-  const getUserData = () => {
-    let token = localStorage.getItem("jwt");
-    axios
-      .get(`http://localhost:3001/user/username/${props.loginData.username}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => {
-        console.log(res.data);
-        setUserData(res.data);
-      });
-  };
+  // const getUserData = () => {
+  //   let token = localStorage.getItem("jwt");
+  //   axios
+  //     .get(`http://localhost:3001/user/username/${props.loginData.username}`, {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setUserData(res.data);
+  //     });
+  // };
 
-  useEffect(() => {
-    getUserData()
-    console.log(userData);
-  }, [])
-
-
-  //
-  //  
-  // End of Test 01
+  // useEffect(() => {
+  //   getUserData()
+  //   console.log(userData);
+  // }, [])
+  
+  // --------------------------
 
   const editTransaction = () => {
     
@@ -52,6 +49,59 @@ const TableView = props => {
         });
     return console.log(`delete transaction <type: ${type}, id: ${id}>`);
   } 
+
+  console.log(props.userData.Deposits);
+
+  const depositsList = props.userData.Deposits.map((deposit, index) => {
+
+    let type = "deposit"
+
+    return ( 
+      <tr key={index}>
+        <th scope="row">{deposit.date}</th>
+        <td>{deposit.name}</td>
+        <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td>
+        <td>{deposit.amount}</td>
+        <td>
+          <Col as={Link} to="/edit-transaction">
+            <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          </Col>
+          {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
+        </td>
+      </tr>
+    ) 
+  })
+
+  //
+  //  
+  // End of Test 01
+
+
+
+
+
+
+
+
+
+
+  // const editTransaction = () => {
+    
+  //   return console.log("editted");
+  // } 
+
+  // const deleteTransaction = (type, id) => {
+  //   axios.delete(`http://localhost:3001/${type}/${id}`)
+  //       .then(res => {
+  //         console.log(res.data);
+          
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   return console.log(`delete transaction <type: ${type}, id: ${id}>`);
+  // } 
   
   // const depositsList = props.transactions.deposits.map((deposit, index) => {
 
@@ -61,8 +111,7 @@ const TableView = props => {
   //     <tr key={index}>
   //       <th scope="row">{deposit.date}</th>
   //       <td>{deposit.name}</td>
-  //       <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td> 
-  //       {/* Q: Shouldn't 'fixed income' be savings in DB? */}
+  //       <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td>
   //       <td>{deposit.amount}</td>
   //       <td>
   //         <Col as={Link} to="/edit-transaction">
@@ -118,7 +167,7 @@ const TableView = props => {
             </tr>
           </thead>
           <tbody>
-            {/* {depositsList} */}
+            {depositsList}
             {/* {withdrawsList} */}
           </tbody>
         </Table>

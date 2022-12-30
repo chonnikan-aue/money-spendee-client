@@ -103,6 +103,7 @@ function App() {
                 <>
                   <Header userData={userData} />
                   <TableView
+                    userData={userData}
                     transactions={transactions}
                     loginData={loginData}
                   />
