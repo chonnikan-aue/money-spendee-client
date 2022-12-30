@@ -86,6 +86,7 @@ const UpdateInfo = () => {
   };
 
 
+  // Show deposit type data
   const [depositTypeData, setDepositTypeData] = useState([]);
 
   useEffect(() => {
@@ -99,11 +100,62 @@ const UpdateInfo = () => {
       })
   }, []);
 
+  // Update deposit type data
+  const [updateDepositVisible, setUpdateDepositVisible] = useState(false);
+
+  const showUpdateDeposit = () => {
+    setUpdateDepositVisible(true);
+  };
+
+  const hideUpdateDeposit = () => {
+    setUpdateDepositVisible(false);
+  };
+
+  const [updateDepositType, setUpdateDepositType] = useState({
+    name: '',
+    alertPercent: '',
+    budgetPercent: ''
+  })
+
+  const handleChangeDeposit = e => {
+    let value = e.target.value
+    if (e.target.name === 'alertPercent' || e.target.name === 'budgetPercent') {
+      value = parseInt(value, 10)
+    }
+    setUpdateDepositType((prevState) => ({
+      ...prevState,
+      [e.target.name]: value
+    })
+    );
+  }
+
+  const handleUpdateDepositSubmit = e => {
+    e.preventDefault();
+    axios.post('http://localhost:3001/deposit-type', updateDepositType)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    hideUpdateDeposit();
+  };
+
+  // Delete deposit type data
+  const deleteDepositType = depositTypeId => {
+    axios.delete(`http://localhost:3001/deposit-type/${depositTypeId}`)
+      .then(res => {
+        setDepositTypeData(prevDepositTypeData => prevDepositTypeData.filter(type => type.id !== depositTypeId))
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
 
 
   // Show withdraw type data
   const [withdrawTypeData, setWithdrawTypeData] = useState([]);
-  
+
   useEffect(() => {
     axios.get('http://localhost:3001/withdraw-type/user/1')
       .then(res => {
@@ -116,14 +168,14 @@ const UpdateInfo = () => {
   }, []);
 
   // Update withdraw type data
-  const [updateFormVisible, setUpdateFormVisible] = useState(false);
+  const [updateWithdrawVisible, setUpdateWithdrawVisible] = useState(false);
 
-  const showUpdateForm = () => {
-    setUpdateFormVisible(true);
+  const showUpdateWithdraw = () => {
+    setUpdateWithdrawVisible(true);
   };
 
-  const hideUpdateForm = () => {
-    setUpdateFormVisible(false);
+  const hideUpdateWithdraw = () => {
+    setUpdateWithdrawVisible(false);
   };
 
   const [updateWithdrawType, setUpdateWithdrawType] = useState({
@@ -153,14 +205,13 @@ const UpdateInfo = () => {
       .catch(err => {
         console.error(err);
       });
-    hideUpdateForm();
+    hideUpdateWithdraw();
   };
 
   // Delete withdraw type data
   const deleteWithdrawType = withdrawTypeId => {
     axios.delete(`http://localhost:3001/withdraw-type/${withdrawTypeId}`)
       .then(res => {
-        // remove the deleted withdraw type from the withdrawTypeData state
         setWithdrawTypeData(prevWithdrawTypeData => prevWithdrawTypeData.filter(type => type.id !== withdrawTypeId))
       })
       .catch(err => {
@@ -238,12 +289,26 @@ const UpdateInfo = () => {
       <ListGroup>
         {
           depositTypeData.map(type => (
-            <ListGroupItem key={type.id}>{type.name} will alert at {type.alertPercent}% of {type.budgetPercent}% of your budget</ListGroupItem>
+            <ListGroupItem key={type.id}>
+              {type.name} will alert at {type.alertPercent}% of {type.budgetPercent}% of your budget
+              {updateDepositVisible ? (
+                <>
+                  <form onSubmit={handleUpdateDepositSubmit}>
+                    <input type="text" name="name" placeholder="deposit type" onChange={handleChangeDeposit} />
+                    <input type="number" name="alertPercent" placeholder="alert percent" onChange={handleChangeDeposit} />
+                    <input type="number" name="budgetPercent" placeholder="budget limit" onChange={handleChangeDeposit} />
+                    <Button type="submit">Update</Button>
+                  </form>
+                  <Button onClick={hideUpdateDeposit}>Cancel</Button>
+                </>
+              ) : (
+                <Button onClick={showUpdateDeposit}>Edit</Button>
+              )}
+              <Button onClick={() => deleteDepositType(type.id)}>Delete</Button>
+            </ListGroupItem>
           ))
         }
       </ListGroup>
-
-
 
       <h4>Withdraw types</h4>
       <ListGroup>
@@ -251,7 +316,7 @@ const UpdateInfo = () => {
           withdrawTypeData.map(type => (
             <ListGroupItem key={type.id}>
               {type.name} will alert at {type.alertPercent}% of {type.budgetPercent}% of your budget
-              {updateFormVisible ? (
+              {updateWithdrawVisible ? (
                 <>
                   <form onSubmit={handleUpdateWithdrawSubmit}>
                     <input type="text" name="name" placeholder="withdraw type" onChange={handleChangeWithdraw} />
@@ -259,22 +324,16 @@ const UpdateInfo = () => {
                     <input type="number" name="budgetPercent" placeholder="budget limit" onChange={handleChangeWithdraw} />
                     <Button type="submit">Update</Button>
                   </form>
-                  <Button onClick={hideUpdateForm}>Cancel</Button>
+                  <Button onClick={hideUpdateWithdraw}>Cancel</Button>
                 </>
               ) : (
-                <Button onClick={showUpdateForm}>Edit</Button>
+                <Button onClick={showUpdateWithdraw}>Edit</Button>
               )}
               <Button onClick={() => deleteWithdrawType(type.id)}>Delete</Button>
             </ListGroupItem>
           ))
         }
       </ListGroup>
- 
-
-
-
-
-
 
     </Container>
   );
