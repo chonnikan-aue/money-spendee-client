@@ -5,6 +5,7 @@ import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 const Header = (props) => {
   const logout = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("userData");
   };
 
   return (
