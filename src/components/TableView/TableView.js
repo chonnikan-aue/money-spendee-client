@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
@@ -6,8 +6,35 @@ import './TableView.css';
 import { Container, Row, Col, Table, Pagination } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
-
 const TableView = props => {
+
+  // Start of Test 01
+  //
+  //
+
+  const [userData, setUserData] = useState({});
+
+  const getUserData = () => {
+    let token = localStorage.getItem("jwt");
+    axios
+      .get(`http://localhost:3001/user/username/${props.loginData.username}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setUserData(res.data);
+      });
+  };
+
+  useEffect(() => {
+    getUserData()
+    console.log(userData);
+  }, [])
+
+
+  //
+  //  
+  // End of Test 01
 
   const editTransaction = () => {
     
@@ -26,45 +53,45 @@ const TableView = props => {
     return console.log(`delete transaction <type: ${type}, id: ${id}>`);
   } 
   
-  const depositsList = props.transactions.deposits.map((deposit, index) => {
+  // const depositsList = props.transactions.deposits.map((deposit, index) => {
 
-    let type = "deposit"
+  //   let type = "deposit"
 
-    return ( 
-      <tr key={index}>
-        <th scope="row">{deposit.date}</th>
-        <td>{deposit.name}</td>
-        <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td> 
-        {/* Q: Shouldn't 'fixed income' be savings in DB? */}
-        <td>{deposit.amount}</td>
-        <td>
-          <Col as={Link} to="/edit-transaction">
-            <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
-          </Col>
-          {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
-        </td>
-      </tr>
-    ) 
-  })
+  //   return ( 
+  //     <tr key={index}>
+  //       <th scope="row">{deposit.date}</th>
+  //       <td>{deposit.name}</td>
+  //       <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td> 
+  //       {/* Q: Shouldn't 'fixed income' be savings in DB? */}
+  //       <td>{deposit.amount}</td>
+  //       <td>
+  //         <Col as={Link} to="/edit-transaction">
+  //           <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+  //         </Col>
+  //         {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
+  //         <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
+  //       </td>
+  //     </tr>
+  //   ) 
+  // })
 
-  const withdrawsList = props.transactions.withdraws.map((withdraw, index) => {
-    return ( 
-      <tr key={index}>
-        <th scope="row">{withdraw.date}</th>
-        <td>{withdraw.name}</td>
-        <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
-        <td>{withdraw.amount}</td>
-        <td>
-          <Col as={Link} to="/edit-transaction">
-            <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
-          </Col>
-          {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction}></img>
-        </td>
-      </tr>
-    ) 
-  })
+  // const withdrawsList = props.transactions.withdraws.map((withdraw, index) => {
+  //   return ( 
+  //     <tr key={index}>
+  //       <th scope="row">{withdraw.date}</th>
+  //       <td>{withdraw.name}</td>
+  //       <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
+  //       <td>{withdraw.amount}</td>
+  //       <td>
+  //         <Col as={Link} to="/edit-transaction">
+  //           <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+  //         </Col>
+  //         {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
+  //         <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction}></img>
+  //       </td>
+  //     </tr>
+  //   ) 
+  // })
 
   let active = 1;
   let items = [];
@@ -91,8 +118,8 @@ const TableView = props => {
             </tr>
           </thead>
           <tbody>
-            {depositsList}
-            {withdrawsList}
+            {/* {depositsList} */}
+            {/* {withdrawsList} */}
           </tbody>
         </Table>
       </Row>

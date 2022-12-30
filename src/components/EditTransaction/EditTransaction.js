@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Form, Container, Row, Col} from 'react-bootstrap'
+import { Button, Form, FloatingLabel, Container, Row, Col} from 'react-bootstrap'
 
 const EditTransaction = props => {
 
@@ -23,42 +23,40 @@ const EditTransaction = props => {
         <Col md={{ span: 4, offset: 4 }}>
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="date">
-              <Form.Label>Date</Form.Label>
-              <Col>
+              <FloatingLabel label="Date">
                 <Form.Control type="date" onChange={handleChange} />
-              </Col>
+              </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="title">
-              <Form.Label>Title</Form.Label>
-              <Col>
+              <FloatingLabel label="Title">
                 <Form.Control
                   type="text"
                   onChange={handleChange}
                   placeholder="Enter Title"
                 />
-              </Col>
+              </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Type</Form.Label>
-              <Form.Select>
-                <option>Checkings</option>
-                <option>Savings</option>
-                <option>Daily Expenses</option>
-                <option>Investment</option>
+              <FloatingLabel label="Type">
+              <Form.Select id="type">
+                <option disabled></option>
+                <option value="checkings">Checkings</option>
+                <option value="savings">Savings</option>    
+                <option value="daily-expenses">Daily Expenses</option>
+                <option value="investment">Investment</option>
               </Form.Select>
+              </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="amount">
-              <Form.Label>Amount</Form.Label>
-              <Col>
+              <FloatingLabel label="Amount">
                 <Form.Control
                   type="number"
                   onChange={handleChange}
-                  placeholder="Enter Amount"
                 />
-              </Col>
+              </FloatingLabel>
             </Form.Group>
 
             <Button variant="primary" type="submit">

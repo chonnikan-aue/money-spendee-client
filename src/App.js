@@ -102,7 +102,10 @@ function App() {
               element={
                 <>
                   <Header userData={userData} />
-                  <TableView transactions={transactions} />
+                  <TableView
+                    transactions={transactions}
+                    loginData={loginData}
+                  />
                 </>
               }
             />
@@ -142,8 +145,15 @@ function App() {
                 </>
               }
             />
-
-            <Route path="/edit-transaction" element={<EditTransaction />} />
+            <Route
+              path="/edit-transaction"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <EditTransaction />
+                </>
+              }
+            />
           </Routes>
         </main>
       </Container>
