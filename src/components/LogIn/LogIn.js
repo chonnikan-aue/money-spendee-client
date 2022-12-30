@@ -30,7 +30,7 @@ const LogIn = props => {
     // console.log(logInData);
 
     // Version 2
-    axios.get("http://localhost:3004/auth/", logInData)
+    axios.get("http://localhost:3001/auth/", logInData)
     .then(res => {
         // console.log(res.data);
         // let token = res.data
@@ -41,12 +41,13 @@ const LogIn = props => {
   return (
     <Container>
       <Row>
-        <h3>This is the log in page!</h3>
+        <h3>Log In</h3>
       </Row>
       <Row>
         <Col md={{ span: 4, offset: 4 }}>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
+
+            <Form.Group className="mb-3" controlId="username">
               <Form.Label>Username</Form.Label>
               <Col>
                 <Form.Control type="text" onChange={handleChange} placeholder="Enter Username" />
@@ -56,18 +57,21 @@ const LogIn = props => {
               </Form.Text>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3" controlId="password">
               <Form.Label>Password</Form.Label>
               <Col>
                 <Form.Control type="password" onChange={handleChange} placeholder="Enter Password" />
               </Col>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+
+            <Form.Group className="mb-3" controlId="checkbox">
               <Form.Check type="checkbox" onChange={handleChange} label="Stay signed in for 30 days" />
             </Form.Group>
+
             <Button variant="primary" type="submit">
               Submit
             </Button>
+
           </Form>
         </Col>
       </Row>

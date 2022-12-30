@@ -9,6 +9,7 @@ import AddTransaction from "./components/AddTransaction/AddTransaction"
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
 import SignUp from "./components/SignUp/SignUp"
 import LogIn from "./components/LogIn/LogIn"
+import EditTransaction from "./components/EditTransaction/EditTransaction"
 import { Route, Routes, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Container, Row, Col, Dropdown } from 'react-bootstrap'
@@ -27,7 +28,7 @@ function App() {
   })
 
   const getDeposits = () => {
-    axios.get(`http://localhost:3004/deposit/user/${userData.id}`)
+    axios.get(`http://localhost:3001/deposit/user/${userData.id}`)
     .then(res => {
       setTransactions((prevState) => ({
         ...prevState, 
@@ -48,7 +49,7 @@ function App() {
   }, [])
   
   const getWithdraws = () => {
-    axios.get(`http://localhost:3004/withdraw/user/${userData.id}`)
+    axios.get(`http://localhost:3001/withdraw/user/${userData.id}`)
     .then(res => {      
       setTransactions((prevState) => ({
         ...prevState, 
@@ -146,6 +147,7 @@ function App() {
           <Route path="/update-info" element={<UpdateInfo />} />
           <Route path="/log-in" element={<LogIn />} />
           <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/edit-transaction" element={<EditTransaction />} />
         </Routes>
       </main>
     </div>

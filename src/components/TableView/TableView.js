@@ -3,7 +3,9 @@ import axios from "axios"
 import editIcon from '../../images/edit.png'
 import deleteIcon from '../../images/delete.png'
 import './TableView.css';
-import { Container, Row, Table, Pagination } from "react-bootstrap"
+import { Container, Row, Col, Table, Pagination } from "react-bootstrap"
+import { Link } from "react-router-dom";
+
 
 const TableView = props => {
 
@@ -13,7 +15,7 @@ const TableView = props => {
   } 
 
   const deleteTransaction = (type, id) => {
-    axios.delete(`http://localhost:3004/${type}/${id}`)
+    axios.delete(`http://localhost:3001/${type}/${id}`)
         .then(res => {
           console.log(res.data);
           
@@ -36,7 +38,10 @@ const TableView = props => {
         {/* Q: Shouldn't 'fixed income' be savings in DB? */}
         <td>{deposit.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          <Col as={Link} to="/edit-transaction">
+            <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          </Col>
+          {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
           <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
         </td>
       </tr>
@@ -51,7 +56,10 @@ const TableView = props => {
         <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
         <td>{withdraw.amount}</td>
         <td>
-          <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          <Col as={Link} to="/edit-transaction">
+            <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
+          </Col>
+          {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
           <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction}></img>
         </td>
       </tr>
