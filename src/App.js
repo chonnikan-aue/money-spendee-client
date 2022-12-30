@@ -8,7 +8,7 @@ import DashboardView from "./components/DashboardView/DashboardView";
 import SummaryView from "./components/SummaryView/SummaryView";
 import AddTransaction from "./components/AddTransaction/AddTransaction";
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo";
-import EditTransaction from "./components/EditTransaction/EditTransaction"
+import EditTransaction from "./components/EditTransaction/EditTransaction";
 import { Route, Routes, Link, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
@@ -16,6 +16,10 @@ import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
 function App() {
   const [loginData, setLoginData] = useState({});
   const [userData, setUserData] = useState({});
+  const [transactions, setTransactions] = useState({
+    deposits: [],
+    withdraws: [],
+  });
 
   const getUserData = () => {
     let token = localStorage.getItem("jwt");
@@ -27,60 +31,40 @@ function App() {
         console.log(res.data);
         setUserData(res.data);
       });
-  };  
-
-  const [transactions, setTransactions] = useState({
-    deposits: [],
-    withdraws: []
-  }) 
-
-  // TO DO: Make it fetch user's data dynamically.
-  // const [userData, setUserData] = useState({
-  //   id: 1,
-  //   username: "Mai"
-  // })
+  };
 
   const getDeposits = () => {
-    axios.get(`http://localhost:3001/deposit/user/${userData.id}`)
-    .then(res => {
-      setTransactions((prevState) => ({
-        ...prevState, 
-        deposits: res.data
-      }))
+    axios
+      .get(`http://localhost:3001/deposit/user/${userData.id}`)
+      .then((res) => {
+        setTransactions((prevState) => ({
+          ...prevState,
+          deposits: res.data,
+        }));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
-      // console.log(res.data)
-
-      // console.log(transactions);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-  }
-  
-  useEffect(() => {
-    getDeposits()
-  }, [])
-  
   const getWithdraws = () => {
-    axios.get(`http://localhost:3001/withdraw/user/${userData.id}`)
-    .then(res => {      
-      setTransactions((prevState) => ({
-        ...prevState, 
-        withdraws: res.data
-      }))
-
-      // console.log(res.data)
-
-      // console.log(transactions);
-    })
-    .catch((err) => {
-      console.error(err);
-    });        
-  }
+    axios
+      .get(`http://localhost:3001/withdraw/user/${userData.id}`)
+      .then((res) => {
+        setTransactions((prevState) => ({
+          ...prevState,
+          withdraws: res.data,
+        }));
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   useEffect(() => {
-    getWithdraws()
-  }, [])
+    getDeposits();
+    getWithdraws();
+  }, []);
 
   return (
     <div className="App">
@@ -143,12 +127,20 @@ function App() {
               }
             />
 
-            <Route path="/edit-transaction" element={<EditTransaction />} />
+            <Route
+              path="/edit-transaction"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <EditTransaction />
+                </>
+              }
+            />
           </Routes>
         </main>
       </Container>
     </div>
-  )
+  );
 }
 
 export default App;
