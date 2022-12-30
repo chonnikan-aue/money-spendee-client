@@ -2,6 +2,7 @@ import './AddTransaction.css'
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
+import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
 
 const AddTransaction = () => {
 
@@ -9,6 +10,7 @@ const AddTransaction = () => {
   const [data, setData] = useState({
     userId: 1
   })
+
   const handleChange = e => {
     let value = e.target.value;
     if (e.target.name === 'amount') {
@@ -24,7 +26,7 @@ const AddTransaction = () => {
   // show type dropdown
   const [withdrawTypeData, setWithdrawTypeData] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:3001/withdraw-type')
+    axios.get('http://localhost:3001/withdraw-type') // /user/:userId
       .then(res => {
         setWithdrawTypeData(res.data);
       });
@@ -55,74 +57,69 @@ const AddTransaction = () => {
 
     }
 
-  return (
-    <div>
-      <div className="container box">
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <h2 className="header">Add your transactions here</h2>
-            <label htmlFor="name">Title:</label>
-            <input
-              type="text"
-              name="name"
-              placeholder="What did you pay?"
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="amount">Amount:</label>
-            <input
-              type="text"
-              name="amount"
-              placeholder="THB"
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="typeId">Type:</label>
-            <select
-              name="typeId"
-              onChange={handleChange}
-              className="form-control"
-            >
-              <option disabled selected>Select Type</option>
-              {
-                withdrawTypeData.map(type => (
-                  <option value={type.id}>{type.name}</option>
-                ))
-              }
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="withdrawFromId">Account:</label>
-            <select
-              name="withdrawFromId"
-              onChange={handleChange}
-              className="form-control"
-            >
-              <option disabled selected>Select Account</option>
-              {
-                depositTypeData.map((account, index) => (
-                  <option value={index}>{account.name}</option>
-                ))
-              }
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="date">Date:</label>
-            <input
-              type="date"
-              name="date"
-              onChange={handleChange}
-              className="form-control"
-            />
-          </div>
-          <input type="submit" value="Save" className="btn btn-primary" />
-        </form>
-      </div>
-    </div>
+ return (
+  <Container className="box">
+      <Form onSubmit={handleSubmit}>
+        <h2 className="header text-center">Add your transactions here</h2>
+        <FormGroup>
+          <Label for="name">Title:</Label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="What did you pay?"
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="amount">Amount:</Label>
+          <Input
+            type="text"
+            name="amount"
+            placeholder="THB"
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label for="typeId">Type:</Label>
+          <Input
+            type="select"
+            name="typeId"
+            onChange={handleChange}
+          >
+            <option disabled selected>Select Type</option>
+            {
+              withdrawTypeData.map(type => (
+                <option value={type.id}>{type.name}</option>
+              ))
+            }
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="withdrawFromId">Account:</Label>
+          <Input
+            type="select"
+            name="withdrawFromId"
+            onChange={handleChange}
+          >
+            <option disabled selected>Select Account</option>
+            {
+              depositTypeData.map((account, index) => (
+                <option value={index}>{account.name}</option>
+              ))
+            }
+          </Input>
+        </FormGroup>
+        <FormGroup>
+          <Label for="date">Date:</Label>
+          <Input
+            type="date"
+            name="date"
+            onChange={handleChange}
+          />
+        </FormGroup>
+        <Button color="primary" type="submit">Save</Button>
+      </Form>
+      </Container>
   )
 }
 
