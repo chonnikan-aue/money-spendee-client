@@ -7,6 +7,12 @@ import { InputGroup, FloatingLabel } from 'react-bootstrap';
 
 const UpdateInfo = () => {
 
+  // Add new Deposit type
+
+  const [showAddNewDeposit, setShowAddNewDeposit] = useState(false);
+  const toggleDepositContent = () => {
+    setShowAddNewDeposit(!showAddNewDeposit);
+  };
 
   const [newDepositType, setNewDepositType] = useState({
     name: "",
@@ -39,6 +45,14 @@ const UpdateInfo = () => {
       });
   };
 
+
+  // Add new withdraw type
+
+  const [showAddNewWithdraw, setShowAddNewWithdraw] = useState(false);
+  const toggleWithdrawContent = () => {
+    setShowAddNewWithdraw(!showAddNewWithdraw);
+  };
+
   const [newWithdrawType, setNewWithdrawType] = useState({
     name: "",
     userId: 1,
@@ -61,8 +75,9 @@ const UpdateInfo = () => {
   const handleSubmit3 = e => {
     e.preventDefault();
     console.log(newWithdrawType);
-    axios.post('http://localhost:3001/withdraw-type', newWithdrawType)
+    axios.post('http://localhost:3001/withdraw-type/user/1', newWithdrawType)
       .then(res => {
+        console.log(newWithdrawType)
         console.log(res.data);
       })
       .catch(err => {
@@ -70,19 +85,9 @@ const UpdateInfo = () => {
       });
   };
 
-  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:3001/withdraw-type/user/1')
-      .then(res => {
-        setWithdrawTypeData(res.data.WithdrawTypes);
-        console.log(res.data.WithdrawTypes)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }, []);
 
   const [depositTypeData, setDepositTypeData] = useState([]);
+
   useEffect(() => {
     axios.get('http://localhost:3001/deposit-type/user/1')
       .then(res => {
@@ -94,15 +99,75 @@ const UpdateInfo = () => {
       })
   }, []);
 
-  const [showUpdateDeposit, setShowUpdateDeposit] = useState(false);
-  const toggleDepositContent = () => {
-    setShowUpdateDeposit(!showUpdateDeposit);
+
+
+  // Show withdraw type data
+  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
+  
+  useEffect(() => {
+    axios.get('http://localhost:3001/withdraw-type/user/1')
+      .then(res => {
+        setWithdrawTypeData(res.data.WithdrawTypes);
+        console.log(res.data.WithdrawTypes)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, []);
+
+  // Update withdraw type data
+  const [updateFormVisible, setUpdateFormVisible] = useState(false);
+
+  const showUpdateForm = () => {
+    setUpdateFormVisible(true);
   };
 
-  const [showUpdateWithdraw, setShowUpdateWithdraw] = useState(false);
-  const toggleWithdrawContent = () => {
-    setShowUpdateWithdraw(!showUpdateWithdraw);
+  const hideUpdateForm = () => {
+    setUpdateFormVisible(false);
   };
+
+  const [updateWithdrawType, setUpdateWithdrawType] = useState({
+    name: '',
+    alertPercent: '',
+    budgetPercent: ''
+  })
+
+  const handleChangeWithdraw = e => {
+    let value = e.target.value
+    if (e.target.name === 'alertPercent' || e.target.name === 'budgetPercent') {
+      value = parseInt(value, 10)
+    }
+    setUpdateWithdrawType((prevState) => ({
+      ...prevState,
+      [e.target.name]: value
+    })
+    );
+  }
+
+  const handleUpdateWithdrawSubmit = e => {
+    e.preventDefault();
+    axios.post('http://localhost:3001/withdraw-type', updateWithdrawType)
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    hideUpdateForm();
+  };
+
+  // Delete withdraw type data
+  const deleteWithdrawType = withdrawTypeId => {
+    axios.delete(`http://localhost:3001/withdraw-type/${withdrawTypeId}`)
+      .then(res => {
+        // remove the deleted withdraw type from the withdrawTypeData state
+        setWithdrawTypeData(prevWithdrawTypeData => prevWithdrawTypeData.filter(type => type.id !== withdrawTypeId))
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
 
   return (
     <Container>
@@ -110,7 +175,7 @@ const UpdateInfo = () => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <div>
           <Button color="primary" type="button" onClick={toggleDepositContent}>Add your new deposit type</Button>
-          {showUpdateDeposit ? (
+          {showAddNewDeposit ? (
             <FormGroup>
               <FloatingLabel for="amount">Add your new deposit type here:</FloatingLabel>
               <InputGroup className="mb-3">
@@ -121,16 +186,16 @@ const UpdateInfo = () => {
                   onChange={handleChange2}
                 />
                 <Form.Control
-                  type="text"
+                  type="number"
                   name="alertPercent"
                   placeholder="How much you want us to alert (In percent)"
                   onChange={handleChange2}
                 />
                 <Form.Control
-                  type="text"
+                  type="number"
                   name="budgetPercent"
                   placeholder="How much you want to spend on this budget"
-                  onChange={handleChange3}
+                  onChange={handleChange2}
                 />
               </InputGroup>
               <Button color="primary" type="submit" onClick={handleSubmit2}>Save</Button>
@@ -140,7 +205,7 @@ const UpdateInfo = () => {
 
         <div>
           <Button color="primary" type="button" onClick={toggleWithdrawContent}>Add your new withdraw type</Button>
-          {showUpdateWithdraw ? (
+          {showAddNewWithdraw ? (
             <FormGroup>
               <FloatingLabel for="amount">Add your new withdraw type here:</FloatingLabel>
               <InputGroup className="mb-3">
@@ -151,13 +216,13 @@ const UpdateInfo = () => {
                   onChange={handleChange3}
                 />
                 <Form.Control
-                  type="text"
+                  type="number"
                   name="alertPercent"
                   placeholder="How much you want us to alert (In percent)"
                   onChange={handleChange3}
                 />
                 <Form.Control
-                  type="text"
+                  type="number"
                   name="budgetPercent"
                   placeholder="How much you want to spend on this budget"
                   onChange={handleChange3}
@@ -168,15 +233,7 @@ const UpdateInfo = () => {
           ) : null}
         </div>
       </div>
-      
-      <h4>Withdraw types</h4>
-      <ListGroup>
-        {
-          withdrawTypeData.map(type => (
-            <ListGroupItem key={type.id}>{type.name} will alert at {type.alertPercent}% of {type.budgetPercent}% of your budget</ListGroupItem>
-          ))
-        }
-      </ListGroup>
+
       <h4>Deposit types</h4>
       <ListGroup>
         {
@@ -185,6 +242,40 @@ const UpdateInfo = () => {
           ))
         }
       </ListGroup>
+
+
+
+      <h4>Withdraw types</h4>
+      <ListGroup>
+        {
+          withdrawTypeData.map(type => (
+            <ListGroupItem key={type.id}>
+              {type.name} will alert at {type.alertPercent}% of {type.budgetPercent}% of your budget
+              {updateFormVisible ? (
+                <>
+                  <form onSubmit={handleUpdateWithdrawSubmit}>
+                    <input type="text" name="name" placeholder="withdraw type" onChange={handleChangeWithdraw} />
+                    <input type="number" name="alertPercent" placeholder="alert percent" onChange={handleChangeWithdraw} />
+                    <input type="number" name="budgetPercent" placeholder="budget limit" onChange={handleChangeWithdraw} />
+                    <Button type="submit">Update</Button>
+                  </form>
+                  <Button onClick={hideUpdateForm}>Cancel</Button>
+                </>
+              ) : (
+                <Button onClick={showUpdateForm}>Edit</Button>
+              )}
+              <Button onClick={() => deleteWithdrawType(type.id)}>Delete</Button>
+            </ListGroupItem>
+          ))
+        }
+      </ListGroup>
+ 
+
+
+
+
+
+
     </Container>
   );
 
