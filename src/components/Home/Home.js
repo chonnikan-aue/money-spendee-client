@@ -19,9 +19,8 @@ const Home = (props) => {
 
     if (e.nativeEvent.submitter.id === "login") {
       axios
-        .get("http://localhost:3001/auth", props.loginData)
+        .get("http://localhost:3001/auth", { params: props.loginData })
         .then((res) => {
-          console.log(res);
           let token = res.data;
           localStorage.setItem("jwt", token);
           props.getUserData();
