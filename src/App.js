@@ -86,69 +86,69 @@ function App() {
     <div className="App">
       <Container>
         <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                loginData={loginData}
-                setLoginData={setLoginData}
-                getUserData={getUserData}
-              />
-            }
-          />
-          <Route
-            path="/table-view"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <TableView transactions={transactions} /> */}
-              </>
-            }
-          />
-          <Route
-            path="/dashboard-view"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <DashboardView transactions={transactions} /> */}
-              </>
-            }
-          />
-          <Route
-            path="/summary-view"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <SummaryView transactions={transactions} /> */}
-              </>
-            }
-          />
-          <Route
-            path="/add-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <AddTransaction /> */}
-              </>
-            }
-          />
-          <Route
-            path="/update-info"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <UpdateInfo /> */}
-              </>
-            }
-          />
-          
-          <Route path="/edit-transaction" element={<EditTransaction />} />
-        </Routes>
-      </main>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  loginData={loginData}
+                  setLoginData={setLoginData}
+                  getUserData={getUserData}
+                />
+              }
+            />
+            <Route
+              path="/table-view"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <TableView transactions={transactions} />
+                </>
+              }
+            />
+            <Route
+              path="/dashboard-view"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <DashboardView transactions={transactions} />
+                </>
+              }
+            />
+            <Route
+              path="/summary-view"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <SummaryView transactions={transactions} />
+                </>
+              }
+            />
+            <Route
+              path="/add-transaction"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <AddTransaction />
+                </>
+              }
+            />
+            <Route
+              path="/update-info"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <UpdateInfo />
+                </>
+              }
+            />
+
+            <Route path="/edit-transaction" element={<EditTransaction />} />
+          </Routes>
+        </main>
       </Container>
     </div>
-  );
+  )
 }
 
 export default App;
