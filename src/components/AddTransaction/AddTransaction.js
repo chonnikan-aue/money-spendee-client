@@ -1,14 +1,11 @@
 import './AddTransaction.css'
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 
-const type = ["food", "transportation", "rentals", "bill"] // Hard code just for testing. The real one will be brought from the DB
-const account = ["income", "saving"]
-
-
 const AddTransaction = () => {
 
+  // Collect the overall data 
   const [data, setData] = useState({
     userId: 1
   })
@@ -23,6 +20,26 @@ const AddTransaction = () => {
     }));
   }
 
+
+  // show type dropdown
+  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:3001/withdraw-type')
+      .then(res => {
+        setWithdrawTypeData(res.data);
+      });
+  }, []);
+
+  // show withdraw from dropdown
+  const [depositTypeData, setDepositTypeData] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:3001/deposit-type')
+      .then(res => {
+        setDepositTypeData(res.data);
+      });
+  }, []);
+
+  // Pass over all data to database
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -32,14 +49,18 @@ const AddTransaction = () => {
       .then(res => {
         console.log(res)
       })
-  }
+      .catch(err => {
+        console.log(err)
+      })
+
+    }
 
   return (
     <div>
       <div className="container box">
-
         <form onSubmit={handleSubmit}>
           <div className="form-group">
+            <h2 className="header">Add your transactions here</h2>
             <label htmlFor="name">Title:</label>
             <input
               type="text"
@@ -68,8 +89,8 @@ const AddTransaction = () => {
             >
               <option disabled selected>Select Type</option>
               {
-                type.map((type, index) => (
-                  <option value={index}>{type}</option>
+                withdrawTypeData.map(type => (
+                  <option value={type.id}>{type.name}</option>
                 ))
               }
             </select>
@@ -83,8 +104,8 @@ const AddTransaction = () => {
             >
               <option disabled selected>Select Account</option>
               {
-                account.map((account, index) => (
-                  <option value={index}>{account}</option>
+                depositTypeData.map((account, index) => (
+                  <option value={index}>{account.name}</option>
                 ))
               }
             </select>
