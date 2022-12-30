@@ -104,6 +104,7 @@ function App() {
                   <Header userData={userData} />
                   <TableView
                     userData={userData}
+                    setUserData={setUserData}
                     transactions={transactions}
                     loginData={loginData}
                   />

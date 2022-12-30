@@ -22,13 +22,13 @@ const TableView = props => {
   //     })
   //     .then((res) => {
   //       console.log(res.data);
-  //       setUserData(res.data);
+  //       props.setUserData(res.data);
   //     });
   // };
 
   // useEffect(() => {
   //   getUserData()
-  //   console.log(userData);
+  //   console.log(props.userData);
   // }, [])
   
   // --------------------------
