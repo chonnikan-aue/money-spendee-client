@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios"
 import './LogIn.css';
-import { Button, Form, Container, Row} from 'react-bootstrap'
+import { Button, Form, Container, Row, Col} from 'react-bootstrap'
 
 const LogIn = props => {
 
@@ -30,7 +30,7 @@ const LogIn = props => {
     // console.log(logInData);
 
     // Version 2
-    axios.get("http://localhost:3004/auth/", logInData)
+    axios.get("http://localhost:3001/auth/", logInData)
     .then(res => {
         // console.log(res.data);
         // let token = res.data
@@ -41,29 +41,39 @@ const LogIn = props => {
   return (
     <Container>
       <Row>
-        <h3>This is the log in page!</h3>
+        <h3>Log In</h3>
       </Row>
       <Row>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Username</Form.Label>
-            <Form.Control type="text" onChange={handleChange} placeholder="Enter Username" />
-            <Form.Text className="text-muted">
-              This will be used as your profile name too.
-            </Form.Text>
-          </Form.Group>
+        <Col md={{ span: 4, offset: 4 }}>
+          <Form onSubmit={handleSubmit}>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" onChange={handleChange} placeholder="Enter Password" />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" onChange={handleChange} label="Stay signed in for 30 days" />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
+            <Form.Group className="mb-3" controlId="username">
+              <Form.Label>Username</Form.Label>
+              <Col>
+                <Form.Control type="text" onChange={handleChange} placeholder="Enter Username" />
+              </Col>
+              <Form.Text className="text-muted">
+                This will be used as your profile name too.
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Col>
+                <Form.Control type="password" onChange={handleChange} placeholder="Enter Password" />
+              </Col>
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="checkbox">
+              <Form.Check type="checkbox" onChange={handleChange} label="Stay signed in for 30 days" />
+            </Form.Group>
+
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+
+          </Form>
+        </Col>
       </Row>
     </Container>
   )
