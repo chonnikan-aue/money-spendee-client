@@ -58,7 +58,7 @@ const AddTransaction = () => {
     }
 
  return (
-  <Container className="box">
+  <Container className="content">
       <Form onSubmit={handleSubmit}>
         <h2 className="header text-center">Add your transactions here</h2>
         <FormGroup>

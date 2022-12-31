@@ -6,6 +6,7 @@ const Header = (props) => {
   const logout = () => {
     localStorage.removeItem("jwt");
     localStorage.removeItem("userData");
+    localStorage.removeItem("profileData");
   };
 
   return (
@@ -19,7 +20,7 @@ const Header = (props) => {
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="float-right">
+          <Nav>
             <NavDropdown title="View Transaction" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/table-view">Table View</NavDropdown.Item>
               <NavDropdown.Item href="/dashboard-view">
