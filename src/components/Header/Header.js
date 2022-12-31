@@ -3,6 +3,12 @@ import "./Header.css";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 
 const Header = (props) => {
+  const logout = () => {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("userData");
+    localStorage.removeItem("profileData");
+  };
+
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
       <Container>
@@ -14,7 +20,7 @@ const Header = (props) => {
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="float-right">
+          <Nav>
             <NavDropdown title="View Transaction" id="collasible-nav-dropdown">
               <NavDropdown.Item href="/table-view">Table View</NavDropdown.Item>
               <NavDropdown.Item href="/dashboard-view">
@@ -26,7 +32,9 @@ const Header = (props) => {
             </NavDropdown>
             <Nav.Link href="/add-transaction">Add Transaction</Nav.Link>
             <Nav.Link href="/update-info">Update Personal Info</Nav.Link>
-            <Nav.Link href="/">Logout</Nav.Link>
+            <Nav.Link href="/" onClick={logout}>
+              Logout
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
