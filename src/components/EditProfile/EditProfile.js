@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.css";
-import { Form, Button } from "react-bootstrap";
-import { FloatingLabel } from "react-bootstrap";
+import { Form, Button, FloatingLabel } from "react-bootstrap";
 
 const EditProfile = (props) => {
   const username = useRef();

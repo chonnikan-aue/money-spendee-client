@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
-import { Form, Button } from "react-bootstrap";
-import { FloatingLabel } from "react-bootstrap";
+import { Form, Button, FloatingLabel } from "react-bootstrap";
 
 const NewWithdrawType = (props) => {
   const withdrawTypeName = useRef();
