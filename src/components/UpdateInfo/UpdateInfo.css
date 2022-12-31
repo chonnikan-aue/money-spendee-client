@@ -1,10 +1,7 @@
 .input {
-    display: inline-block;
+  display: inline-block;
 }
-  .input-label {
-    margin-right: 10px;
-    font-size: 22px;
-  }
-  .header {
-    text-align: center;
-  }
+.input-label {
+  margin-right: 10px;
+  font-size: 22px;
+}

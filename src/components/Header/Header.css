@@ -1,8 +1,15 @@
-.bg-dark {
-  background-color: #143f2e !important;
+.navbar {
+  --bs-navbar-padding-x: 20px !important;
+  --bs-navbar-padding-y: 20px !important;
+  --bs-navbar-brand-font-size: 30px !important;
 }
 
 .navbar-brand {
   font-weight: bold;
   font-family: "DM Serif Display", serif;
+}
+
+.navbar-nav {
+  padding-top: 0.5rem;
+  padding-right: 3rem;
 }

@@ -14,17 +14,20 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
 
 function App() {
-  const [loginData, setLoginData] = useState({});
+  const [profileData, setProfileData] = useState({});
   const [userData, setUserData] = useState({});
-  const [transactions, setTransactions] = useState({
-    deposits: [],
-    withdraws: [],
-  });
+
+  const handleProfileChange = (e) => {
+    setProfileData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
   const getUserData = () => {
     let token = localStorage.getItem("jwt");
     axios
-      .get(`http://localhost:3001/user/username/${loginData.username}`, {
+      .get(`http://localhost:3001/user/username/${profileData.username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -33,37 +36,7 @@ function App() {
       });
   };
 
-  const getDeposits = () => {
-    axios
-      .get(`http://localhost:3001/deposit/user/${userData.id}`)
-      .then((res) => {
-        setTransactions((prevState) => ({
-          ...prevState,
-          deposits: res.data,
-        }));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
-  const getWithdraws = () => {
-    axios
-      .get(`http://localhost:3001/withdraw/user/${userData.id}`)
-      .then((res) => {
-        setTransactions((prevState) => ({
-          ...prevState,
-          withdraws: res.data,
-        }));
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
   useEffect(() => {
-    getDeposits();
-    getWithdraws();
     if (localStorage.getItem("userData")) {
       setUserData(JSON.parse(localStorage.getItem("userData")));
     }
@@ -83,9 +56,9 @@ function App() {
             path="/"
             element={
               <Home
-                loginData={loginData}
-                setLoginData={setLoginData}
+                profileData={profileData}
                 getUserData={getUserData}
+                handleProfileChange={handleProfileChange}
               />
             }
           />
@@ -94,7 +67,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <TableView transactions={transactions} />
+                {/* <TableView /> */}
               </>
             }
           />
@@ -103,7 +76,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <DashboardView transactions={transactions} />
+                {/* <DashboardView /> */}
               </>
             }
           />
@@ -112,7 +85,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <SummaryView transactions={transactions} />
+                {/* <SummaryView /> */}
               </>
             }
           />
@@ -121,7 +94,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction />
+                {/* <AddTransaction /> */}
               </>
             }
           />
@@ -130,7 +103,13 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <UpdateInfo />
+                <UpdateInfo
+                  handleProfileChange={handleProfileChange}
+                  profileData={profileData}
+                  setProfileData={setProfileData}
+                  userData={userData}
+                  getUserData={getUserData}
+                />
               </>
             }
           />
@@ -140,7 +119,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <EditTransaction />
+                {/* <EditTransaction /> */}
               </>
             }
           />
