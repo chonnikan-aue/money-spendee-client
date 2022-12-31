@@ -67,7 +67,10 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <TableView /> */}
+                <TableView
+                    userData={userData}
+                    setUserData={setUserData}
+                  />
               </>
             }
           />
@@ -76,7 +79,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <DashboardView /> */}
+                <DashboardView />
               </>
             }
           />
@@ -85,7 +88,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <SummaryView /> */}
+                <SummaryView />
               </>
             }
           />
@@ -94,7 +97,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <AddTransaction /> */}
+                <AddTransaction />
               </>
             }
           />
@@ -110,7 +113,7 @@ function App() {
                   userData={userData}
                   getUserData={getUserData}
                 />
-<<<<<<< HEAD
+              </>
               }
             />
             <Route
@@ -121,18 +124,17 @@ function App() {
                   <TableView
                     userData={userData}
                     setUserData={setUserData}
-                    transactions={transactions}
-                    loginData={loginData}
+                    
                   />
-                </>
-              }
-            />
-            <Route
+              </>
+            }
+          />
+          <Route
               path="/dashboard-view"
               element={
                 <>
                   <Header userData={userData} />
-                  <DashboardView transactions={transactions} />
+                  <DashboardView />
                 </>
               }
             />
@@ -141,7 +143,7 @@ function App() {
               element={
                 <>
                   <Header userData={userData} />
-                  <SummaryView transactions={transactions} />
+                  <SummaryView />
                 </>
               }
             />
@@ -166,30 +168,23 @@ function App() {
             <Route
               path="/edit-transaction"
               element={
+              <>
+                <Header userData={userData} />
+                  <EditTransaction />
+              </>
+              }
+            />
+            <Route
+              path="/edit-transaction"
+              element={
                 <>
                   <Header userData={userData} />
                   <EditTransaction />
                 </>
               }
             />
-          </Routes>
-        </main>
-=======
-              </>
-            }
-          />
-
-          <Route
-            path="/edit-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <EditTransaction /> */}
-              </>
-            }
-          />
-        </Routes>
->>>>>>> main
+          </Routes>         
+       
       </Container>
     </div>
   );
