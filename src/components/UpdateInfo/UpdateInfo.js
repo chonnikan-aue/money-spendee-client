@@ -21,10 +21,8 @@ import { InputGroup, FloatingLabel } from "react-bootstrap";
 
 const UpdateInfo = (props) => {
   const username = useRef();
-  const [newDepositType, setNewDepositType] = useState({
-    name: "",
-    userId: props.userData.id,
-  });
+  const newDepositTypeName = useRef();
+  const [newDepositType, setNewDepositType] = useState({});
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
@@ -46,11 +44,49 @@ const UpdateInfo = (props) => {
           props.setProfileData(JSON.parse(localStorage.getItem("profileData")));
           props.getUserData();
         })
+        .then(() => {
+          alert("Profile has been updated.");
+        })
         .catch((err) => {
           console.error(err);
         });
     } else {
       alert("Username cannot be empty.");
+    }
+  };
+
+  const handleNewDepositTypeChange = (e) => {
+    setNewDepositType((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+      userId: props.userData.id,
+    }));
+  };
+
+  const handleNewDepositTypeSubmit = (e) => {
+    e.preventDefault();
+    if (newDepositTypeName.current.value) {
+      let token = localStorage.getItem("jwt");
+      axios
+        .post(
+          `http://localhost:3001/deposit-type/user/${props.userData.id}`,
+          newDepositType,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          props.getUserData();
+          newDepositTypeName.current.value = "";
+        })
+        .then(() => {
+          alert("New deposit type has been added.");
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      alert("Name cannot be empty.");
     }
   };
 
@@ -102,14 +138,29 @@ const UpdateInfo = (props) => {
           </Accordion.Item>
           <Accordion.Item eventKey="2">
             <Accordion.Header>Add Deposit Type</Accordion.Header>
-            <Accordion.Body></Accordion.Body>
+            <Accordion.Body>
+              <Form onSubmit={handleNewDepositTypeSubmit}>
+                <FloatingLabel label="Name" className="mb-3">
+                  <Form.Control
+                    name="name"
+                    type="text"
+                    placeholder="Name"
+                    onChange={handleNewDepositTypeChange}
+                    ref={newDepositTypeName}
+                  />
+                </FloatingLabel>
+                <Button variant="primary" type="submit">
+                  Add
+                </Button>
+              </Form>
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
             <Accordion.Header>Add Withdraw Type</Accordion.Header>
             <Accordion.Body></Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
-            <Accordion.Header>Edit Budget</Accordion.Header>
+            <Accordion.Header>Edit Withdraw Type & Budget</Accordion.Header>
             <Accordion.Body></Accordion.Body>
           </Accordion.Item>
         </Accordion>
