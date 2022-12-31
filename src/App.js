@@ -67,7 +67,10 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <TableView /> */}
+                <TableView
+                    userData={userData}
+                    setUserData={setUserData}
+                  />
               </>
             }
           />
@@ -76,7 +79,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <DashboardView /> */}
+                <DashboardView />
               </>
             }
           />
@@ -85,7 +88,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <SummaryView /> */}
+                <SummaryView />
               </>
             }
           />
@@ -94,7 +97,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                {/* <AddTransaction /> */}
+                <AddTransaction />
               </>
             }
           />
@@ -111,19 +114,77 @@ function App() {
                   getUserData={getUserData}
                 />
               </>
-            }
-          />
-
-          <Route
-            path="/edit-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                {/* <EditTransaction /> */}
+              }
+            />
+            <Route
+              path="/table-view"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <TableView
+                    userData={userData}
+                    setUserData={setUserData}
+                    
+                  />
               </>
             }
           />
-        </Routes>
+          <Route
+              path="/dashboard-view"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <DashboardView />
+                </>
+              }
+            />
+            <Route
+              path="/summary-view"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <SummaryView />
+                </>
+              }
+            />
+            <Route
+              path="/add-transaction"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <AddTransaction />
+                </>
+              }
+            />
+            <Route
+              path="/update-info"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <UpdateInfo />
+                </>
+              }
+            />
+            <Route
+              path="/edit-transaction"
+              element={
+              <>
+                <Header userData={userData} />
+                  <EditTransaction />
+              </>
+              }
+            />
+            <Route
+              path="/edit-transaction"
+              element={
+                <>
+                  <Header userData={userData} />
+                  <EditTransaction />
+                </>
+              }
+            />
+          </Routes>         
+       
       </Container>
     </div>
   );

@@ -47,7 +47,7 @@ const Home = (props) => {
       <Col>
         <Form onSubmit={handleSubmit}>
           <FloatingLabel label="Username" className="mb-3">
-            <Form.Control
+            <Form.Control 
               id="username"
               type="text"
               placeholder="Username"
