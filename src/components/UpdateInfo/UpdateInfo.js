@@ -1,136 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.css";
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Form,
-  FormGroup,
-  Label,
-  Button,
-  Container,
-  Row,
-  Col,
-  ListGroup,
-  ListGroupItem,
-  Accordion,
-} from "react-bootstrap";
-import { InputGroup, FloatingLabel } from "react-bootstrap";
+import { Form, Button, Container, Row, Accordion } from "react-bootstrap";
+import { FloatingLabel } from "react-bootstrap";
+import EditProfile from "../EditProfile/EditProfile";
+import FixedIncome from "../FixedIncome/FixedIncome";
+import NewDepositType from "../NewDepositType/NewDepositType";
 
 const UpdateInfo = (props) => {
-  const username = useRef();
-  const fixedIncome = useRef();
-  const newDepositTypeName = useRef();
-  const [newDepositTypeData, setnewDepositTypeData] = useState({});
-  const [fixedIncomeData, setFixedIncomeData] = useState({});
-
-  const handleProfileSubmit = (e) => {
-    e.preventDefault();
-    if (username.current.value) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .put(
-          `http://localhost:3001/user/${props.userData.id}`,
-          props.profileData,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((res) => {
-          localStorage.setItem(
-            "profileData",
-            JSON.stringify({ username: props.profileData.username })
-          );
-          props.setProfileData(JSON.parse(localStorage.getItem("profileData")));
-          props.getUserData();
-        })
-        .then(() => {
-          alert("Profile has been updated.");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Username cannot be empty.");
-    }
-  };
-
-  const handleFixedIncomeChange = (e) => {
-    setFixedIncomeData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-      userId: props.userData.id,
-    }));
-  };
-
-  const handleFixedIncomeSubmit = (e) => {
-    e.preventDefault();
-    if (fixedIncome.current.value) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .put(
-          `http://localhost:3001/user/${props.userData.id}`,
-          fixedIncomeData,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((res) => {
-          props.getUserData();
-          fixedIncome.current.value = "";
-        })
-        .then(() => {
-          alert("Fixed income has been changed.");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Fixed income cannot be empty.");
-    }
-  };
-
-  const handleNewDepositTypeChange = (e) => {
-    setnewDepositTypeData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-      userId: props.userData.id,
-    }));
-  };
-
-  const handleNewDepositTypeSubmit = (e) => {
-    e.preventDefault();
-    if (newDepositTypeName.current.value) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .post(
-          `http://localhost:3001/deposit-type/user/${props.userData.id}`,
-          newDepositTypeData,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((res) => {
-          props.getUserData();
-          newDepositTypeName.current.value = "";
-        })
-        .then(() => {
-          alert("New deposit type has been added.");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Name cannot be empty.");
-    }
-  };
-
-  useEffect(() => {
-    props.setProfileData({ username: props.userData.username });
-  }, [props.userData]);
-
   return (
     <Container className="content">
       <Row className="header">Update Personal Info</Row>
@@ -139,68 +15,31 @@ const UpdateInfo = (props) => {
           <Accordion.Item eventKey="0">
             <Accordion.Header>Edit Profile</Accordion.Header>
             <Accordion.Body>
-              <Form onSubmit={handleProfileSubmit}>
-                <FloatingLabel label="Username" className="mb-3">
-                  <Form.Control
-                    id="username"
-                    type="text"
-                    placeholder="Username"
-                    onChange={props.handleProfileChange}
-                    defaultValue={props.userData.username}
-                    ref={username}
-                  />
-                </FloatingLabel>
-                <FloatingLabel label="Password" className="mb-3">
-                  <Form.Control
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    onChange={props.handleProfileChange}
-                  />
-                </FloatingLabel>
-                <Button id="login" variant="primary" type="submit">
-                  Save Changes
-                </Button>
-              </Form>
+              <EditProfile
+                userData={props.userData}
+                profileData={props.profileData}
+                setProfileData={props.setProfileData}
+                getUserData={props.getUserData}
+                handleProfileChange={props.handleProfileChange}
+              />
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header>Edit Fixed Income</Accordion.Header>
             <Accordion.Body>
-              <Form onSubmit={handleFixedIncomeSubmit}>
-                <FloatingLabel label="Fixed Income" className="mb-3">
-                  <Form.Control
-                    name="fixedIncome"
-                    type="number"
-                    placeholder="Fixed Income"
-                    onChange={handleFixedIncomeChange}
-                    ref={fixedIncome}
-                    defaultValue={props.userData.fixedIncome}
-                  />
-                </FloatingLabel>
-                <Button variant="primary" type="submit">
-                  Save Changes
-                </Button>
-              </Form>
+              <FixedIncome
+                userData={props.userData}
+                getUserData={props.getUserData}
+              />
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
             <Accordion.Header>Add Deposit Type</Accordion.Header>
             <Accordion.Body>
-              <Form onSubmit={handleNewDepositTypeSubmit}>
-                <FloatingLabel label="Name" className="mb-3">
-                  <Form.Control
-                    name="name"
-                    type="text"
-                    placeholder="Name"
-                    onChange={handleNewDepositTypeChange}
-                    ref={newDepositTypeName}
-                  />
-                </FloatingLabel>
-                <Button variant="primary" type="submit">
-                  Add
-                </Button>
-              </Form>
+              <NewDepositType
+                userData={props.userData}
+                getUserData={props.getUserData}
+              />
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
