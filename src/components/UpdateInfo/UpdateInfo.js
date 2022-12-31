@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
-import axios from "axios";
-import { Form, Button, Container, Row, Accordion } from "react-bootstrap";
-import { FloatingLabel } from "react-bootstrap";
+import React from "react";
+import { Container, Row, Accordion } from "react-bootstrap";
 import EditProfile from "../EditProfile/EditProfile";
 import FixedIncome from "../FixedIncome/FixedIncome";
 import NewDepositType from "../NewDepositType/NewDepositType";
+import NewWithdrawType from "../NewWithdrawType/NewWithdrawType";
 
 const UpdateInfo = (props) => {
   return (
@@ -44,7 +43,12 @@ const UpdateInfo = (props) => {
           </Accordion.Item>
           <Accordion.Item eventKey="3">
             <Accordion.Header>Add Withdraw Type</Accordion.Header>
-            <Accordion.Body></Accordion.Body>
+            <Accordion.Body>
+              <NewWithdrawType
+                userData={props.userData}
+                getUserData={props.getUserData}
+              />
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
             <Accordion.Header>Edit Withdraw Type & Budget</Accordion.Header>
