@@ -41,6 +41,9 @@ const DashboardView = props => {
         <p>Pie chart goes here</p>
       </Row>
       <Row>
+        {props.userData.Deposits}
+      </Row>
+      <Row>
         <CanvasJSChart options = {options}
 			  	/* onRef={ref => this.chart = ref} */
 			  />

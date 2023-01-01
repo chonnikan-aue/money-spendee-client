@@ -22,18 +22,20 @@ const TableView = props => {
   //     })
   //     .then((res) => {
   //       console.log(res.data);
-  //       props.setUserData(res.data);
+  //       // props.setUserData(res.data);
+  //       setUserData(res.data);
   //     });
   // };
 
   // useEffect(() => {
   //   getUserData()
-  //   console.log(props.userData);
+  //   // console.log(props.userData);
+  //   console.log(userData);
   // }, [])
   
   // --------------------------
 
-  const editTransaction = () => {
+  const editTransaction = (props) => {
     
     return console.log("editted");
   } 
@@ -50,7 +52,7 @@ const TableView = props => {
     return console.log(`delete transaction <type: ${type}, id: ${id}>`);
   } 
 
-  console.log(props.userData.Deposits);
+  console.log(props.userData);
 
   const depositsList = props.userData.Deposits.map((deposit, index) => {
 
@@ -64,10 +66,26 @@ const TableView = props => {
         <td>{deposit.amount}</td>
         <td>
           <Col as={Link} to="/edit-transaction">
+            <img src={editIcon} alt="Edit icon" href="" onClick={()=>{editTransaction(type, deposit.id)}}></img>
+          </Col>
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
+        </td>
+      </tr>
+    ) 
+  })
+
+  const withdrawsList = props.transactions.Withdraws.map((withdraw, index) => {
+    return ( 
+      <tr key={index}>
+        <th scope="row">{withdraw.date}</th>
+        <td>{withdraw.name}</td>
+        <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
+        <td>{withdraw.amount}</td>
+        <td>
+          <Col as={Link} to="/edit-transaction">
             <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img>
           </Col>
-          {/* <img src={editIcon} alt="Edit icon" href="" onClick={editTransaction}></img> */}
-          <img src={deleteIcon} alt="Delete icon" href="" onClick={()=>{deleteTransaction(type, deposit.id)}}></img> 
+          <img src={deleteIcon} alt="Delete icon" href="" onClick={deleteTransaction}></img>
         </td>
       </tr>
     ) 
@@ -168,7 +186,7 @@ const TableView = props => {
           </thead>
           <tbody>
             {depositsList}
-            {/* {withdrawsList} */}
+            {withdrawsList}
           </tbody>
         </Table>
       </Row>
