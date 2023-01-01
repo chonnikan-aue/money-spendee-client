@@ -4,12 +4,18 @@ import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
 
-const AddTransaction = () => {
+const AddTransaction = (props) => {
+
+
 
   // Collect the overall data 
   const [data, setData] = useState({
-    userId: 1
+    userId: 3
   })
+
+  console.log(props.userData)
+  const userId = props.userData.id
+
 
   const handleChange = e => {
     let value = e.target.value;
@@ -25,19 +31,26 @@ const AddTransaction = () => {
 
   // show type dropdown
   const [withdrawTypeData, setWithdrawTypeData] = useState([]);
+
+  let token = localStorage.getItem("jwt");
   useEffect(() => {
-    axios.get('http://localhost:3001/withdraw-type') // /user/:userId
+    axios
+      .get(`http://localhost:3001/user/3`,
+        props.profileData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        })
       .then(res => {
-        setWithdrawTypeData(res.data);
+        console.log(res.data);
+        setWithdrawTypeData(res.data.WithdrawTypes);
       });
   }, []);
-
   // show withdraw from dropdown
   const [depositTypeData, setDepositTypeData] = useState([]);
   useEffect(() => {
-    axios.get('http://localhost:3001/deposit-type')
+    axios.get('http://localhost:3001/deposit-type/user/3')
       .then(res => {
-        setDepositTypeData(res.data);
+        setDepositTypeData(res.data.DepositTypes);
       });
   }, []);
 
@@ -46,8 +59,11 @@ const AddTransaction = () => {
     e.preventDefault();
 
     console.log(data)
-
-    axios.post("http://localhost:3001/withdraw", data)
+    let token = localStorage.getItem("jwt");
+    axios.post("http://localhost:3001/withdraw/user/3", data,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(res => {
         console.log(res)
       })
@@ -55,10 +71,10 @@ const AddTransaction = () => {
         console.log(err)
       })
 
-    }
+  }
 
- return (
-  <Container className="content">
+  return (
+    <Container className="content">
       <Form onSubmit={handleSubmit}>
         <h2 className="header text-center">Add your transactions here</h2>
         <FormGroup>
@@ -88,8 +104,8 @@ const AddTransaction = () => {
           >
             <option disabled selected>Select Type</option>
             {
-              withdrawTypeData.map(type => (
-                <option value={type.id}>{type.name}</option>
+              withdrawTypeData.map((type, index) => (
+                <option key={index} value={type.id}>{type.name}</option>
               ))
             }
           </Input>
@@ -104,7 +120,7 @@ const AddTransaction = () => {
             <option disabled selected>Select Account</option>
             {
               depositTypeData.map((account, index) => (
-                <option value={index}>{account.name}</option>
+                <option key={index} value={index}>{account.name}</option>
               ))
             }
           </Input>
@@ -119,7 +135,7 @@ const AddTransaction = () => {
         </FormGroup>
         <Button color="primary" type="submit">Save</Button>
       </Form>
-      </Container>
+    </Container>
   )
 }
 
