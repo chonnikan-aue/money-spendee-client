@@ -32,9 +32,10 @@ function App() {
       })
       .then((res) => {
         console.log(res.data)
-        setUserData(res.data)
+        setUserData(res.data) 
         // Ougrid
         console.log(userData);
+        console.log(userData.Deposits[0].date);
       })
   }
 

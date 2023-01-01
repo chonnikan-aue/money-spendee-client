@@ -6,7 +6,7 @@ import './TableView.css';
 import { Container, Row, Col, Table, Pagination } from "react-bootstrap"
 import { Link } from "react-router-dom";
 
-const TableView = props => {
+const TableView = (props) => {
 
   // Start of Test 01
   //
@@ -35,7 +35,7 @@ const TableView = props => {
   
   // --------------------------
 
-  const editTransaction = (props) => {
+  const editTransaction = () => {
     
     return console.log("editted");
   } 
@@ -52,7 +52,7 @@ const TableView = props => {
     return console.log(`delete transaction <type: ${type}, id: ${id}>`);
   } 
 
-  console.log(props.userData);
+  console.log(props.userData.Deposits[0].date);
 
   const depositsList = props.userData.Deposits.map((deposit, index) => {
 
@@ -74,7 +74,7 @@ const TableView = props => {
     ) 
   })
 
-  const withdrawsList = props.transactions.Withdraws.map((withdraw, index) => {
+  const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
     return ( 
       <tr key={index}>
         <th scope="row">{withdraw.date}</th>
