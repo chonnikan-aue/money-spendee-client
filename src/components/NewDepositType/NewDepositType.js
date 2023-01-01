@@ -27,10 +27,12 @@ const NewDepositType = (props) => {
           }
         )
         .then((res) => {
-          props.getUserData();
-        })
-        .then(() => {
-          alert("New deposit type has been added.");
+          if (res.data.name === "SequelizeUniqueConstraintError") {
+            alert("This name is already taken. Please try another.");
+          } else {
+            props.getUserData();
+            alert("New account has been added.");
+          }
         })
         .catch((err) => {
           console.error(err);
