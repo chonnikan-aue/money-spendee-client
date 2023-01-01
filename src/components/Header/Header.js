@@ -40,15 +40,21 @@ const Header = (props) => {
                 </Link>
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link>
-              <Link to="/add-transaction">Add Transaction</Link>
-            </Nav.Link>
-            <Nav.Link>
-              <Link to="/update-info">Update Personal Info</Link>
-            </Nav.Link>
-            <Nav.Link onClick={logout}>
-              <Link to="/">Logout</Link>
-            </Nav.Link>
+            <Nav.Item>
+              <Link to="/add-transaction" className="normal-link">
+                Add Transaction
+              </Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Link to="/update-info" className="normal-link">
+                Update Personal Info
+              </Link>
+            </Nav.Item>
+            <Nav.Item onClick={logout}>
+              <Link to="/" className="normal-link">
+                Logout
+              </Link>
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>

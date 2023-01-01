@@ -23,3 +23,8 @@ a {
 .dropdown-link {
   color: #212529 !important;
 }
+
+.nav-item {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
