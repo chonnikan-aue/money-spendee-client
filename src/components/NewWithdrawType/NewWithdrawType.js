@@ -33,10 +33,12 @@ const NewWithdrawType = (props) => {
           }
         )
         .then((res) => {
-          props.getUserData();
-        })
-        .then(() => {
-          alert("New withdraw type has been added.");
+          if (res.data.name === "SequelizeUniqueConstraintError") {
+            alert("This name is already taken. Please try another.");
+          } else {
+            props.getUserData();
+            alert("New withdraw type has been added.");
+          }
         })
         .catch((err) => {
           console.error(err);
