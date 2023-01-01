@@ -3,34 +3,17 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const AddTransaction = (props) => {
-
-
-
-  // Collect the overall data 
-  const [data, setData] = useState({
-    userId: 3
-  })
-
   console.log(props.userData)
+
   const userId = props.userData.id
-
-
-  const handleChange = e => {
-    let value = e.target.value;
-    if (e.target.name === 'amount') {
-      value = parseInt(value, 10);
-    }
-    setData((prevState) => ({
-      ...prevState,
-      [e.target.name]: value
-    }));
-  }
-
-
-  // show type dropdown
+  const [data, setData] = useState({
+    userId: userId
+  })
   const [withdrawTypeData, setWithdrawTypeData] = useState([]);
+  const [depositTypeData, setDepositTypeData] = useState([]);
 
   let token = localStorage.getItem("jwt");
   useEffect(() => {
@@ -41,20 +24,34 @@ const AddTransaction = (props) => {
           headers: { Authorization: `Bearer ${token}` },
         })
       .then(res => {
-        console.log(res.data);
+        console.log(res.data)
         setWithdrawTypeData(res.data.WithdrawTypes);
       });
   }, []);
-  // show withdraw from dropdown
-  const [depositTypeData, setDepositTypeData] = useState([]);
+
   useEffect(() => {
-    axios.get('http://localhost:3001/deposit-type/user/3')
+    axios.get('http://localhost:3001/user/3',
+      props.profileData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(res => {
         setDepositTypeData(res.data.DepositTypes);
       });
   }, []);
 
-  // Pass over all data to database
+  const handleChange = e => {
+    let value = e.target.value;
+    if (e.target.name === 'amount') {
+      value = parseInt(value, 10);
+    }
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: value,
+      userId: props.userData.id,
+    }));
+  }
+
   const handleSubmit = e => {
     e.preventDefault();
 
