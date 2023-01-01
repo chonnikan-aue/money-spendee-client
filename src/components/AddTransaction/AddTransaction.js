@@ -7,38 +7,24 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const AddTransaction = (props) => {
   console.log(props.userData)
-
   const userId = props.userData.id
+  const withdraw = props.userData.WithdrawTypes
+  const deposit = props.userData.DepositTypes
+
   const [data, setData] = useState({
     userId: userId
   })
   const [withdrawTypeData, setWithdrawTypeData] = useState([]);
   const [depositTypeData, setDepositTypeData] = useState([]);
 
-  let token = localStorage.getItem("jwt");
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/user/3`,
-        props.profileData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-      .then(res => {
-        console.log(res.data)
-        setWithdrawTypeData(res.data.WithdrawTypes);
-      });
-  }, []);
+    setWithdrawTypeData(withdraw);
+  }, [props.userData]);
+  console.log(withdrawTypeData)
 
   useEffect(() => {
-    axios.get('http://localhost:3001/user/3',
-      props.profileData,
-      {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then(res => {
-        setDepositTypeData(res.data.DepositTypes);
-      });
-  }, []);
+    setDepositTypeData(deposit);
+  }, [props.userData]);
 
   const handleChange = e => {
     let value = e.target.value;
@@ -54,10 +40,9 @@ const AddTransaction = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
     console.log(data)
     let token = localStorage.getItem("jwt");
-    axios.post("http://localhost:3001/withdraw/user/3", data,
+    axios.post(`http://localhost:3001/withdraw/user/${userId}`, data,
       {
         headers: { Authorization: `Bearer ${token}` },
       })
@@ -67,7 +52,6 @@ const AddTransaction = (props) => {
       .catch(err => {
         console.log(err)
       })
-
   }
 
   return (
