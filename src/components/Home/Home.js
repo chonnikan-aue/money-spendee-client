@@ -16,7 +16,7 @@ const Home = (props) => {
           let token = res.data;
           localStorage.setItem("jwt", token);
           props.getUserData();
-          navigate("/table-view");
+          navigate("/add-transaction");
         })
         .catch((err) => {
           alert("Please try again. Username or Password is incorrect.");

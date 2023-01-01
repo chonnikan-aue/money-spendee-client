@@ -97,7 +97,12 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction />
+                <AddTransaction 
+                  handleProfileChange={handleProfileChange}
+                  profileData={profileData}
+                  setProfileData={setProfileData}
+                  userData={userData}
+                  getUserData={getUserData}/>
               </>
             }
           />

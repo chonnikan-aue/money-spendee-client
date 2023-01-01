@@ -3,13 +3,42 @@ import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-const AddTransaction = () => {
+const AddTransaction = (props) => {
+  console.log(props.userData)
 
-  // Collect the overall data 
+  const userId = props.userData.id
   const [data, setData] = useState({
-    userId: 1
+    userId: userId
   })
+  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
+  const [depositTypeData, setDepositTypeData] = useState([]);
+
+  let token = localStorage.getItem("jwt");
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/user/3`,
+        props.profileData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+      .then(res => {
+        console.log(res.data)
+        setWithdrawTypeData(res.data.WithdrawTypes);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/user/3',
+      props.profileData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(res => {
+        setDepositTypeData(res.data.DepositTypes);
+      });
+  }, []);
 
   const handleChange = e => {
     let value = e.target.value;
@@ -18,36 +47,20 @@ const AddTransaction = () => {
     }
     setData((prevState) => ({
       ...prevState,
-      [e.target.name]: value
+      [e.target.name]: value,
+      userId: props.userData.id,
     }));
   }
 
-
-  // show type dropdown
-  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:3001/withdraw-type') // /user/:userId
-      .then(res => {
-        setWithdrawTypeData(res.data);
-      });
-  }, []);
-
-  // show withdraw from dropdown
-  const [depositTypeData, setDepositTypeData] = useState([]);
-  useEffect(() => {
-    axios.get('http://localhost:3001/deposit-type')
-      .then(res => {
-        setDepositTypeData(res.data);
-      });
-  }, []);
-
-  // Pass over all data to database
   const handleSubmit = e => {
     e.preventDefault();
 
     console.log(data)
-
-    axios.post("http://localhost:3001/withdraw", data)
+    let token = localStorage.getItem("jwt");
+    axios.post("http://localhost:3001/withdraw/user/3", data,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      })
       .then(res => {
         console.log(res)
       })
@@ -55,10 +68,10 @@ const AddTransaction = () => {
         console.log(err)
       })
 
-    }
+  }
 
- return (
-  <Container className="content">
+  return (
+    <Container className="content">
       <Form onSubmit={handleSubmit}>
         <h2 className="header text-center">Add your transactions here</h2>
         <FormGroup>
@@ -88,8 +101,8 @@ const AddTransaction = () => {
           >
             <option disabled selected>Select Type</option>
             {
-              withdrawTypeData.map(type => (
-                <option value={type.id}>{type.name}</option>
+              withdrawTypeData.map((type, index) => (
+                <option key={index} value={type.id}>{type.name}</option>
               ))
             }
           </Input>
@@ -104,7 +117,7 @@ const AddTransaction = () => {
             <option disabled selected>Select Account</option>
             {
               depositTypeData.map((account, index) => (
-                <option value={index}>{account.name}</option>
+                <option key={index} value={index}>{account.name}</option>
               ))
             }
           </Input>
@@ -119,7 +132,7 @@ const AddTransaction = () => {
         </FormGroup>
         <Button color="primary" type="submit">Save</Button>
       </Form>
-      </Container>
+    </Container>
   )
 }
 
