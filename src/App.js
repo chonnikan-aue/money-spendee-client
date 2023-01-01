@@ -11,6 +11,7 @@ import EditTransaction from "./components/EditTransaction/EditTransaction";
 import { Route, Routes, Link, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
+import AddTransaction from "./components/AddTransaction/AddTransaction";
 
 function App() {
   const [profileData, setProfileData] = useState({});
@@ -94,6 +95,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
+                <AddTransaction userData={userData} getUserData={getUserData} />
               </>
             }
           />
