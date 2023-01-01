@@ -6,7 +6,6 @@ import Header from "./components/Header/Header";
 import TableView from "./components/TableView/TableView";
 import DashboardView from "./components/DashboardView/DashboardView";
 import SummaryView from "./components/SummaryView/SummaryView";
-import AddTransaction from "./components/AddTransaction/AddTransaction";
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo";
 import EditTransaction from "./components/EditTransaction/EditTransaction";
 import { Route, Routes, Link, Navigate } from "react-router-dom";
@@ -95,13 +94,6 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction
-                  handleProfileChange={handleProfileChange}
-                  profileData={profileData}
-                  setProfileData={setProfileData}
-                  userData={userData}
-                  getUserData={getUserData}
-                />
               </>
             }
           />
@@ -117,60 +109,6 @@ function App() {
                   userData={userData}
                   getUserData={getUserData}
                 />
-              </>
-            }
-          />
-          <Route
-            path="/table-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <TableView userData={userData} setUserData={setUserData} />
-              </>
-            }
-          />
-          <Route
-            path="/dashboard-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <DashboardView />
-              </>
-            }
-          />
-          <Route
-            path="/summary-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <SummaryView />
-              </>
-            }
-          />
-          <Route
-            path="/add-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                <AddTransaction />
-              </>
-            }
-          />
-          <Route
-            path="/update-info"
-            element={
-              <>
-                <Header userData={userData} />
-                <UpdateInfo />
-              </>
-            }
-          />
-          <Route
-            path="/edit-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                <EditTransaction />
               </>
             }
           />

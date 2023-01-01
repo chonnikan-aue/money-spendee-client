@@ -1,11 +1,11 @@
-import './AddTransaction.css'
+import './AddWithdrawTransaction.css'
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import 'bootstrap/dist/css/bootstrap.css';
 import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
-const AddTransaction = (props) => {
+const AddWithdrawTransaction = (props) => {
   console.log(props.userData)
   const userId = props.userData.id
   const withdraw = props.userData.WithdrawTypes
@@ -120,4 +120,4 @@ const AddTransaction = (props) => {
   )
 }
 
-export default AddTransaction
+export default AddWithdrawTransaction
