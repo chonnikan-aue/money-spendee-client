@@ -13,3 +13,13 @@
   padding-top: 0.5rem;
   padding-right: 3rem;
 }
+
+a {
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+.dropdown-link {
+  color: #212529 !important;
+}

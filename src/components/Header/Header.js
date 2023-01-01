@@ -1,6 +1,7 @@
 import React from "react";
 import "./Header.css";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
   const logout = () => {
@@ -15,25 +16,38 @@ const Header = (props) => {
         <Navbar.Brand>MONey Spendee</Navbar.Brand>
         <Nav>
           <Navbar.Text>
-            Signed in as: <a href="/update-info">{props.userData.username}</a>
+            Signed in as:{" "}
+            <Link to="/update-info">{props.userData.username}</Link>
           </Navbar.Text>
         </Nav>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
             <NavDropdown title="View Transaction" id="collasible-nav-dropdown">
-              <NavDropdown.Item href="/table-view">Table View</NavDropdown.Item>
-              <NavDropdown.Item href="/dashboard-view">
-                Dashboard View
+              <NavDropdown.Item>
+                <Link to="/table-view" className="dropdown-link">
+                  Table View
+                </Link>
               </NavDropdown.Item>
-              <NavDropdown.Item href="/summary-view">
-                Summary View
+              <NavDropdown.Item>
+                <Link to="/dashboard-view" className="dropdown-link">
+                  Dashboard View
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link to="/summary-view" className="dropdown-link">
+                  Summary View
+                </Link>
               </NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/add-transaction">Add Transaction</Nav.Link>
-            <Nav.Link href="/update-info">Update Personal Info</Nav.Link>
-            <Nav.Link href="/" onClick={logout}>
-              Logout
+            <Nav.Link>
+              <Link to="/add-transaction">Add Transaction</Link>
+            </Nav.Link>
+            <Nav.Link>
+              <Link to="/update-info">Update Personal Info</Link>
+            </Nav.Link>
+            <Nav.Link onClick={logout}>
+              <Link to="/">Logout</Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
