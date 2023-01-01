@@ -4,49 +4,39 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 const SummaryView = props => {
 
-  // Q: What type income is?
-  // BUG: 
-  // Version 1
-  // const sumIncome = props.transactions.deposits
-  //   .filter((deposit) => deposit.name === "Fixed Income")
-  //   .reduce((sum, withdraw) => {
-  //     return sum + withdraw.amount
-  //   }, 0)  
-  // Version 2
-  // const sumIncome = props.transactions.deposits.reduce((sum, deposit) => {
-  //   return sum + deposit.amount
-  // }, 0)  
-  // console.log(sumIncome);      
+  const sumCheckings = props.userData.Deposits
+    .filter((deposit) => deposit.typeId === 1)
+    .reduce((sum, deposit) => {
+      return sum + deposit.amount
+    }, 0)
+  // console.log(sumCheckings)
   
-  // BUG:
-  // const sumSavings = props.userData.withdraws.reduce((sum, withdraw) => {
-  //   return sum + withdraw.amount
-  // }, 0)
-  // console.log(sumSavings);    
+  const sumSavings = props.userData.Deposits
+    .filter((deposit) => deposit.typeId === 4)
+    .reduce((sum, deposit) => {
+      return sum + deposit.amount
+    }, 0)
+  // console.log(sumSavings)
   
-  const sumDailyExpenses = props.userData.withdraws
+  const sumDailyExpenses = props.userData.Withdraws
     .filter((withdraw) => withdraw.typeId === 1)
     .reduce((sum, withdraw) => {
       return sum + withdraw.amount
     }, 0)  
   // console.log(sumDailyExpenses);  
   
-  const sumInvestment = props.userData.withdraws
+  const sumInvestment = props.userData.Withdraws
     .filter((withdraw) => withdraw.typeId === 2)
     .reduce((sum, withdraw) => {
       return sum + withdraw.amount
     }, 0)  
 // console.log(sumDailyExpenses);  
 
-  // TO DO: make it dynamic
-  let incomeValue = 20000
-  // let incomeValue = sumIncome
-  let savingsValue = 50000
-  // let savingsValue = sumSavings
-  let balanceValue = incomeValue + savingsValue
-  // let dailyExpensesValue = 5000
+  // TO DO: make the `<types>Value` dynamic
+  let checkingsValue = sumCheckings
+  let savingsValue = sumSavings
+  let balanceValue = checkingsValue + savingsValue
   let dailyExpensesValue = sumDailyExpenses
-  // let investmentValue = 10000
   let investmentValue = sumInvestment
   let expensesValue = dailyExpensesValue + investmentValue
   let totalValue = balanceValue + expensesValue
@@ -65,9 +55,9 @@ const SummaryView = props => {
         <Col id="balance-box">
           Balance: {balanceValue}
         </Col>
-        <Col id="income-savings-box">   
-          <Row id="income-box">
-            Income: {incomeValue}
+        <Col id="checkings-savings-box">   
+          <Row id="checkings-box">
+            Checkings: {checkingsValue}
           </Row>
           <Row id="savings-box">
             Savings: {savingsValue}
