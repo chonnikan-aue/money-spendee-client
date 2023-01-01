@@ -19,23 +19,23 @@ const SummaryView = props => {
   // console.log(sumIncome);      
   
   // BUG:
-  // const sumSavings = props.transactions.withdraws.reduce((sum, withdraw) => {
+  // const sumSavings = props.userData.withdraws.reduce((sum, withdraw) => {
   //   return sum + withdraw.amount
   // }, 0)
   // console.log(sumSavings);    
   
-  const sumDailyExpenses = props.transactions.withdraws
+  const sumDailyExpenses = props.userData.withdraws
     .filter((withdraw) => withdraw.typeId === 1)
     .reduce((sum, withdraw) => {
       return sum + withdraw.amount
     }, 0)  
   // console.log(sumDailyExpenses);  
   
-  const sumInvestment = props.transactions.withdraws
-  .filter((withdraw) => withdraw.typeId === 2)
-  .reduce((sum, withdraw) => {
-    return sum + withdraw.amount
-  }, 0)  
+  const sumInvestment = props.userData.withdraws
+    .filter((withdraw) => withdraw.typeId === 2)
+    .reduce((sum, withdraw) => {
+      return sum + withdraw.amount
+    }, 0)  
 // console.log(sumDailyExpenses);  
 
   // TO DO: make it dynamic
