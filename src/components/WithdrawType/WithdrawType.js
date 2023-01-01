@@ -32,10 +32,12 @@ const WithdrawType = (props) => {
           }
         )
         .then((res) => {
-          props.getUserData();
-        })
-        .then(() => {
-          alert("Withdraw type has been updated.");
+          if (res.data.name === "SequelizeUniqueConstraintError") {
+            alert("This name is already taken. Please try another.");
+          } else {
+            props.getUserData();
+            alert("Withdraw type has been updated.");
+          }
         })
         .catch((err) => {
           console.error(err);
@@ -53,8 +55,6 @@ const WithdrawType = (props) => {
       })
       .then((res) => {
         props.getUserData();
-      })
-      .then(() => {
         alert("Withdraw type has been deleted.");
       })
       .catch((err) => {
@@ -66,7 +66,9 @@ const WithdrawType = (props) => {
     <>
       {props.withdrawType ? (
         <>
-          <p>{props.withdrawType.name}</p>
+          <h5>{props.withdrawType.name}</h5>
+          <p className="mb-0">Budget = {props.withdrawType.budgetPercent}%</p>
+          <p>Alert when exceed {props.withdrawType.alertPercent}% of budget</p>
           <Form className="mb-3">
             <FloatingLabel label="Name" className="mb-3">
               <Form.Control
@@ -75,7 +77,6 @@ const WithdrawType = (props) => {
                 placeholder="Name"
                 onChange={handleChange}
                 ref={withdrawTypeName}
-                defaultValue={props.withdrawType.name}
               />
             </FloatingLabel>
             <FloatingLabel label="Budget (%)" className="mb-3">
@@ -85,7 +86,6 @@ const WithdrawType = (props) => {
                 placeholder="Budget (%)"
                 onChange={handleChange}
                 ref={budgetPercent}
-                defaultValue={props.withdrawType.budgetPercent}
               />
             </FloatingLabel>
             <FloatingLabel
@@ -98,7 +98,6 @@ const WithdrawType = (props) => {
                 placeholder="Alert when exceed __% of budget"
                 onChange={handleChange}
                 ref={alertPercent}
-                defaultValue={props.withdrawType.alertPercent}
               />
             </FloatingLabel>
             <Button
