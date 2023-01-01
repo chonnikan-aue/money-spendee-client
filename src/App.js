@@ -16,6 +16,11 @@ import { Button, Container, Row, Col, Dropdown } from "react-bootstrap"
 function App() {
   const [profileData, setProfileData] = useState({})
   const [userData, setUserData] = useState({})
+  // Ougrid
+  const [selectedTransaction, setSelectedTransaction] = useState({
+    type: "",
+    id: "" // Either depositId or withdrawId
+  })
 
   const handleProfileChange = (e) => {
     setProfileData((prevState) => ({
@@ -34,8 +39,8 @@ function App() {
         console.log(res.data)
         setUserData(res.data) 
         // Ougrid
-        console.log(userData);
-        console.log(userData.Deposits[0].date);
+        // console.log(userData);
+        // console.log(userData.Deposits[0].date);
       })
   }
 
@@ -121,7 +126,12 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <TableView userData={userData} setUserData={setUserData} />
+                <TableView
+                  userData={userData}
+                  setUserData={setUserData}
+                  selectedTransaction={selectedTransaction}
+                  setSelectedTransaction={setSelectedTransaction}
+                />
               </>
             }
           />
@@ -130,7 +140,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <DashboardView userData={userData}/>
+                <DashboardView userData={userData} />
               </>
             }
           />
@@ -175,7 +185,10 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <EditTransaction />
+                <EditTransaction
+                  selectedTransaction={selectedTransaction}
+                  setSelectedTransaction={setSelectedTransaction}
+                />
               </>
             }
           />
