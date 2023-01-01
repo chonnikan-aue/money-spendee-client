@@ -7,25 +7,27 @@ const WithdrawTypeList = (props) => {
 
   useEffect(() => {
     if (props.userData.WithdrawTypes) {
-      const withdrawTypes = props.userData.WithdrawTypes.map(
-        (withdrawType, index) => {
-          return (
-            <WithdrawType
-              key={index}
-              userData={props.userData}
-              getUserData={props.getUserData}
-              withdrawType={withdrawType}
-            />
-          );
-        }
-      );
-      setWithdrawTypesDiv(withdrawTypes);
-    } else {
-      setWithdrawTypesDiv(
-        <Alert className="mb-0" variant="success">
-          You don't have any withdraw type.
-        </Alert>
-      );
+      if (props.userData.WithdrawTypes.length) {
+        const withdrawTypes = props.userData.WithdrawTypes.map(
+          (withdrawType, index) => {
+            return (
+              <WithdrawType
+                key={index}
+                userData={props.userData}
+                getUserData={props.getUserData}
+                withdrawType={withdrawType}
+              />
+            );
+          }
+        );
+        setWithdrawTypesDiv(withdrawTypes);
+      } else {
+        setWithdrawTypesDiv(
+          <Alert className="mb-0" variant="success">
+            You don't have any withdraw type.
+          </Alert>
+        );
+      }
     }
   }, [props.userData]);
 

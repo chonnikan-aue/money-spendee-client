@@ -31,6 +31,7 @@ function App() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
+        res.data.WithdrawTypes.sort((a, b) => b.id - a.id);
         console.log(res.data);
         setUserData(res.data);
       });
@@ -67,10 +68,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <TableView
-                    userData={userData}
-                    setUserData={setUserData}
-                  />
+                <TableView userData={userData} setUserData={setUserData} />
               </>
             }
           />
@@ -97,12 +95,13 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction 
+                <AddTransaction
                   handleProfileChange={handleProfileChange}
                   profileData={profileData}
                   setProfileData={setProfileData}
                   userData={userData}
-                  getUserData={getUserData}/>
+                  getUserData={getUserData}
+                />
               </>
             }
           />
@@ -119,77 +118,72 @@ function App() {
                   getUserData={getUserData}
                 />
               </>
-              }
-            />
-            <Route
-              path="/table-view"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <TableView
-                    userData={userData}
-                    setUserData={setUserData}
-                    
-                  />
+            }
+          />
+          <Route
+            path="/table-view"
+            element={
+              <>
+                <Header userData={userData} />
+                <TableView userData={userData} setUserData={setUserData} />
               </>
             }
           />
           <Route
-              path="/dashboard-view"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <DashboardView />
-                </>
-              }
-            />
-            <Route
-              path="/summary-view"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <SummaryView />
-                </>
-              }
-            />
-            <Route
-              path="/add-transaction"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <AddTransaction />
-                </>
-              }
-            />
-            <Route
-              path="/update-info"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <UpdateInfo />
-                </>
-              }
-            />
-            <Route
-              path="/edit-transaction"
-              element={
+            path="/dashboard-view"
+            element={
               <>
                 <Header userData={userData} />
-                  <EditTransaction />
+                <DashboardView />
               </>
-              }
-            />
-            <Route
-              path="/edit-transaction"
-              element={
-                <>
-                  <Header userData={userData} />
-                  <EditTransaction />
-                </>
-              }
-            />
-          </Routes>         
-       
+            }
+          />
+          <Route
+            path="/summary-view"
+            element={
+              <>
+                <Header userData={userData} />
+                <SummaryView />
+              </>
+            }
+          />
+          <Route
+            path="/add-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <AddTransaction />
+              </>
+            }
+          />
+          <Route
+            path="/update-info"
+            element={
+              <>
+                <Header userData={userData} />
+                <UpdateInfo />
+              </>
+            }
+          />
+          <Route
+            path="/edit-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <EditTransaction />
+              </>
+            }
+          />
+          <Route
+            path="/edit-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <EditTransaction />
+              </>
+            }
+          />
+        </Routes>
       </Container>
     </div>
   );
