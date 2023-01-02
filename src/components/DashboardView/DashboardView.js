@@ -15,7 +15,6 @@ const DashboardView = (props) => {
         return { y: withdrawType.sumAmount, label: withdrawType.name };
       }
     );
-    console.log(depositTypesData.concat(withdrawTypesData));
     return depositTypesData.concat(withdrawTypesData);
   };
 
