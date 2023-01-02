@@ -17,57 +17,62 @@ const AddWithdrawTransaction = (props) => {
 
   const handleChange = (e) => {
     let value = e.target.value;
-    let matchType
-    let totalAmount
-    let matchWithdrawType
-    let budgetAmount = 0
-    let alertBudget
+    let matchType;
+    let totalAmount;
+    let matchWithdrawType;
+    let budgetAmount = 0;
 
-    if (e.target.name === 'typeId' || e.target.name === 'withdrawFromId') {
+    if (e.target.name === "typeId" || e.target.name === "withdrawFromId") {
       setFormData((prevState) => ({
         ...prevState,
         withdrawFromId: value,
         typeId: value,
-      }))
+      }));
     }
 
-    console.log(formData)
+    console.log(formData);
 
     let { withdrawFromId, typeId } = formData;
     if (withdrawFromId != 0 && typeId != 0) {
-      matchType = props.userData.Deposits.filter(deposit => deposit.typeId == withdrawFromId);
+      matchType = props.userData.Deposits.filter(
+        (deposit) => deposit.typeId == withdrawFromId
+      );
 
-      totalAmount = matchType.reduce((total, deposit) => total + deposit.amount, 0);
-      console.log(`this is total ${totalAmount}`)
+      totalAmount = matchType.reduce(
+        (total, deposit) => total + deposit.amount,
+        0
+      );
+      console.log(`this is total ${totalAmount}`);
 
-      matchWithdrawType = props.userData.WithdrawTypes.find(withdrawType => withdrawType.id == typeId);
-      console.log(matchWithdrawType)
+      matchWithdrawType = props.userData.WithdrawTypes.find(
+        (withdrawType) => withdrawType.id == typeId
+      );
+      console.log(matchWithdrawType);
       budgetAmount = totalAmount * (matchWithdrawType.budgetPercent / 100);
-      console.log(`this is budget ${budgetAmount}`)
+      console.log(`this is budget ${budgetAmount}`);
 
       const alertBudget = budgetAmount * (matchWithdrawType.alertPercent / 100);
-      console.log(`this is alert ${alertBudget}`)
-      setAlertAmount(alertBudget)
+      console.log(`this is alert ${alertBudget}`);
+      setAlertAmount(alertBudget);
     }
 
-    if (e.target.name === 'amount') {
-      value = parseInt(value, 10);
-      console.log(value)
-      console.log(alertAmount)
+    value = parseInt(value, 10);
+    console.log(value);
+    console.log(alertAmount);
+    if (formData.typeId != 0 && formData.withdrawFromId != 0) {
       if (value > alertAmount) {
-          setShow(true)
+        setShow(true);
       } else {
-        setShow(false)
+        setShow(false);
       }
     }
+
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: value,
       userId: props.userData.id,
     }));
   }
-
-
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -90,7 +95,7 @@ const AddWithdrawTransaction = (props) => {
     <Form onSubmit={handleSubmit}>
       {show && (
         <Alert variant="warning" onClose={() => setShow(false)}>
-          Your transaction is over the budget limit
+          `Your transaction is over the budget limit which is {alertAmount} THB`
         </Alert>
       )}
       <FloatingLabel label="Title" className="mb-3">
