@@ -26,11 +26,13 @@ const AddWithdrawTransaction = (props) => {
   const handleSubmit = e => {
     e.preventDefault();
     let token = localStorage.getItem("jwt");
-    axios.post(`http://localhost:3001/withdraw/user/${userId}`, data,
+    axios.post(`http://localhost:3001/withdraw/user/${props.userData.id}`, data,
       {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(res => {
+        console.log(res)
+        console.log(data)
         alert("Transaction has been updated.");
       })
       .catch(err => {
@@ -40,67 +42,61 @@ const AddWithdrawTransaction = (props) => {
 
   return (
     <Container className="content">
-        <h2 className="header text-center">Add your transactions here</h2>
+      <h2 className="header text-center">Add your transactions here</h2>
       <Form onSubmit={handleSubmit}>
         <FloatingLabel label="Title" className="mb-3">
-        <Form.Control
-          name="name"
-          type="text"
-          placeholder="What did you pay?"
-          onChange={handleChange}
-        />
-      </FloatingLabel>
-      <FloatingLabel label= "Amount" className="mb-3">
-        <Form.Control
-          name="name"
-          type="text"
-          placeholder="Amount"
-          onChange={handleChange}
-        />
-      </FloatingLabel>
-        <FormGroup>
-          <Label for="typeId">Type:</Label>
-          <Input
-            type="select"
-            name="typeId"
+          <Form.Control
+            name="name"
+            type="text"
+            placeholder="What did you pay?"
             onChange={handleChange}
-          >
-            <option disabled selected>Select Type</option>
-            {props.userData.DepositTypes
-            ? props.userData.WithdrawTypes.map((type, index) => (
+          />
+        </FloatingLabel>
+        <FloatingLabel label="Amount" className="mb-3">
+          <Form.Control
+            name="amount"
+            type="text"
+            placeholder="Amount"
+            onChange={handleChange}
+          />
+        </FloatingLabel>
+
+        <FloatingLabel label="Type" className="mb-3">
+          <Form.Select name="typeId" onChange={handleChange} required>
+            <option value="">Select Type</option>
+            {props.userData.WithdrawTypes
+              ? props.userData.WithdrawTypes.map((type, index) => (
                 <option key={index} value={type.id}>
                   {type.name}
                 </option>
               ))
-            : null}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label for="withdrawFromId">Account:</Label>
-          <Input
-            type="select"
-            name="withdrawFromId"
-            onChange={handleChange}
-          >
-            <option disabled selected>Select Account</option>
+              : null}
+          </Form.Select>
+        </FloatingLabel>
+
+        <FloatingLabel label="Account:" className="mb-3">
+          <Form.Select name="withdrawFromId" onChange={handleChange} required>
+            <option value="">Select Account</option>
             {props.userData.DepositTypes
-            ? props.userData.DepositTypes.map((account, index) => (
+              ? props.userData.DepositTypes.map((account, index) => (
                 <option key={index} value={account.id}>
                   {account.name}
                 </option>
               ))
-            : null}
-          </Input>
-        </FormGroup>
-        <FormGroup>
-          <Label for="date">Date:</Label>
-          <Input
-            type="date"
-            name="date"
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <Button color="primary" type="submit">Save</Button>
+              : null}
+          </Form.Select>
+        </FloatingLabel>
+
+        <FloatingLabel label="Date" className="mb-3">
+        <Form.Control
+          name="date"
+          type="date"
+          onChange={handleChange}
+          required
+        />
+      </FloatingLabel>
+
+        <Button color="primary" type="submit">Submit</Button>
       </Form>
     </Container>
   )
