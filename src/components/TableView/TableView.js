@@ -4,43 +4,12 @@ import editIcon from "../../images/edit.png"
 import deleteIcon from "../../images/delete.png"
 import "./TableView.css"
 import { Container, Row, Col, Table, Pagination } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const TableView = (props) => {
 
-  // Mai's recommendation
-  // const [div, setDiv] = useState();
-
-  // useEffect(()=>{
-  //   if (props.userData) {
-  //     setDiv(depositsList)
-  //   }
-  // }, [props.userData])
-  
-  // const [transactions, setTransactions] = useState({
-  //   deposits: [],
-  //   withdraws: []
-  // })
-  // const [transactions, setTransactions] = useState([])
-
-  // // Mai's recommendation
-  // useEffect(()=>{
-  //   if (props.userData) {
-  //     console.log(props.userData);
-  //   }
-  // },[props.userData])
-
-  // return (
-  //   <h1>{props.userData.Deposits[0].name}</h1>
-  // )
-  //
-
-  // Start of Test 01: Static version
-  //
-  //
-
   const editTransaction = (type, id) => {
-    // selectedTransaction
+
     props.setSelectedTransaction({
       id: id, // Either depositId or withdrawId
       type: type, // Either deposit or withdraw
@@ -60,9 +29,9 @@ const TableView = (props) => {
         (transaction) => transaction.id === id
       ).userId
     })
-
-    return console.log(`edit transaction <type: ${type}, ${type}Id: ${id}>`)
-  }
+      
+    return console.log(`Now editting transaction <type: ${type}, ${type}Id: ${id}>`)
+  }  
 
   const deleteTransaction = (type, id) => {
 
@@ -84,13 +53,6 @@ const TableView = (props) => {
     return console.log(`delete transaction <type: ${type}, id: ${id}>`)
   }
   
-  // console.log(props.userData);
-  // console.log(props.userData.Deposits[0].date);
-  
-  // const depositDataList = 
-  // const depositTypeDataList = props.userData.DepositTypes.map((depositType) => {
-  //   return 
-  // })
   const findDepositType = (depositTypeId) => {
     let depositType = `${props.userData.DepositTypes.find(type => type.id === depositTypeId).name}`
 
@@ -100,14 +62,11 @@ const TableView = (props) => {
   const depositsList = props.userData.Deposits.map((deposit, index) => {
 
     let type = "deposit"
-    // let depositType = `${props.userData.DepositTypes.find(type => type.id === deposit.typeId).name}`
     
     return ( // Use react-bootstrap
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
         <td>{deposit.name}</td>
-        {/* <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td> */}
-        {/* <td>{depositType}</td> */}
         <td>{findDepositType(deposit.typeId)}</td>
         <td>{deposit.amount}</td>
         <td>
@@ -120,7 +79,6 @@ const TableView = (props) => {
                 editTransaction(type, deposit.id);
               }}
             ></img>
-            {/* TO DO: Use React-icon */}
           </Col>
           <img
             src={deleteIcon}
@@ -174,14 +132,11 @@ const TableView = (props) => {
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
 
     let type = "withdraw"
-    // let withdrawType = `${props.userData.withdrawTypes.find(type => type.id === withdraw.typeId).name}`
 
     return (
       <tr key={index}>
         <th scope="row">{withdraw.date}</th>
         <td>{withdraw.name}</td>
-        {/* <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td> */}
-        {/* <td>{withdrawType}</td> */}
         <td>{findWithdrawType(withdraw.typeId)}</td>
         <td>{withdraw.amount}</td>
         <td>
@@ -210,23 +165,10 @@ const TableView = (props) => {
     if (props.userData) {
       props.setTransactions({
         deposits: depositsList,
-        // withdraws: withdrawsList,
+        withdraws: withdrawsList
       })
     }
   }, [props.userData])
-
-  // console.log(sumCheckings)
-  //
-  //
-  // End of Test 01
-
-  // Start of Test 02: Dynamic version
-  //
-  //
-
-  //
-  //
-  // End of Test 02
 
   let active = 1
   let items = []
@@ -237,12 +179,6 @@ const TableView = (props) => {
       </Pagination.Item>
     )
   }
-
-
-
-
-
-
 
   // return ( // Not using react-bootstrap
   //   <div>
@@ -270,7 +206,6 @@ const TableView = (props) => {
   //       </table>
   //   </div>
   // )
-
 
   return (
     <Container>
