@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 
 const NewDepositType = (props) => {
-  const newDepositType = useRef();
   const [data, setData] = useState({});
 
   const handleChange = (e) => {
@@ -16,30 +15,26 @@ const NewDepositType = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (newDepositType.current.value) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .post(
-          `http://localhost:3001/deposit-type/user/${props.userData.id}`,
-          data,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((res) => {
-          if (res.data.name === "SequelizeUniqueConstraintError") {
-            alert("This name is already taken. Please try another.");
-          } else {
-            props.getUserData();
-            alert("New account has been added.");
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Name cannot be empty.");
-    }
+    let token = localStorage.getItem("jwt");
+    axios
+      .post(
+        `http://localhost:3001/deposit-type/user/${props.userData.id}`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((res) => {
+        if (res.data.name === "SequelizeUniqueConstraintError") {
+          alert("This name is already taken. Please try another.");
+        } else {
+          props.getUserData();
+          alert("New account has been added.");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -50,7 +45,7 @@ const NewDepositType = (props) => {
           type="text"
           placeholder="Name"
           onChange={handleChange}
-          ref={newDepositType}
+          required
         />
       </FloatingLabel>
       <Button variant="primary" type="submit">

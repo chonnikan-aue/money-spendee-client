@@ -1,39 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 
 const EditProfile = (props) => {
-  const username = useRef();
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username.current.value) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .put(
-          `http://localhost:3001/user/${props.userData.id}`,
-          props.profileData,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((res) => {
-          localStorage.setItem(
-            "profileData",
-            JSON.stringify({ username: props.profileData.username })
-          );
-          props.setProfileData(JSON.parse(localStorage.getItem("profileData")));
-          props.getUserData();
-        })
-        .then(() => {
-          alert("Profile has been updated.");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Username cannot be empty.");
-    }
+    let token = localStorage.getItem("jwt");
+    axios
+      .put(
+        `http://localhost:3001/user/${props.userData.id}`,
+        props.profileData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((res) => {
+        localStorage.setItem(
+          "profileData",
+          JSON.stringify({ username: props.profileData.username })
+        );
+        props.setProfileData(JSON.parse(localStorage.getItem("profileData")));
+        props.getUserData();
+      })
+      .then(() => {
+        alert("Profile has been updated.");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   useEffect(() => {
@@ -49,7 +43,7 @@ const EditProfile = (props) => {
           placeholder="Username"
           onChange={props.handleProfileChange}
           defaultValue={props.userData.username}
-          ref={username}
+          required
         />
       </FloatingLabel>
       <FloatingLabel label="Password" className="mb-3">

@@ -3,9 +3,6 @@ import axios from "axios";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 
 const NewWithdrawType = (props) => {
-  const withdrawTypeName = useRef();
-  const budgetPercent = useRef();
-  const alertPercent = useRef();
   const [data, setData] = useState({});
 
   const handleChange = (e) => {
@@ -18,34 +15,26 @@ const NewWithdrawType = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (
-      withdrawTypeName.current.value &&
-      budgetPercent.current.value &&
-      alertPercent.current.value
-    ) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .post(
-          `http://localhost:3001/withdraw-type/user/${props.userData.id}`,
-          data,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        )
-        .then((res) => {
-          if (res.data.name === "SequelizeUniqueConstraintError") {
-            alert("This name is already taken. Please try another.");
-          } else {
-            props.getUserData();
-            alert("New withdraw type has been added.");
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Name, Budget, and Alert cannot be empty.");
-    }
+    let token = localStorage.getItem("jwt");
+    axios
+      .post(
+        `http://localhost:3001/withdraw-type/user/${props.userData.id}`,
+        data,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      .then((res) => {
+        if (res.data.name === "SequelizeUniqueConstraintError") {
+          alert("This name is already taken. Please try another.");
+        } else {
+          props.getUserData();
+          alert("New withdraw type has been added.");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -56,25 +45,29 @@ const NewWithdrawType = (props) => {
           type="text"
           placeholder="Name"
           onChange={handleChange}
-          ref={withdrawTypeName}
+          required
         />
       </FloatingLabel>
       <FloatingLabel label="Budget (%)" className="mb-3">
         <Form.Control
           name="budgetPercent"
           type="number"
+          min={1}
+          max={100}
           placeholder="Budget (%)"
           onChange={handleChange}
-          ref={budgetPercent}
+          required
         />
       </FloatingLabel>
       <FloatingLabel label="Alert when exceed __% of budget" className="mb-3">
         <Form.Control
           name="alertPercent"
           type="number"
+          min={1}
+          max={100}
           placeholder="Alert when exceed __% of budget"
           onChange={handleChange}
-          ref={alertPercent}
+          required
         />
       </FloatingLabel>
       <Button variant="primary" type="submit">
