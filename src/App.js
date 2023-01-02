@@ -17,6 +17,7 @@ import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
 function App() {
   const [profileData, setProfileData] = useState({});
   const [userData, setUserData] = useState({});
+
   // Ougrid's Section Starts
   //
   const [transactions, setTransactions] = useState({
@@ -31,7 +32,6 @@ function App() {
     typeId: 0,
     userId: 0,
   });
-  const [summary, setSummary] = useState({});
   //
   // Ougrid's Section Ends
 
