@@ -6,14 +6,14 @@ const AddWithdrawTransaction = (props) => {
   const userId = props.userData.id
   console.log(props.userData)
   const [data, setData] = useState({
-    userId: userId,
-    alertAmount: 0,
+    userId: userId
   })
   const [formData, setFormData] = useState({
     withdrawFromId: 0,
     typeId: 0,
   });
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
+  const [alertAmount, setAlertAmount] = useState('')
 
   const handleChange = (e) => {
     let value = e.target.value;
@@ -22,11 +22,14 @@ const AddWithdrawTransaction = (props) => {
     let matchWithdrawType
     let budgetAmount = 0
     let alertBudget
-    
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: value,
-    }))
+
+    if (e.target.name === 'typeId' || e.target.name === 'withdrawFromId') {
+      setFormData((prevState) => ({
+        ...prevState,
+        withdrawFromId: value,
+        typeId: value,
+      }))
+    }
 
     console.log(formData)
 
@@ -38,25 +41,33 @@ const AddWithdrawTransaction = (props) => {
       console.log(`this is total ${totalAmount}`)
 
       matchWithdrawType = props.userData.WithdrawTypes.find(withdrawType => withdrawType.id == typeId);
+      console.log(matchWithdrawType)
       budgetAmount = totalAmount * (matchWithdrawType.budgetPercent / 100);
       console.log(`this is budget ${budgetAmount}`)
 
       const alertBudget = budgetAmount * (matchWithdrawType.alertPercent / 100);
       console.log(`this is alert ${alertBudget}`)
+      setAlertAmount(alertBudget)
     }
 
-      if (e.target.name === 'amount') {
-        value = parseInt(value, 10);
-        if (value > alertBudget) {
-
-        }
+    if (e.target.name === 'amount') {
+      value = parseInt(value, 10);
+      console.log(value)
+      console.log(alertAmount)
+      if (value > alertAmount) {
+          setShow(true)
+      } else {
+        setShow(false)
       }
+    }
     setData((prevState) => ({
       ...prevState,
       [e.target.name]: value,
       userId: props.userData.id,
     }));
   }
+
+
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -77,9 +88,11 @@ const AddWithdrawTransaction = (props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Alert variant="success" dismissible show={show} onClose={() => setShow(false)}>
-      This is a success alert—check it out!
-    </Alert>
+      {show && (
+        <Alert variant="warning" onClose={() => setShow(false)}>
+          Your transaction is over the budget limit
+        </Alert>
+      )}
       <FloatingLabel label="Title" className="mb-3">
         <Form.Control
           name="name"
