@@ -1,30 +1,15 @@
 import './AddWithdrawTransaction.css'
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import 'bootstrap/dist/css/bootstrap.css';
-import { Form, FormGroup, Label, Input, Button, Container } from 'reactstrap';
-import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import { FormGroup, Label, Input, Container } from 'reactstrap';
+import { Form, Button, FloatingLabel } from 'react-bootstrap';
 
 const AddWithdrawTransaction = (props) => {
-  console.log(props.userData)
   const userId = props.userData.id
-  const withdraw = props.userData.WithdrawTypes
-  const deposit = props.userData.DepositTypes
 
   const [data, setData] = useState({
     userId: userId
   })
-  const [withdrawTypeData, setWithdrawTypeData] = useState([]);
-  const [depositTypeData, setDepositTypeData] = useState([]);
-
-  useEffect(() => {
-    setWithdrawTypeData(withdraw);
-  }, [props.userData]);
-  console.log(withdrawTypeData)
-
-  useEffect(() => {
-    setDepositTypeData(deposit);
-  }, [props.userData]);
 
   const handleChange = e => {
     let value = e.target.value;
@@ -40,14 +25,13 @@ const AddWithdrawTransaction = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(data)
     let token = localStorage.getItem("jwt");
     axios.post(`http://localhost:3001/withdraw/user/${userId}`, data,
       {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(res => {
-        console.log(res)
+        alert("Transaction has been updated.");
       })
       .catch(err => {
         console.log(err)
@@ -56,26 +40,24 @@ const AddWithdrawTransaction = (props) => {
 
   return (
     <Container className="content">
-      <Form onSubmit={handleSubmit}>
         <h2 className="header text-center">Add your transactions here</h2>
-        <FormGroup>
-          <Label for="name">Title:</Label>
-          <Input
-            type="text"
-            name="name"
-            placeholder="What did you pay?"
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="amount">Amount:</Label>
-          <Input
-            type="text"
-            name="amount"
-            placeholder="THB"
-            onChange={handleChange}
-          />
-        </FormGroup>
+      <Form onSubmit={handleSubmit}>
+        <FloatingLabel label="Title" className="mb-3">
+        <Form.Control
+          name="name"
+          type="text"
+          placeholder="What did you pay?"
+          onChange={handleChange}
+        />
+      </FloatingLabel>
+      <FloatingLabel label= "Amount" className="mb-3">
+        <Form.Control
+          name="name"
+          type="text"
+          placeholder="Amount"
+          onChange={handleChange}
+        />
+      </FloatingLabel>
         <FormGroup>
           <Label for="typeId">Type:</Label>
           <Input
@@ -84,11 +66,13 @@ const AddWithdrawTransaction = (props) => {
             onChange={handleChange}
           >
             <option disabled selected>Select Type</option>
-            {
-              withdrawTypeData.map((type, index) => (
-                <option key={index} value={type.id}>{type.name}</option>
+            {props.userData.DepositTypes
+            ? props.userData.WithdrawTypes.map((type, index) => (
+                <option key={index} value={type.id}>
+                  {type.name}
+                </option>
               ))
-            }
+            : null}
           </Input>
         </FormGroup>
         <FormGroup>
@@ -99,11 +83,13 @@ const AddWithdrawTransaction = (props) => {
             onChange={handleChange}
           >
             <option disabled selected>Select Account</option>
-            {
-              depositTypeData.map((account, index) => (
-                <option key={index} value={index}>{account.name}</option>
+            {props.userData.DepositTypes
+            ? props.userData.DepositTypes.map((account, index) => (
+                <option key={index} value={account.id}>
+                  {account.name}
+                </option>
               ))
-            }
+            : null}
           </Input>
         </FormGroup>
         <FormGroup>
