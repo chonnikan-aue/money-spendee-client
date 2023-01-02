@@ -42,7 +42,7 @@ const AddWithdrawTransaction = (props) => {
 
   return (
     <Container className="content">
-      <h2 className="header text-center">Add your transactions here</h2>
+      <h2 className="header text-center">Add your withdrawal transactions here</h2>
       <Form onSubmit={handleSubmit}>
         <FloatingLabel label="Title" className="mb-3">
           <Form.Control
