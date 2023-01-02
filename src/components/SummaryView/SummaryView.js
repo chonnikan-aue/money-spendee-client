@@ -19,10 +19,10 @@ const SummaryView = (props) => {
           <td>
             {props.userData.DepositTypes
               ? props.userData.DepositTypes.map((depositType, index) => (
-                  <>
+                  <div key={index}>
                     {depositType.name}: {depositType.sumAmount}
                     <br />
-                  </>
+                  </div>
                 ))
               : null}
           </td>
@@ -32,10 +32,10 @@ const SummaryView = (props) => {
           <td>
             {props.userData.WithdrawTypes
               ? props.userData.WithdrawTypes.map((withdrawType, index) => (
-                  <>
+                  <div key={index}>
                     {withdrawType.name}: {withdrawType.sumAmount}
                     <br />
-                  </>
+                  </div>
                 ))
               : null}
           </td>

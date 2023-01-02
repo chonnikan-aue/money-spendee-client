@@ -24,7 +24,7 @@ const ViewTransaction = (props) => {
           <Accordion.Item eventKey="1">
             <Accordion.Header>Dashboard View</Accordion.Header>
             <Accordion.Body>
-              {/* <DashboardView userData={props.userData} /> */}
+              <DashboardView userData={props.userData} />
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
