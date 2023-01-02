@@ -9,7 +9,7 @@ const ViewTransaction = (props) => {
     <Container className="content">
       <Row className="header">View Transaction</Row>
       <Row className="mb-3">
-        <Accordion>
+        <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
             <Accordion.Header>Table View</Accordion.Header>
             <Accordion.Body>

@@ -16,22 +16,25 @@ const Home = (props) => {
           let token = res.data;
           localStorage.setItem("jwt", token);
           props.getUserData();
-          navigate("/add-transaction");
+          navigate("/view-transaction");
         })
         .catch((err) => {
+          console.log(err);
           alert("Please try again. Username or Password is incorrect.");
         });
     } else if (e.nativeEvent.submitter.id === "signup") {
-      axios.post("http://localhost:3001/auth", props.profileData).then((res) => {
-        if (res.data.name === "SequelizeUniqueConstraintError") {
-          alert("This username is already taken. Please try another.");
-        } else {
-          let token = res.data;
-          localStorage.setItem("jwt", token);
-          props.getUserData();
-          navigate("/table-view");
-        }
-      });
+      axios
+        .post("http://localhost:3001/auth", props.profileData)
+        .then((res) => {
+          if (res.data.name === "SequelizeUniqueConstraintError") {
+            alert("This username is already taken. Please try another.");
+          } else {
+            let token = res.data;
+            localStorage.setItem("jwt", token);
+            props.getUserData();
+            navigate("/update-info");
+          }
+        });
     }
   };
 
@@ -47,7 +50,7 @@ const Home = (props) => {
       <Col>
         <Form onSubmit={handleSubmit}>
           <FloatingLabel label="Username" className="mb-3">
-            <Form.Control 
+            <Form.Control
               id="username"
               type="text"
               placeholder="Username"
