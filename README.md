@@ -2,8 +2,9 @@
 Ougrid's Read Me
 ## Resources:
 - https://bootstrap-table.com/docs/getting-started/introduction/
+- https://examples.bootstrap-table.com/#welcomes/from-html.html#view-source
+- https://examples.bootstrap-table.com/#view-source
 - https://stackoverflow.com/questions/70619448/how-to-make-an-href-dropdown-item-that-does-not-reload-the-page-with-react-boost
-- https://bootstrap-table.com/docs/getting-started/introduction/
 - https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react
 - https://bobbyhadz.com/blog/javascript-get-sum-of-array-of-numbers
 - https://bobbyhadz.com/blog/react-filter-array-of-objects

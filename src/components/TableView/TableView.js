@@ -43,7 +43,7 @@ const TableView = (props) => {
     // selectedTransaction
     props.setSelectedTransaction({
       id: id, // Either depositId or withdrawId
-      type: type,
+      type: type, // Either deposit or withdraw
       name: props.userData[type].filter(
         (transaction) => transaction.id === id
       ).name,
@@ -65,6 +65,7 @@ const TableView = (props) => {
   }
 
   const deleteTransaction = (type, id) => {
+
     let token = localStorage.getItem("jwt");
 
     axios
@@ -82,19 +83,32 @@ const TableView = (props) => {
       })
     return console.log(`delete transaction <type: ${type}, id: ${id}>`)
   }
-
+  
   // console.log(props.userData);
   // console.log(props.userData.Deposits[0].date);
+  
+  // const depositDataList = 
+  // const depositTypeDataList = props.userData.DepositTypes.map((depositType) => {
+  //   return 
+  // })
+  const findDepositType = (depositTypeId) => {
+    let depositType = `${props.userData.DepositTypes.find(type => type.id === depositTypeId).name}`
+
+    return depositType
+  }
 
   const depositsList = props.userData.Deposits.map((deposit, index) => {
 
     let type = "deposit"
-
-    return (
+    // let depositType = `${props.userData.DepositTypes.find(type => type.id === deposit.typeId).name}`
+    
+    return ( // Use react-bootstrap
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
         <td>{deposit.name}</td>
-        <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td>
+        {/* <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td> */}
+        {/* <td>{depositType}</td> */}
+        <td>{findDepositType(deposit.typeId)}</td>
         <td>{deposit.amount}</td>
         <td>
           <Col as={Link} to="/edit-transaction">
@@ -115,21 +129,60 @@ const TableView = (props) => {
             onClick={() => {
               deleteTransaction(type, deposit.id)
             }}
-          ></img>
+            ></img>
         </td>
       </tr>
     )
+
+    // return ( // Use bootstrap-table
+    //   <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
+    //     <td id={`td-id-${index}`} className={`td-class-${index}`}>{deposit.date}</td>
+    //     <td>{deposit.name}</td>
+    //     <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td>
+    //     <td>{deposit.amount}</td>
+    //     <td>
+    //       <Col as={Link} to="/edit-transaction">
+    //         <img
+    //           src={editIcon}
+    //           alt="Edit icon"
+    //           href=""
+    //           onClick={() => {
+    //             editTransaction(type, deposit.id);
+    //           }}
+    //         ></img>
+    //         {/* TO DO: Use React-icon */}
+    //       </Col>
+    //       <img
+    //         src={deleteIcon}
+    //         alt="Delete icon"
+    //         href=""
+    //         onClick={() => {
+    //           deleteTransaction(type, deposit.id)
+    //         }}
+    //       ></img>
+    //     </td>
+    //   </tr>
+    // )
   })
+
+  const findWithdrawType = (withdrawTypeId) => {
+    let withdrawType = `${props.userData.WithdrawTypes.find(type => type.id === withdrawTypeId).name}`
+
+    return withdrawType
+  }
 
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
 
     let type = "withdraw"
+    // let withdrawType = `${props.userData.withdrawTypes.find(type => type.id === withdraw.typeId).name}`
 
     return (
       <tr key={index}>
         <th scope="row">{withdraw.date}</th>
         <td>{withdraw.name}</td>
-        <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
+        {/* <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td> */}
+        {/* <td>{withdrawType}</td> */}
+        <td>{findWithdrawType(withdraw.typeId)}</td>
         <td>{withdraw.amount}</td>
         <td>
           <Col as={Link} to="/edit-transaction">
@@ -144,7 +197,9 @@ const TableView = (props) => {
             src={deleteIcon}
             alt="Delete icon"
             href=""
-            onClick={deleteTransaction(type, withdraw.id)}
+            onClick={() => {
+              deleteTransaction(type, withdraw.id)}
+            }
           ></img>
         </td>
       </tr>
@@ -155,7 +210,7 @@ const TableView = (props) => {
     if (props.userData) {
       props.setTransactions({
         deposits: depositsList,
-        withdraws: withdrawsList
+        // withdraws: withdrawsList,
       })
     }
   }, [props.userData])
@@ -183,30 +238,72 @@ const TableView = (props) => {
     )
   }
 
+
+
+
+
+
+
+  // return ( // Not using react-bootstrap
+  //   <div>
+  //     <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+  //       <table 
+  //         data-toggle="table"
+  //         data-search="true"
+  //         data-show-columns="true"
+  //         >
+  //         <thead>
+  //           <tr className="tr-class-1">
+  //             <th data-field="date" colspan="2" data-valign="middle">Date</th>
+  //             <th data-field="title" colspan="2" data-valign="middle">Title</th>
+  //             <th data-field="type" colspan="2" data-valign="middle">Type</th>
+  //             <th data-field="amount" colspan="2" data-valign="middle">Amount</th>
+  //             <th data-field="edit-delete" colspan="2" data-valign="middle">Edit/ Delete</th>
+  //           </tr>
+  //         </thead>
+  //         <tbody>
+  //           <tr>
+  //            {depositsList}
+  //            {withdrawsList}
+  //           </tr>
+  //         </tbody>
+  //       </table>
+  //   </div>
+  // )
+
+
   return (
     <Container>
-      <table data-toggle="table">
-      <thead>
-        <tr>
-          <th>Item ID</th>
-          <th>Item Name</th>
-          <th>Item Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Item 1</td>
-          <td>$1</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Item 2</td>
-          <td>$2</td>
-        </tr>
-      </tbody>
-    </table>
-
+      <Row>
+        <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
+        <table data-toggle="table" data-search="true" data-show-columns="true">
+          <thead>
+            <tr className="tr-class-1">
+              <th data-field="date" colspan="2" data-valign="middle">
+                Date
+              </th>
+              <th data-field="title" colspan="2" data-valign="middle">
+                Title
+              </th>
+              <th data-field="type" colspan="2" data-valign="middle">
+                Type
+              </th>
+              <th data-field="amount" colspan="2" data-valign="middle">
+                Amount
+              </th>
+              <th data-field="edit-delete" colspan="2" data-valign="middle">
+                Edit/ Delete
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {depositsList}
+              {withdrawsList}
+            </tr>
+          </tbody>
+        </table>
+      </Row>
 
       <Row id="table-row">
         <Table bordered responsive hover>
