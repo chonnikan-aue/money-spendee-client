@@ -83,6 +83,20 @@ function App() {
             }
           />
           <Route
+            path="/view-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <ViewTransaction
+                  userData={userData}
+                  setUserData={setUserData} 
+                  transactions={transactions}
+                  setTransactions={setTransactions}
+                />
+              </>
+            }
+          />
+          <Route
             path="/table-view"
             element={
               <>
@@ -111,8 +125,8 @@ function App() {
               <>
                 <Header userData={userData} />
                 <SummaryView 
-                transactions={transactions}
-                setTransactions={setTransactions}
+                  transactions={transactions}
+                  setTransactions={setTransactions}
                 /> 
               </>
             }

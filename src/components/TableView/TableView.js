@@ -44,17 +44,22 @@ const TableView = (props) => {
     // selectedTransaction
     props.setSelectedTransaction({
       id: id, // Either depositId or withdrawId
-      name: props.userData.type.filter((transaction) => transaction.id === id)
-        .name, // Q: Will type be passed in from the fn?
-      amount: props.userData.type.filter((transaction) => transaction.id === id)
-        .amount,
-      date: props.userData.type.filter((transaction) => transaction.id === id)
-        .date,
-      typeId: props.userData.type.filter((transaction) => transaction.id === id)
-        .typeId,
-      userId: props.userData.type.filter((transaction) => transaction.id === id)
-        .userId,
-      type: type
+      name: props.userData[type].filter(
+        (transaction) => transaction.id === id
+      ).name,
+      amount: props.userData[type].filter(
+        (transaction) => transaction.id === id
+      ).amount,
+      date: props.userData[type].filter(
+        (transaction) => transaction.id === id
+      ).date,
+      typeId: props.userData[type].filter(
+        (transaction) => transaction.id === id
+      ).typeId,
+      userId: props.userData[type].filter(
+        (transaction) => transaction.id === id
+      ).userId,
+      type: type,
     })
 
     return console.log(`edit transaction <type: ${type}, ${type}Id: ${id}>`)
