@@ -18,9 +18,14 @@ function App() {
   const [userData, setUserData] = useState({})
   // Ougrid
   const [selectedTransaction, setSelectedTransaction] = useState({
-    type: "",
-    id: "" // Either depositId or withdrawId
+    id: "", // Either depositId or withdrawId
+    name: "",
+    amount: 0,
+    date: "2023-01-05", 
+    typeId: 0,
+    userId: 0
   })
+  const [summary, setSummary] = useState({})
 
   const handleProfileChange = (e) => {
     setProfileData((prevState) => ({
@@ -38,9 +43,6 @@ function App() {
       .then((res) => {
         console.log(res.data)
         setUserData(res.data) 
-        // Ougrid
-        // console.log(userData);
-        // console.log(userData.Deposits[0].date);
       })
   }
 
@@ -140,7 +142,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <DashboardView userData={userData} />
+                <DashboardView userData={userData} summary={summary} setSummary={setSummary}/>
               </>
             }
           />
@@ -149,7 +151,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <SummaryView />
+                <SummaryView summary={summary} setSummary={setSummary}/>
               </>
             }
           />

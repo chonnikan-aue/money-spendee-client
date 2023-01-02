@@ -12,7 +12,8 @@ const EditTransaction = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-  }
+    return console.log(props.selectedTransaction.date)
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
   return (
     <Container>
@@ -24,7 +25,11 @@ const EditTransaction = props => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="date">
               <FloatingLabel label="Date">
-                <Form.Control type="date" onChange={handleChange} />
+                <Form.Control
+                  type="date" 
+                  onChange={handleChange}
+                  defaultValue={props.selectedTransaction.date} 
+                />
               </FloatingLabel>
             </Form.Group>
 
@@ -34,27 +39,29 @@ const EditTransaction = props => {
                   type="text"
                   onChange={handleChange}
                   placeholder="Enter Title"
+                  defaultValue={props.selectedTransaction.name}
                 />
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <FloatingLabel label="Type">
-              <Form.Select id="type">
-                <option disabled></option>
-                <option value="checkings">Checkings</option>
-                <option value="savings">Savings</option>    
-                <option value="daily-expenses">Daily Expenses</option>
-                <option value="investment">Investment</option>
-              </Form.Select>
+                <Form.Select id="type">
+                  <option disabled></option>
+                  <option value="checkings">Checkings</option>
+                  <option value="savings">Savings</option>
+                  <option value="daily-expenses">Daily Expenses</option>
+                  <option value="investment">Investment</option>
+                </Form.Select>
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="amount">
               <FloatingLabel label="Amount">
-                <Form.Control
+                <Form.Control 
                   type="number"
-                  onChange={handleChange}
+                  onChange={handleChange} 
+                  defaultValue={props.selectedTransaction.amount}  
                 />
               </FloatingLabel>
             </Form.Group>
@@ -68,5 +75,6 @@ const EditTransaction = props => {
     </Container>
   )
 }
+
 
 export default EditTransaction

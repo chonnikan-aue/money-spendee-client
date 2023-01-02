@@ -33,6 +33,35 @@ const DashboardView = props => {
     }]
   }
 
+  // // Dynamic Version
+  // //
+  // //
+  // const options = {
+  //   exportEnabled: true,
+  //   animationEnabled: true,
+  //   title: {
+  //     text: "Allocated Budget in Percentages"
+  //   },
+  //   data: [{
+  //     type: "pie",
+  //     startAngle: 75,
+  //     toolTipContent: "<b>{label}</b>: {y}%",
+  //     showInLegend: "true",
+  //     legendText: "{label}",
+  //     indexLabelFontSize: 16,
+  //     indexLabel: "{label} - {y}%",
+  //     dataPoints: [
+  //       { y: 10, label: "Checkings" },
+  //       { y: 30, label: "Savings" },
+  //       { y: 40, label: "Daily Expenses" },
+  //       { y: 20, label: "Investment" },
+  //     ]
+  //   }]
+  // }
+  // //
+  // //
+  // // Dynamic Version
+
   return (
     <Container>
       <Row id="dashboard-header-row">

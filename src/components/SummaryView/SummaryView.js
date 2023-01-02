@@ -2,7 +2,8 @@ import React from "react"
 import './SummaryView.css';
 import { Container, Row, Col } from 'react-bootstrap'
 
-const SummaryView = props => {
+// TO DO: Dynamic code
+const SummaryView = props => { 
 
   const sumCheckings = props.userData.Deposits
     .filter((deposit) => deposit.typeId === 1)
@@ -22,7 +23,7 @@ const SummaryView = props => {
     .filter((withdraw) => withdraw.typeId === 1)
     .reduce((sum, withdraw) => {
       return sum + withdraw.amount
-    }, 0)  
+    }, 0)
   // console.log(sumDailyExpenses);  
   
   const sumInvestment = props.userData.Withdraws
@@ -30,7 +31,7 @@ const SummaryView = props => {
     .reduce((sum, withdraw) => {
       return sum + withdraw.amount
     }, 0)  
-// console.log(sumDailyExpenses);  
+  // console.log(sumDailyExpenses);  
 
   // TO DO: make the `<types>Value` dynamic
   let checkingsValue = sumCheckings
@@ -40,6 +41,14 @@ const SummaryView = props => {
   let investmentValue = sumInvestment
   let expensesValue = dailyExpensesValue + investmentValue
   let totalValue = balanceValue + expensesValue
+
+  props.setSummary({
+    checkingsValue: checkingsValue,
+    savingsValue: savingsValue,
+    dailyExpensesValue: dailyExpensesValue,
+    investmentValue: investmentValue,
+    totalValue: totalValue
+  })
 
   return (
     <Container>
