@@ -30,7 +30,8 @@ const AddDepositTransaction = (props) => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(res => {
-        alert("Transaction has been updated.");
+        props.getUserData();
+        alert("Transaction has been deposited.");
       })
       .catch(err => {
         console.log(err)

@@ -75,7 +75,7 @@ const AddWithdrawTransaction = (props) => {
         })
         .then(res => {
           props.getUserData();
-          alert("Transaction has been updated.");
+          alert("Transaction has been withdrawn.");
         })
         .catch(err => {
           console.log(err)
