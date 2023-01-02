@@ -40,11 +40,11 @@ function App() {
     setProfileData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const getUserData = () => {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     axios
       .get(`http://localhost:3001/user/username/${profileData.username}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -58,15 +58,15 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem("userData")) {
-      setUserData(JSON.parse(localStorage.getItem("userData")))
+      setUserData(JSON.parse(localStorage.getItem("userData")));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (Object.keys(userData).length !== 0) {
-      localStorage.setItem("userData", JSON.stringify(userData))
+      localStorage.setItem("userData", JSON.stringify(userData));
     }
-  }, [userData])
+  }, [userData]);
 
   return (
     <div className="App">
@@ -126,7 +126,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction />
+                <AddTransaction userData={userData} getUserData={getUserData} />
               </>
             }
           />
@@ -135,7 +135,13 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <UpdateInfo />
+                <UpdateInfo
+                  handleProfileChange={handleProfileChange}
+                  profileData={profileData}
+                  setProfileData={setProfileData}
+                  userData={userData}
+                  getUserData={getUserData}
+                />
               </>
             }
           />
@@ -154,7 +160,7 @@ function App() {
         </Routes>
       </Container>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

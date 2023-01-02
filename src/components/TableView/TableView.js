@@ -150,13 +150,6 @@ const TableView = (props) => {
       </tr>
     )
   })
-  
-  // const [testSum, setTestSum] = useState()
-  // const sumCheckings = props.userData.Deposits
-  //   .filter((deposit) => deposit.typeId === 1)
-  //   .reduce((sum, deposit) => {
-  //     return sum + deposit.amount
-  //   }, 0)
 
   useEffect(() => {
     if (props.userData) {
@@ -164,7 +157,6 @@ const TableView = (props) => {
         deposits: depositsList,
         withdraws: withdrawsList
       })
-      // setTestSum(sumCheckings)
     }
   }, [props.userData])
 
@@ -193,7 +185,29 @@ const TableView = (props) => {
 
   return (
     <Container>
-      {/* {<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>}  */}
+      <table data-toggle="table">
+      <thead>
+        <tr>
+          <th>Item ID</th>
+          <th>Item Name</th>
+          <th>Item Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Item 1</td>
+          <td>$1</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Item 2</td>
+          <td>$2</td>
+        </tr>
+      </tbody>
+    </table>
+
+
       <Row id="table-row">
         <Table bordered responsive hover>
           <thead>
@@ -215,9 +229,6 @@ const TableView = (props) => {
       <Row id="pagination-row">
         <Pagination text="dark">{items}</Pagination>
       </Row>
-      {/* <Row>
-        Test: {sumCheckings}
-      </Row> */}
     </Container>
   )
 }

@@ -23,23 +23,6 @@ const Header = (props) => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav>
-            <NavDropdown title="View Transaction" id="collapsible-nav-dropdown">
-              <NavDropdown.Item>
-                <Link to="/table-view" className="dropdown-link">
-                  Table View
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/dashboard-view" className="dropdown-link">
-                  Dashboard View
-                </Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link to="/summary-view" className="dropdown-link">
-                  Summary View
-                </Link>
-              </NavDropdown.Item>
-            </NavDropdown>
             <Nav.Item>
               <Link to="/view-transaction" className="normal-link">
                 View Transaction
