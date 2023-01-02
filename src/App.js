@@ -51,7 +51,7 @@ function App() {
       })
       .then((res) => {
         res.data.WithdrawTypes.sort((a, b) => b.id - a.id);
-        console.log(res.data);
+        // console.log(res.data);
         setUserData(res.data);
       });
   };
