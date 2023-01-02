@@ -50,7 +50,37 @@ function App() {
       })
       .then((res) => {
         res.data.WithdrawTypes.sort((a, b) => b.id - a.id);
-        // console.log(res.data);
+        res.data.sumDepositAmount = res.data.Deposits.reduce(
+          (sum, deposit) => sum + deposit.amount,
+          0
+        );
+        res.data.sumWithdrawAmount = res.data.Withdraws.reduce(
+          (sum, withdraw) => sum + withdraw.amount,
+          0
+        );
+        for (let i = 0; i < res.data.DepositTypes.length; i++) {
+          res.data.DepositTypes[i].sumAmount = res.data.Deposits.reduce(
+            (sum, deposit) => {
+              if (deposit.typeId === res.data.DepositTypes[i].id) {
+                return sum + deposit.amount;
+              }
+              return sum + 0;
+            },
+            0
+          );
+        }
+        for (let i = 0; i < res.data.WithdrawTypes.length; i++) {
+          res.data.WithdrawTypes[i].sumAmount = res.data.Withdraws.reduce(
+            (sum, withdraw) => {
+              if (withdraw.typeId === res.data.WithdrawTypes[i].id) {
+                return sum + withdraw.amount;
+              }
+              return sum + 0;
+            },
+            0
+          );
+        }
+        console.log(res.data);
         setUserData(res.data);
       });
   };

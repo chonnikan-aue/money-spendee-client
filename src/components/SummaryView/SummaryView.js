@@ -7,26 +7,37 @@ const SummaryView = (props) => {
     <Table striped bordered responsive>
       <thead>
         <tr>
-          <th colSpan={2}>Total: 3000</th>
+          <th colSpan={2}>
+            Total:{" "}
+            {props.userData.sumDepositAmount + props.userData.sumWithdrawAmount}
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th>Balance: 2000</th>
+          <th>Balance: {props.userData.sumDepositAmount}</th>
           <td>
-            Checkings: 1000
-            <br />
-            Savings: 1000
-            <br />
+            {props.userData.DepositTypes
+              ? props.userData.DepositTypes.map((depositType, index) => (
+                  <>
+                    {depositType.name}: {depositType.sumAmount}
+                    <br />
+                  </>
+                ))
+              : null}
           </td>
         </tr>
         <tr>
-          <th>Expenses: 1000</th>
+          <th>Expenses: {props.userData.sumWithdrawAmount}</th>
           <td>
-            Shoppings: 500
-            <br />
-            Investment: 500
-            <br />
+            {props.userData.WithdrawTypes
+              ? props.userData.WithdrawTypes.map((withdrawType, index) => (
+                  <>
+                    {withdrawType.name}: {withdrawType.sumAmount}
+                    <br />
+                  </>
+                ))
+              : null}
           </td>
         </tr>
       </tbody>

@@ -30,8 +30,6 @@ const WithdrawType = (props) => {
         }
       )
       .then((res) => {
-        console.log(res);
-        console.log(data);
         if (res.data.name === "SequelizeUniqueConstraintError") {
           alert("This name is already taken. Please try another.");
         } else {
