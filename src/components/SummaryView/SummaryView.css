@@ -1,23 +1,8 @@
-#total-box {
-  display: flex;
-  flex-flow: row;
-  justify-content: flex-start;
-  padding: 2vh 0 2vh 10vw;
-  background-color: lightgray;
+table {
+  text-align: left;
 }
 
-.col#total-box,.col#balance-box,.col#expenses-box,.col#expenses-box,#income-savings-box,#daily-expenses-investment-box  {
-  border: 2px solid grey;
-}
-
-#income-savings-box,#daily-expenses-investment-box {
-  border-left: 4px solid grey;
-  padding: 2vh 0 2vh 10vw;
-}
-
-#balance-box,#expenses-box {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  padding-left: 10vw;
+th,
+td {
+  padding: 20px !important;
 }

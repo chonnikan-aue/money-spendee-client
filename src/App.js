@@ -14,25 +14,24 @@ import { Route, Routes, Link, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
 
-
 function App() {
-  const [profileData, setProfileData] = useState({})
-  const [userData, setUserData] = useState({})
+  const [profileData, setProfileData] = useState({});
+  const [userData, setUserData] = useState({});
+
   // Ougrid's Section Starts
   //
   const [transactions, setTransactions] = useState({
     deposits: [],
-    withdraws: []
-  })
+    withdraws: [],
+  });
   const [selectedTransaction, setSelectedTransaction] = useState({
     id: 0, // Either depositId or withdrawId
     name: "",
     amount: 0,
-    date: "2023-01-05", 
+    date: "2023-01-05",
     typeId: 0,
-    userId: 0
-  })
-  const [summary, setSummary] = useState({})
+    userId: 0,
+  });
   //
   // Ougrid's Section Ends
 
@@ -40,33 +39,63 @@ function App() {
     setProfileData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const getUserData = () => {
-    let token = localStorage.getItem("jwt")
+    let token = localStorage.getItem("jwt");
     axios
       .get(`http://localhost:3001/user/username/${profileData.username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         res.data.WithdrawTypes.sort((a, b) => b.id - a.id);
-        // console.log(res.data);
+        res.data.sumDepositAmount = res.data.Deposits.reduce(
+          (sum, deposit) => sum + deposit.amount,
+          0
+        );
+        res.data.sumWithdrawAmount = res.data.Withdraws.reduce(
+          (sum, withdraw) => sum + withdraw.amount,
+          0
+        );
+        for (let i = 0; i < res.data.DepositTypes.length; i++) {
+          res.data.DepositTypes[i].sumAmount = res.data.Deposits.reduce(
+            (sum, deposit) => {
+              if (deposit.typeId === res.data.DepositTypes[i].id) {
+                return sum + deposit.amount;
+              }
+              return sum + 0;
+            },
+            0
+          );
+        }
+        for (let i = 0; i < res.data.WithdrawTypes.length; i++) {
+          res.data.WithdrawTypes[i].sumAmount = res.data.Withdraws.reduce(
+            (sum, withdraw) => {
+              if (withdraw.typeId === res.data.WithdrawTypes[i].id) {
+                return sum + withdraw.amount;
+              }
+              return sum + 0;
+            },
+            0
+          );
+        }
+        console.log(res.data);
         setUserData(res.data);
       });
   };
 
   useEffect(() => {
     if (localStorage.getItem("userData")) {
-      setUserData(JSON.parse(localStorage.getItem("userData")))
+      setUserData(JSON.parse(localStorage.getItem("userData")));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (Object.keys(userData).length !== 0) {
-      localStorage.setItem("userData", JSON.stringify(userData))
+      localStorage.setItem("userData", JSON.stringify(userData));
     }
-  }, [userData])
+  }, [userData]);
 
   return (
     <div className="App">
@@ -89,45 +118,10 @@ function App() {
                 <Header userData={userData} />
                 <ViewTransaction
                   userData={userData}
-                  setUserData={setUserData} 
+                  setUserData={setUserData}
                   transactions={transactions}
                   setTransactions={setTransactions}
                 />
-              </>
-            }
-          />
-          <Route
-            path="/table-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <TableView
-                  userData={userData}
-                  setUserData={setUserData} 
-                  transactions={transactions}
-                  setTransactions={setTransactions}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/dashboard-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <DashboardView userData={userData} setUserData={setUserData} />
-              </>
-            }
-          />
-          <Route
-            path="/summary-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <SummaryView 
-                  transactions={transactions}
-                  setTransactions={setTransactions}
-                /> 
               </>
             }
           />
@@ -156,63 +150,6 @@ function App() {
             }
           />
           <Route
-            path="/table-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <TableView
-                  userData={userData}
-                  setUserData={setUserData}
-                  selectedTransaction={selectedTransaction}
-                  setSelectedTransaction={setSelectedTransaction}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/dashboard-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <DashboardView
-                  userData={userData}
-                  summary={summary}
-                  setSummary={setSummary}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/summary-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <SummaryView 
-                  summary={summary}
-                  setSummary={setSummary} 
-                />
-              </>
-            }
-          />
-          <Route
-            path="/add-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                <AddTransaction />
-              </>
-            }
-          />
-          <Route
-            path="/update-info"
-            element={
-              <>
-                <Header userData={userData} />
-                <UpdateInfo />
-              </>
-            }
-          />
-          <Route
             path="/edit-transaction"
             element={
               <>
@@ -221,22 +158,10 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/edit-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                <EditTransaction
-                  selectedTransaction={selectedTransaction}
-                  setSelectedTransaction={setSelectedTransaction}
-                />
-              </>
-            }
-          />
         </Routes>
       </Container>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

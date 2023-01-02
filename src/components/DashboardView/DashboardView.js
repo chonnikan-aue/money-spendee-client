@@ -1,81 +1,49 @@
-import React from "react"
-// import './DashboardView.css';
-import { Container, Row } from 'react-bootstrap'
+import React, { useEffect, useState } from "react";
+import "./DashboardView.css";
+import CanvasJSReact from "../../lib/canvasjs.react";
 
-import CanvasJSReact from '../../lib/canvasjs.react';
+const DashboardView = (props) => {
+  const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+  const [options, setOptions] = useState({});
 
-const CanvasJSChart = CanvasJSReact.CanvasJSChart;
+  const getDataPoints = () => {
+    const depositTypesData = props.userData.DepositTypes.map((depositType) => {
+      return { y: depositType.sumAmount, label: depositType.name };
+    });
+    const withdrawTypesData = props.userData.WithdrawTypes.map(
+      (withdrawType) => {
+        return { y: withdrawType.sumAmount, label: withdrawType.name };
+      }
+    );
+    console.log(depositTypesData.concat(withdrawTypesData));
+    return depositTypesData.concat(withdrawTypesData);
+  };
 
-const DashboardView = props => {
+  useEffect(() => {
+    if (props.userData) {
+      if (props.userData.DepositTypes && props.userData.WithdrawTypes) {
+        const option = {
+          exportEnabled: true,
+          animationEnabled: true,
+          data: [
+            {
+              type: "pie",
+              startAngle: 75,
+              toolTipContent: "<b>{label}</b>: {y}",
+              showInLegend: "true",
+              legendText: "{label}",
+              indexLabelFontSize: 16,
+              indexLabel: "{label} - {y}",
+              dataPoints: getDataPoints(),
+            },
+          ],
+        };
+        setOptions(option);
+      }
+    }
+  }, [props.userData]);
 
-  // props.userData...
+  return <CanvasJSChart options={options} />;
+};
 
-  const options = {
-    exportEnabled: true,
-    animationEnabled: true,
-    title: {
-      text: "Allocated Budget in Percentages"
-    },
-    data: [{
-      type: "pie",
-      startAngle: 75,
-      toolTipContent: "<b>{label}</b>: {y}%",
-      showInLegend: "true",
-      legendText: "{label}",
-      indexLabelFontSize: 16,
-      indexLabel: "{label} - {y}%",
-      dataPoints: [
-        { y: 10, label: "Checkings" },
-        { y: 30, label: "Savings" },
-        { y: 40, label: "Daily Expenses" },
-        { y: 20, label: "Investment" },
-      ]
-    }]
-  }
-
-  // // Dynamic Version
-  // //
-  // //
-  // const options = {
-  //   exportEnabled: true,
-  //   animationEnabled: true,
-  //   title: {
-  //     text: "Allocated Budget in Percentages"
-  //   },
-  //   data: [{
-  //     type: "pie",
-  //     startAngle: 75,
-  //     toolTipContent: "<b>{label}</b>: {y}%",
-  //     showInLegend: "true",
-  //     legendText: "{label}",
-  //     indexLabelFontSize: 16,
-  //     indexLabel: "{label} - {y}%",
-  //     dataPoints: [
-  //       { y: 10, label: "Checkings" },
-  //       { y: 30, label: "Savings" },
-  //       { y: 40, label: "Daily Expenses" },
-  //       { y: 20, label: "Investment" },
-  //     ]
-  //   }]
-  // }
-  // //
-  // //
-  // // Dynamic Version
-
-  return (
-    <Container>
-      <Row id="dashboard-header-row">
-        <h2>Dashboard View</h2>
-      </Row>
-      <Row>
-        <CanvasJSChart options = {options}
-			  	/* onRef={ref => this.chart = ref} */
-			  />
-        {/* You can get reference to the chart instance as shown above using onRef. This allows you to access all chart properties and methods */}
-      </Row>
-
-    </Container>
-  )
-}
-
-export default DashboardView
+export default DashboardView;
