@@ -19,6 +19,7 @@ const ViewTransaction = (props) => {
                 setUserData={props.setUserData} 
                 transactions={props.transactions}
                 setTransactions={props.setTransactions}
+                getUserData={props.getUserData}
               />
             </Accordion.Body>
           </Accordion.Item>
@@ -35,10 +36,10 @@ const ViewTransaction = (props) => {
             <Accordion.Header>Summary View</Accordion.Header>
             <Accordion.Body>
               <p>To insert SummaryView</p>
-              {/* <SummaryView
+              <SummaryView
                 transactions={props.transactions}
                 setTransactions={props.setTransactions}
-              /> */}
+              />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>

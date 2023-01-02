@@ -17,10 +17,9 @@ const TableView = (props) => {
   //   }
   // }, [props.userData])
   
-
   // const [transactions, setTransactions] = useState({
   //   deposits: [],
-  //   withdraws: []\
+  //   withdraws: []
   // })
   // const [transactions, setTransactions] = useState([])
 
@@ -66,10 +65,17 @@ const TableView = (props) => {
   }
 
   const deleteTransaction = (type, id) => {
+    let token = localStorage.getItem("jwt");
+
     axios
-      .delete(`http://localhost:3001/${type}/${id}`)
+      .delete(`http://localhost:3001/${type}/${id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      })
       .then((res) => {
         console.log(res.data)
+        props.getUserData()
+        alert("Transaction has been deleted.");
       })
       .catch((err) => {
         console.log(err)
@@ -116,6 +122,9 @@ const TableView = (props) => {
   })
 
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
+
+    let type = "withdraw"
+
     return (
       <tr key={index}>
         <th scope="row">{withdraw.date}</th>
@@ -135,7 +144,7 @@ const TableView = (props) => {
             src={deleteIcon}
             alt="Delete icon"
             href=""
-            onClick={deleteTransaction}
+            onClick={deleteTransaction(type, withdraw.id)}
           ></img>
         </td>
       </tr>

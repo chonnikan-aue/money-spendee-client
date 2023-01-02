@@ -92,42 +92,8 @@ function App() {
                   setUserData={setUserData} 
                   transactions={transactions}
                   setTransactions={setTransactions}
+                  getUserData={getUserData}
                 />
-              </>
-            }
-          />
-          <Route
-            path="/table-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <TableView
-                  userData={userData}
-                  setUserData={setUserData} 
-                  transactions={transactions}
-                  setTransactions={setTransactions}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/dashboard-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <DashboardView userData={userData} setUserData={setUserData} />
-              </>
-            }
-          />
-          <Route
-            path="/summary-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <SummaryView 
-                  transactions={transactions}
-                  setTransactions={setTransactions}
-                /> 
               </>
             }
           />
@@ -156,45 +122,6 @@ function App() {
             }
           />
           <Route
-            path="/table-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <TableView
-                  userData={userData}
-                  setUserData={setUserData}
-                  selectedTransaction={selectedTransaction}
-                  setSelectedTransaction={setSelectedTransaction}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/dashboard-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <DashboardView
-                  userData={userData}
-                  summary={summary}
-                  setSummary={setSummary}
-                />
-              </>
-            }
-          />
-          <Route
-            path="/summary-view"
-            element={
-              <>
-                <Header userData={userData} />
-                <SummaryView 
-                  summary={summary}
-                  setSummary={setSummary} 
-                />
-              </>
-            }
-          />
-          <Route
             path="/add-transaction"
             element={
               <>
@@ -209,15 +136,6 @@ function App() {
               <>
                 <Header userData={userData} />
                 <UpdateInfo />
-              </>
-            }
-          />
-          <Route
-            path="/edit-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                <EditTransaction />
               </>
             }
           />
