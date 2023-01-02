@@ -158,18 +158,6 @@ function App() {
               </>
             }
           />
-          <Route
-            path="/edit-transaction"
-            element={
-              <>
-                <Header userData={userData} />
-                <EditTransaction
-                  selectedTransaction={selectedTransaction}
-                  setSelectedTransaction={setSelectedTransaction}
-                />
-              </>
-            }
-          />
         </Routes>
       </Container>
     </div>
