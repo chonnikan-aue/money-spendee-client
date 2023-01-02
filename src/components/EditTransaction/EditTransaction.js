@@ -61,7 +61,7 @@ const EditTransaction = props => {
 
             <Form.Group className="mb-3" controlId="title">
               <FloatingLabel label="Title">
-                <Form.Control  required  
+                <Form.Control required  
                   type="text"
                   onChange={handleChange}
                   placeholder="Enter Title"
@@ -84,7 +84,7 @@ const EditTransaction = props => {
 
             <Form.Group className="mb-3" controlId="amount">
               <FloatingLabel label="Amount">
-                <Form.Control  required  
+                <Form.Control required  
                   type="number"
                   onChange={handleChange} 
                   defaultValue={props.selectedTransaction.amount}

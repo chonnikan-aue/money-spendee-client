@@ -52,7 +52,7 @@ const SummaryView = props => {
         totalValue: totalValue
     })
   }
-  }, [props.userData])  
+  }, [props.userData])
 
   // useEffect(()=>{
   //   props.setSummary({

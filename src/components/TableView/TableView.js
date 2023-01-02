@@ -16,11 +16,11 @@ const TableView = (props) => {
   //     setDiv(depositsList)
   //   }
   // }, [props.userData])
-  // 
+  
 
   // const [transactions, setTransactions] = useState({
   //   deposits: [],
-  //   withdraws: []
+  //   withdraws: []\
   // })
   // const [transactions, setTransactions] = useState([])
 
@@ -44,6 +44,7 @@ const TableView = (props) => {
     // selectedTransaction
     props.setSelectedTransaction({
       id: id, // Either depositId or withdrawId
+      type: type,
       name: props.userData[type].filter(
         (transaction) => transaction.id === id
       ).name,
@@ -58,8 +59,7 @@ const TableView = (props) => {
       ).typeId,
       userId: props.userData[type].filter(
         (transaction) => transaction.id === id
-      ).userId,
-      type: type,
+      ).userId
     })
 
     return console.log(`edit transaction <type: ${type}, ${type}Id: ${id}>`)
@@ -97,7 +97,7 @@ const TableView = (props) => {
               alt="Edit icon"
               href=""
               onClick={() => {
-                editTransaction(type, deposit.id)
+                editTransaction(type, deposit.id);
               }}
             ></img>
             {/* TO DO: Use React-icon */}
@@ -114,12 +114,6 @@ const TableView = (props) => {
       </tr>
     )
   })
-
-  // useEffect(()=>{
-  //   setTransactions({
-  //     deposits: depositsList
-  //   })
-  // }, [depositsList])
 
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
     return (
@@ -147,6 +141,13 @@ const TableView = (props) => {
       </tr>
     )
   })
+  
+  // const [testSum, setTestSum] = useState()
+  // const sumCheckings = props.userData.Deposits
+  //   .filter((deposit) => deposit.typeId === 1)
+  //   .reduce((sum, deposit) => {
+  //     return sum + deposit.amount
+  //   }, 0)
 
   useEffect(() => {
     if (props.userData) {
@@ -154,8 +155,11 @@ const TableView = (props) => {
         deposits: depositsList,
         withdraws: withdrawsList
       })
+      // setTestSum(sumCheckings)
     }
   }, [props.userData])
+
+  // console.log(sumCheckings)
   //
   //
   // End of Test 01
@@ -202,6 +206,9 @@ const TableView = (props) => {
       <Row id="pagination-row">
         <Pagination text="dark">{items}</Pagination>
       </Row>
+      {/* <Row>
+        Test: {sumCheckings}
+      </Row> */}
     </Container>
   )
 }
