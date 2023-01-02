@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { Button, Form, FloatingLabel, Container, Row, Col} from 'react-bootstrap'
 
@@ -12,7 +13,32 @@ const EditTransaction = props => {
 
   const handleSubmit = e => {
     e.preventDefault()
-  }
+    // /:depositId/user/:userId"
+    let token = localStorage.getItem("jwt");
+    axios
+      .put(
+        `http://localhost:3001/${props.selectedTransaction.type}/user/${props.userData.id}`,
+        props.profileData,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
+      // .then((res) => {
+      //   localStorage.setItem(
+      //     "profileData",
+      //     JSON.stringify({ username: props.profileData.username })
+      //   );
+      //   props.setProfileData(JSON.parse(localStorage.getItem("profileData")));
+      //   props.getUserData();
+      // })
+      // .then(() => {
+      //   alert("Profile has been updated.");
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      // });
+    return console.log(props.selectedTransaction.date)
+  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
 
   return (
     <Container>
@@ -24,37 +50,45 @@ const EditTransaction = props => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="date">
               <FloatingLabel label="Date">
-                <Form.Control type="date" onChange={handleChange} />
+                
+                <Form.Control required
+                  type="date" 
+                  onChange={handleChange}
+                  defaultValue={props.selectedTransaction.date} 
+                />
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="title">
               <FloatingLabel label="Title">
-                <Form.Control
+                <Form.Control required  
                   type="text"
                   onChange={handleChange}
                   placeholder="Enter Title"
+                  defaultValue={props.selectedTransaction.name}
                 />
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <FloatingLabel label="Type">
-              <Form.Select id="type">
-                <option disabled></option>
-                <option value="checkings">Checkings</option>
-                <option value="savings">Savings</option>    
-                <option value="daily-expenses">Daily Expenses</option>
-                <option value="investment">Investment</option>
-              </Form.Select>
+                <Form.Select id="type" required>
+                  <option disabled value=""></option>
+                  <option value="checkings">Checkings</option>
+                  <option value="savings">Savings</option>
+                  <option value="daily-expenses">Daily Expenses</option>
+                  <option value="investment">Investment</option>
+                </Form.Select>
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="amount">
               <FloatingLabel label="Amount">
-                <Form.Control
+                <Form.Control required  
                   type="number"
-                  onChange={handleChange}
+                  onChange={handleChange} 
+                  defaultValue={props.selectedTransaction.amount}
+                  min={0.1}  
                 />
               </FloatingLabel>
             </Form.Group>
@@ -68,5 +102,6 @@ const EditTransaction = props => {
     </Container>
   )
 }
+
 
 export default EditTransaction
