@@ -173,7 +173,10 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <SummaryView summary={summary} setSummary={setSummary} />
+                <SummaryView 
+                  summary={summary}
+                  setSummary={setSummary} 
+                />
               </>
             }
           />

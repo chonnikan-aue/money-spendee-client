@@ -54,6 +54,7 @@ const TableView = (props) => {
         .typeId,
       userId: props.userData.type.filter((transaction) => transaction.id === id)
         .userId,
+      type: type
     })
 
     return console.log(`edit transaction <type: ${type}, ${type}Id: ${id}>`)
@@ -115,15 +116,6 @@ const TableView = (props) => {
   //   })
   // }, [depositsList])
 
-  useEffect(() => {
-    if (props.userData) {
-      props.setTransactions({
-        deposits: depositsList,
-        withdraws: withdrawsList
-      })
-    }
-  }, [props.userData])
-
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
     return (
       <tr key={index}>
@@ -151,14 +143,14 @@ const TableView = (props) => {
     )
   })
 
-  // DELETE
-  // useEffect(()=>{
-  //   setTransactions({
-  //     deposits: depositsList,
-  //     withdraws: withdrawsList
-  //   })
-  // }, [depositsList, withdrawsList])
-
+  useEffect(() => {
+    if (props.userData) {
+      props.setTransactions({
+        deposits: depositsList,
+        withdraws: withdrawsList
+      })
+    }
+  }, [props.userData])
   //
   //
   // End of Test 01
@@ -203,7 +195,7 @@ const TableView = (props) => {
       </Row>
       <br />
       <Row id="pagination-row">
-        <Pagination>{items}</Pagination>
+        <Pagination text="dark">{items}</Pagination>
       </Row>
     </Container>
   )

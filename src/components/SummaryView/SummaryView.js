@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import './SummaryView.css';
 import { Container, Row, Col } from 'react-bootstrap'
 
@@ -42,13 +42,28 @@ const SummaryView = props => {
   let expensesValue = dailyExpensesValue + investmentValue
   let totalValue = balanceValue + expensesValue
 
-  props.setSummary({
-    checkingsValue: checkingsValue,
-    savingsValue: savingsValue,
-    dailyExpensesValue: dailyExpensesValue,
-    investmentValue: investmentValue,
-    totalValue: totalValue
-  })
+  useEffect(() => {
+    if (props.userData) {
+      props.setSummary({
+        checkingsValue: checkingsValue,
+        savingsValue: savingsValue,
+        dailyExpensesValue: dailyExpensesValue,
+        investmentValue: investmentValue,
+        totalValue: totalValue
+    })
+  }
+  }, [props.userData])  
+
+  // useEffect(()=>{
+  //   props.setSummary({
+  //     checkingsValue: checkingsValue,
+  //     savingsValue: savingsValue,
+  //     dailyExpensesValue: dailyExpensesValue,
+  //     investmentValue: investmentValue,
+  //     totalValue: totalValue
+  //   })
+  // }, [props.userData])
+
 
   return (
     <Container>
