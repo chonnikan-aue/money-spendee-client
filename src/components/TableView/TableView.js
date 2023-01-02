@@ -7,13 +7,16 @@ import { Container, Row, Col, Table, Pagination } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const TableView = (props) => {
-  const [div, setDiv] = useState();
 
-  useEffect(()=>{
-    if (props.userData) {
-      setDiv(depositsList)
-    }
-  }, [props.userData])
+  // Mai's recommendation
+  // const [div, setDiv] = useState();
+
+  // useEffect(()=>{
+  //   if (props.userData) {
+  //     setDiv(depositsList)
+  //   }
+  // }, [props.userData])
+  // 
 
   // const [transactions, setTransactions] = useState({
   //   deposits: [],
@@ -72,6 +75,7 @@ const TableView = (props) => {
   // console.log(props.userData.Deposits[0].date);
 
   const depositsList = props.userData.Deposits.map((deposit, index) => {
+
     let type = "deposit"
 
     return (
@@ -110,6 +114,15 @@ const TableView = (props) => {
   //     deposits: depositsList
   //   })
   // }, [depositsList])
+
+  useEffect(() => {
+    if (props.userData) {
+      props.setTransactions({
+        deposits: depositsList,
+        withdraws: withdrawsList
+      })
+    }
+  }, [props.userData])
 
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
     return (
@@ -184,10 +197,7 @@ const TableView = (props) => {
           </thead>
           <tbody>
             {depositsList}
-            {/* {withdrawsList} */}
-            {/* {transactions} */}
-            {/* {transactions.deposits}
-            {transactions.withdraws} */}
+            {withdrawsList}
           </tbody>
         </Table>
       </Row>

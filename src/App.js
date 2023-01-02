@@ -18,9 +18,14 @@ import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
 function App() {
   const [profileData, setProfileData] = useState({})
   const [userData, setUserData] = useState({})
-  // Ougrid
+  // Ougrid's Section Starts
+  //
+  const [transactions, setTransactions] = useState({
+    deposits: [],
+    withdraws: []
+  })
   const [selectedTransaction, setSelectedTransaction] = useState({
-    id: "", // Either depositId or withdrawId
+    id: 0, // Either depositId or withdrawId
     name: "",
     amount: 0,
     date: "2023-01-05", 
@@ -28,6 +33,8 @@ function App() {
     userId: 0
   })
   const [summary, setSummary] = useState({})
+  //
+  // Ougrid's Section Ends
 
   const handleProfileChange = (e) => {
     setProfileData((prevState) => ({
@@ -83,6 +90,8 @@ function App() {
                 <TableView
                   userData={userData}
                   setUserData={setUserData} 
+                  transactions={transactions}
+                  setTransactions={setTransactions}
                 />
               </>
             }
@@ -101,7 +110,10 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <SummaryView />
+                <SummaryView 
+                transactions={transactions}
+                setTransactions={setTransactions}
+                /> 
               </>
             }
           />
