@@ -3,7 +3,6 @@ import axios from "axios";
 import { Form, Button, FloatingLabel } from "react-bootstrap";
 
 const FixedIncome = (props) => {
-  const fixedIncome = useRef();
   const [data, setData] = useState({});
 
   const handleChange = (e) => {
@@ -16,24 +15,20 @@ const FixedIncome = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (fixedIncome.current.value) {
-      let token = localStorage.getItem("jwt");
-      axios
-        .put(`http://localhost:3001/user/${props.userData.id}`, data, {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => {
-          props.getUserData();
-        })
-        .then(() => {
-          alert("Fixed income has been changed.");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      alert("Fixed income cannot be empty.");
-    }
+    let token = localStorage.getItem("jwt");
+    axios
+      .put(`http://localhost:3001/user/${props.userData.id}`, data, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        props.getUserData();
+      })
+      .then(() => {
+        alert("Fixed income has been changed.");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
@@ -42,10 +37,11 @@ const FixedIncome = (props) => {
         <Form.Control
           name="fixedIncome"
           type="number"
+          min={0}
           placeholder="Fixed Income"
           onChange={handleChange}
-          ref={fixedIncome}
           defaultValue={props.userData.fixedIncome}
+          required
         />
       </FloatingLabel>
       <Button variant="primary" type="submit">
