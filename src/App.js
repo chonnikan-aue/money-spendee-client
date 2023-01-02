@@ -1,18 +1,19 @@
-import "./App.css"
-import React, { useState, useEffect } from "react"
-import axios from "axios"
-import Home from "./components/Home/Home"
-import Header from "./components/Header/Header"
-import ViewTransaction from "./components/ViewTransaction/ViewTransaction"
-import TableView from "./components/TableView/TableView"
-import DashboardView from "./components/DashboardView/DashboardView"
-import SummaryView from "./components/SummaryView/SummaryView"
-import AddTransaction from "./components/AddTransaction/AddTransaction"
-import UpdateInfo from "./components/UpdateInfo/UpdateInfo"
-import EditTransaction from "./components/EditTransaction/EditTransaction"
-import { Route, Routes, Link, Navigate } from "react-router-dom"
-import "bootstrap/dist/css/bootstrap.min.css"
-import { Button, Container, Row, Col, Dropdown } from "react-bootstrap"
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Home from "./components/Home/Home";
+import Header from "./components/Header/Header";
+import ViewTransaction from "./components/ViewTransaction/ViewTransaction";
+import TableView from "./components/TableView/TableView";
+import DashboardView from "./components/DashboardView/DashboardView";
+import SummaryView from "./components/SummaryView/SummaryView";
+import AddTransaction from "./components/AddTransaction/AddTransaction";
+import UpdateInfo from "./components/UpdateInfo/UpdateInfo";
+import EditTransaction from "./components/EditTransaction/EditTransaction";
+import { Route, Routes, Link, Navigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
+
 
 function App() {
   const [profileData, setProfileData] = useState({})
@@ -42,10 +43,11 @@ function App() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log(res.data)
-        setUserData(res.data) 
-      })
-  }
+        res.data.WithdrawTypes.sort((a, b) => b.id - a.id);
+        console.log(res.data);
+        setUserData(res.data);
+      });
+  };
 
   useEffect(() => {
     if (localStorage.getItem("userData")) {
@@ -78,7 +80,10 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <TableView userData={userData} setUserData={setUserData} />
+                <TableView
+                  userData={userData}
+                  setUserData={setUserData} 
+                />
               </>
             }
           />
@@ -105,7 +110,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction />
+                <AddTransaction userData={userData} getUserData={getUserData} />
               </>
             }
           />
@@ -143,7 +148,11 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <DashboardView userData={userData} summary={summary} setSummary={setSummary}/>
+                <DashboardView
+                  userData={userData}
+                  summary={summary}
+                  setSummary={setSummary}
+                />
               </>
             }
           />
@@ -152,7 +161,7 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <SummaryView summary={summary} setSummary={setSummary}/>
+                <SummaryView summary={summary} setSummary={setSummary} />
               </>
             }
           />

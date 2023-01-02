@@ -2,6 +2,7 @@
   --bs-navbar-padding-x: 20px !important;
   --bs-navbar-padding-y: 20px !important;
   --bs-navbar-brand-font-size: 30px !important;
+  --bs-nav-link-padding-y: 0 !important;
 }
 
 .navbar-brand {
@@ -12,4 +13,18 @@
 .navbar-nav {
   padding-top: 0.5rem;
   padding-right: 3rem;
+}
+
+a {
+  color: white !important;
+  text-decoration: none !important;
+  text-align: center !important;
+}
+
+.dropdown-link {
+  color: #212529 !important;
+}
+
+.nav-item {
+  padding: 8px 10px 8px 10px;
 }
