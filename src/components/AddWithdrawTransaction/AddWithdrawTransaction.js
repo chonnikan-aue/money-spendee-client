@@ -53,17 +53,17 @@ const AddWithdrawTransaction = (props) => {
   //   console.log(total);
 
 
-  //   const handleChange = e => {
-  //     let value = e.target.value;
-  //     if (e.target.name === 'amount') {
-  //       value = parseInt(value, 10);
-  //     }
-  //     setData((prevState) => ({
-  //       ...prevState,
-  //       [e.target.name]: value,
-  //       userId: props.userData.id,
-  //     }));
-  //   }
+    const handleChange = e => {
+      let value = e.target.value;
+      if (e.target.name === 'amount') {
+        value = parseInt(value, 10);
+      }
+      setData((prevState) => ({
+        ...prevState,
+        [e.target.name]: value,
+        userId: props.userData.id,
+      }));
+    }
 
     const handleSubmit = e => {
       e.preventDefault();
@@ -74,6 +74,7 @@ const AddWithdrawTransaction = (props) => {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then(res => {
+          props.getUserData();
           alert("Transaction has been updated.");
         })
         .catch(err => {
