@@ -25,7 +25,8 @@ const EditTransaction = props => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="date">
               <FloatingLabel label="Date">
-                <Form.Control
+                
+                <Form.Control required
                   type="date" 
                   onChange={handleChange}
                   defaultValue={props.selectedTransaction.date} 
@@ -35,7 +36,7 @@ const EditTransaction = props => {
 
             <Form.Group className="mb-3" controlId="title">
               <FloatingLabel label="Title">
-                <Form.Control
+                <Form.Control  required  
                   type="text"
                   onChange={handleChange}
                   placeholder="Enter Title"
@@ -46,8 +47,8 @@ const EditTransaction = props => {
 
             <Form.Group className="mb-3">
               <FloatingLabel label="Type">
-                <Form.Select id="type">
-                  <option disabled></option>
+                <Form.Select id="type" required>
+                  <option disabled value=""></option>
                   <option value="checkings">Checkings</option>
                   <option value="savings">Savings</option>
                   <option value="daily-expenses">Daily Expenses</option>
@@ -58,10 +59,11 @@ const EditTransaction = props => {
 
             <Form.Group className="mb-3" controlId="amount">
               <FloatingLabel label="Amount">
-                <Form.Control 
+                <Form.Control  required  
                   type="number"
                   onChange={handleChange} 
-                  defaultValue={props.selectedTransaction.amount}  
+                  defaultValue={props.selectedTransaction.amount}
+                  min={0.1}  
                 />
               </FloatingLabel>
             </Form.Group>

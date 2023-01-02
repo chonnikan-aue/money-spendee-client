@@ -10,7 +10,7 @@ const TableView = (props) => {
   const [div, setDiv] = useState();
 
   useEffect(()=>{
-    if (props.userData){
+    if (props.userData) {
       setDiv(depositsList)
     }
   }, [props.userData])
@@ -75,7 +75,6 @@ const TableView = (props) => {
     let type = "deposit"
 
     return (
-      //
       <tr key={index}>
         <th scope="row">{deposit.date}</th>
         <td>{deposit.name}</td>
@@ -184,11 +183,11 @@ const TableView = (props) => {
             </tr>
           </thead>
           <tbody>
-            {/* {depositsList} */}
+            {depositsList}
             {/* {withdrawsList} */}
             {/* {transactions} */}
-            {transactions.deposits}
-            {transactions.withdraws}
+            {/* {transactions.deposits}
+            {transactions.withdraws} */}
           </tbody>
         </Table>
       </Row>
