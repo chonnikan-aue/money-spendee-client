@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Accordion } from "react-bootstrap";
+import DepositFixedIncome from "../DepositFixedIncome/DepositFixedIncome";
 
 const AddTransaction = (props) => {
   return (
@@ -9,7 +10,12 @@ const AddTransaction = (props) => {
         <Accordion>
           <Accordion.Item eventKey="0">
             <Accordion.Header>Deposit Fixed Income</Accordion.Header>
-            <Accordion.Body></Accordion.Body>
+            <Accordion.Body>
+              <DepositFixedIncome
+                userData={props.userData}
+                getUserData={props.getUserData}
+              />
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header>Add Deposit</Accordion.Header>
