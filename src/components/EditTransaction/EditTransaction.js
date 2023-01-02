@@ -17,7 +17,7 @@ const EditTransaction = props => {
     let token = localStorage.getItem("jwt");
     axios
       .put(
-        `http://localhost:3001/${props.selectedTransaction.}/user/${props.userData.id}`,
+        `http://localhost:3001/${props.selectedTransaction.type}/user/${props.userData.id}`,
         props.profileData,
         {
           headers: { Authorization: `Bearer ${token}` },
