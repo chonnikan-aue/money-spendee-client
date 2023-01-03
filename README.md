@@ -17,73 +17,83 @@ Ougrid's Read Me
 INSERT INTO "Deposits" VALUES (DEFAULT,'Fixed Income',10000,'2023-01-04',1,1);
 -->
 
-# Getting Started with Create React App
+# MONey Spendee Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+MONey Spendee application is a money management application which allow users to sign up and record their transaction in daily life.
 
-In the project directory, you can run:
+## Installation
+
+to install the package
+
+### `npm i` 
+
+runs the application
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Link
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+[Deploy Link]()
+[Github Link]()
 
-### `npm test`
+## Wirefram and User Interface
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Planning wireframe
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Actual wireframe
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Teachnology used
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+We use react as a foudation of the application and mainly use react-bootrap for the user interface
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## User stories
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- As a user, I want to log my daily transactions, so that I can look them up later.
+- As a user, I want to set the percentages on my expenses, savings, and investment per month, so that I can allocate my spendings correctly as planned.
+- As a user, I want to see a summary report and dashboard of my monthly transactions, so that I can plan my next month’s spending.
 
-## Learn More
+### MVP Goal:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [x] Create “types” table (Attributes: Income, Daily Expenses, Savings, Investment)
+- [x] Create “transactions” table [CRUD: FULL CRUD]
+- [x] Users can add fixed income amount per month [CRUD: UPDATE]
+- [x] The transaction table will have the “withdrawFrom” column (savings, expenses)
+- [x] Make the application responsive
+- [ ] Every 1st of each month, the net amount (total income – total expenses = net amount) of the previous month will be added as the savings of the current month (insert in the transaction table).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Strech Goal:
 
-### Code Splitting
+- [x] Users can specify and edit the preferred amount of money (as percentages) that they want to allocate for their expenses, savings, and investment per month [CRUD: READ, UPDATE]
+- [x] Show dashboard on the homepage that summarizes every transaction of a user
+- [x] User authorization (with sign up and log in pages) [CRUD: FULL CRUD]
+- [x] Alert users when they are about to reach the limit of their maximum expenses per month
+- [ ] Add filter and/or sort function inside the transaction table on the homepage to let users filter and/or sort data on the date/ name/ type of transaction they want to see
+- [ ] Add a date range filter on dashboard view and summary view
+- [ ] Group authorization (with sign up and log in pages) [CRUD: FULL CRUD]
+    a. User can access and log in into group authorization only after logging in through the user authorization
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Approch
 
-### Analyzing the Bundle Size
+### Frontend application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    We can create the application which is able to CRUD with our created database by interact from the front end website and users are also able to signup, login, signout. Our application is also responsive and has variety function such as dropdown, accordion, alert, etc.
 
-### Making a Progressive Web App
+### Backend application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+    We can create our own database that is able to CRUD from frontend and export the database as a API and JSON format. Our website is also define the authorization to access the database.
 
-### Advanced Configuration
+## What left?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Frontend application
 
-### Deployment
+    We want our app to have more features such as table filter, other dash board style and more dynamics.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Backend application.
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    We want to create a group or event that allow many user the access and CRUD the same event
