@@ -8,23 +8,6 @@ import { Link, useNavigate } from "react-router-dom"
 
 const TableView = (props) => {
 
-  // const [deposits, setDeposits] = useState([]) // Test
-  // const depositsList2 = props.userData.Deposits.map((deposit) => {
-  //   return ( 
-  //     setDeposits((prevState) => ({
-  //       ...prevState,
-  //       date: deposit.date,
-  //       userId: props.userData.id,
-  //       title: deposit.name,
-  //       type: findDepositType(deposit.typeId),
-  //       amount: deposit.amount
-  //     }))
-  //   )
-  // })
-
-
-
-
   const editTransaction = (type, id) => {
 
     props.setSelectedTransaction({
@@ -79,37 +62,8 @@ const TableView = (props) => {
   const depositsList = props.userData.Deposits.map((deposit, index) => {
 
     let type = "deposit"
-    
-    // return ( // Use react-bootstrap
-    //   <tr key={index}>
-    //     <th scope="row">{deposit.date}</th>
-    //     <td>{deposit.name}</td>
-    //     <td>{findDepositType(deposit.typeId)}</td>
-    //     <td>{deposit.amount}</td>
-    //     <td>
-    //       <Col as={Link} to="/edit-transaction">
-    //         <img
-    //           src={editIcon}
-    //           alt="Edit icon"
-    //           href=""
-    //           onClick={() => {
-    //             editTransaction(type, deposit.id);
-    //           }}
-    //         ></img>
-    //       </Col>
-    //       <img
-    //         src={deleteIcon}
-    //         alt="Delete icon"
-    //         href=""
-    //         onClick={() => {
-    //           deleteTransaction(type, deposit.id)
-    //         }}
-    //         ></img>
-    //     </td>
-    //   </tr>
-    // )
 
-    return ( // Use bootstrap-table
+    return (
       <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
         <td id={`td-id-${index}`} className={`td-class-${index}`}>{deposit.date}</td>
         <td>{deposit.name}</td>
@@ -125,7 +79,6 @@ const TableView = (props) => {
                 editTransaction(type, deposit.id);
               }}
             ></img>
-            {/* TO DO: Use React-icon */}
           </Col>
           <img
             src={deleteIcon}
@@ -152,7 +105,7 @@ const TableView = (props) => {
 
     return (
       <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
-        <th id={`td-id-${index}`} className={`td-class-${index}`}>{withdraw.date}</th>
+        <td id={`td-id-${index}`} className={`td-class-${index}`}>{withdraw.date}</td>
         <td>{withdraw.name}</td>
         <td>{findWithdrawType(withdraw.typeId)}</td>
         <td>{withdraw.amount}</td>
@@ -186,7 +139,6 @@ const TableView = (props) => {
         deposits: depositsList,
         withdraws: withdrawsList
       })
-      // depositsList2()
     }
   }, [props.userData])
 
@@ -202,7 +154,7 @@ const TableView = (props) => {
 
   return (
     <div id="table-div">
-      <table // Not using react-bootstrap
+      <table
         id="table"
         data-toggle="table"
         data-search="true"
@@ -261,31 +213,7 @@ const TableView = (props) => {
     </div>
   )
 
-  // return ( // Use eact-bootstrap
-  //   <Container>
-  //     <Row id="table-row">
-  //       <Table bordered responsive hover>
-  //         <thead>
-  //           <tr>
-  //             <th scope="col">Date</th>
-  //             <th scope="col">Title</th>
-  //             <th scope="col">Type</th>
-  //             <th scope="col">Amount</th>
-  //             <th scope="col">Edit/ Delete</th>
-  //           </tr>
-  //         </thead>
-  //         <tbody>
-  //           {depositsList}
-  //           {withdrawsList}
-  //         </tbody>
-  //       </Table>
-  //     </Row>
-  //     <br />
-  //     <Row id="pagination-row">
-  //       <Pagination text="dark">{items}</Pagination>
-  //     </Row>
-  //   </Container>
-  // )
+  
 }
 
 export default TableView
