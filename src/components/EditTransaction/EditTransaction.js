@@ -1,25 +1,21 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import {
-  Button,
-  Form,
-  FloatingLabel,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Form, FloatingLabel, Container, Row, Col} from 'react-bootstrap'
 
-const EditTransaction = (props) => {
+const EditTransaction = props => {
+
+  const [editedTransaction, setEditedTransaction] = useState()
+
   const handleChange = (e) => {
-    // setLogInData((prevState) => ({
+    // setEditedTransaction((prevState) => ({
     //   ...prevState,
     //   [e.target.type === "text" ? "username" : e.target.type]: e.target.value
     // }))
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // /:depositId/user/:userId"
+  const handleSubmit = e => {
+    e.preventDefault()
+    
     let token = localStorage.getItem("jwt");
 
     axios
@@ -49,12 +45,10 @@ const EditTransaction = (props) => {
   }, [props.selectedTransaction]);
 
   return (
-    <Container>
+    <Container className="content">
+      <Row className="header">Edit Transaction</Row>
       <Row>
-        <h3>Edit Transaction</h3>
-      </Row>
-      <Row>
-        <Col md={{ span: 4, offset: 4 }}>
+        <Col>         
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="date">
               <FloatingLabel label="Date">
@@ -104,7 +98,7 @@ const EditTransaction = (props) => {
               </FloatingLabel>
             </Form.Group>
 
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" className="mb-3">
               Submit
             </Button>
           </Form>

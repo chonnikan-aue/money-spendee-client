@@ -2,7 +2,7 @@ table {
   text-align: left;
 }
 
-th,
-td {
+th.summary-view,
+td.summary-view {
   padding: 20px !important;
 }
