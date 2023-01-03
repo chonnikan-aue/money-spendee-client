@@ -1,114 +1,152 @@
+import React, { useState, useRef, useEffect } from "react";
+import { useParams } from "react-router";
 import axios from "axios";
-import React, { useEffect } from "react";
-import {
-  Button,
-  Form,
-  FloatingLabel,
-  Container,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Button, Form, FloatingLabel, Container, Row } from "react-bootstrap";
 
 const EditTransaction = (props) => {
+  const type = useParams().type;
+  const id = useParams().id;
+  const amount = useRef();
+  const withdrawType = useRef();
+  const depositType = useRef();
+  const [data, setData] = useState({});
+
   const handleChange = (e) => {
-    // setLogInData((prevState) => ({
-    //   ...prevState,
-    //   [e.target.type === "text" ? "username" : e.target.type]: e.target.value
-    // }))
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+      userId: props.userData.id,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // /:depositId/user/:userId"
     let token = localStorage.getItem("jwt");
-
-    axios
-      .put(
-        `http://localhost:3001/${props.selectedTransaction.type}/${props.selectedTransaction.id}/user/${props.userData.id}`,
-        props.profileData, // BUG
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      .then(() => {
-        props.getUserData();
-      })
-      .then(() => {
-        alert("Transaction has been updated.");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-
-    return console.log(props.selectedTransaction.date);
   };
 
-  useEffect(() => {
-    if (props.selectedTransaction) {
-    }
-  }, [props.selectedTransaction]);
+  useEffect(() => {}, []);
 
   return (
-    <Container>
-      <Row>
-        <h3>Edit Transaction</h3>
-      </Row>
-      <Row>
-        <Col md={{ span: 4, offset: 4 }}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="date">
-              <FloatingLabel label="Date">
+    <Container className="content">
+      <Row className="header">Edit Transaction</Row>
+      <Row className="mb-3">
+        <Form onSubmit={handleSubmit}>
+          {type === "deposit" ? (
+            <>
+              <FloatingLabel label="Name" className="mb-3">
                 <Form.Control
-                  required
-                  type="date"
-                  onChange={handleChange}
-                  defaultValue={props.selectedTransaction.date}
-                />
-              </FloatingLabel>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="title">
-              <FloatingLabel label="Title">
-                <Form.Control
-                  required
+                  name="name"
                   type="text"
+                  placeholder="Name"
                   onChange={handleChange}
-                  placeholder="Enter Title"
-                  defaultValue={props.selectedTransaction.name}
+                  required
                 />
               </FloatingLabel>
-            </Form.Group>
-
-            <Form.Group className="mb-3">
-              <FloatingLabel label="Type">
-                <Form.Select id="type" required>
-                  <option disabled value=""></option>
-                  <option value="checkings">Checkings</option>
-                  <option value="savings">Savings</option>
-                  <option value="daily-expenses">Daily Expenses</option>
-                  <option value="investment">Investment</option>
-                </Form.Select>
-              </FloatingLabel>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="amount">
-              <FloatingLabel label="Amount">
+              <FloatingLabel label="Amount" className="mb-3">
                 <Form.Control
-                  required
+                  name="amount"
                   type="number"
-                  onChange={handleChange}
-                  defaultValue={props.selectedTransaction.amount}
                   min={0.01}
                   step="any"
+                  placeholder="Amount"
+                  onChange={handleChange}
+                  required
                 />
               </FloatingLabel>
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-              Submit
-            </Button>
-          </Form>
-        </Col>
+              <FloatingLabel label="Date" className="mb-3">
+                <Form.Control
+                  name="date"
+                  type="date"
+                  onChange={handleChange}
+                  required
+                />
+              </FloatingLabel>
+              <FloatingLabel label="Deposit to Account" className="mb-3">
+                <Form.Select name="typeId" onChange={handleChange} required>
+                  <option value="">Select Account</option>
+                  {props.userData.DepositTypes
+                    ? props.userData.DepositTypes.map((account, index) => (
+                        <option key={index} value={account.id}>
+                          {account.name}
+                        </option>
+                      ))
+                    : null}
+                </Form.Select>
+              </FloatingLabel>
+            </>
+          ) : (
+            <>
+              <FloatingLabel label="Name" className="mb-3">
+                <Form.Control
+                  name="name"
+                  type="text"
+                  placeholder="Name"
+                  onChange={handleChange}
+                  required
+                />
+              </FloatingLabel>
+              <FloatingLabel label="Amount" className="mb-3">
+                <Form.Control
+                  name="amount"
+                  type="number"
+                  min={0.01}
+                  step="any"
+                  placeholder="Amount"
+                  onChange={handleChange}
+                  ref={amount}
+                  required
+                />
+              </FloatingLabel>
+              <FloatingLabel label="Date" className="mb-3">
+                <Form.Control
+                  name="date"
+                  type="date"
+                  onChange={handleChange}
+                  required
+                />
+              </FloatingLabel>
+              <FloatingLabel label="Withdraw Type" className="mb-3">
+                <Form.Select
+                  name="typeId"
+                  onChange={handleChange}
+                  ref={withdrawType}
+                  required
+                >
+                  <option value="">Select Withdraw Type</option>
+                  {props.userData.WithdrawTypes
+                    ? props.userData.WithdrawTypes.map(
+                        (withdrawType, index) => (
+                          <option key={index} value={withdrawType.id}>
+                            {withdrawType.name}
+                          </option>
+                        )
+                      )
+                    : null}
+                </Form.Select>
+              </FloatingLabel>
+              <FloatingLabel label="Withdraw from Account" className="mb-3">
+                <Form.Select
+                  name="withdrawFromId"
+                  onChange={handleChange}
+                  ref={depositType}
+                  required
+                >
+                  <option value="">Select Account</option>
+                  {props.userData.DepositTypes
+                    ? props.userData.DepositTypes.map((account, index) => (
+                        <option key={index} value={account.id}>
+                          {account.name}
+                        </option>
+                      ))
+                    : null}
+                </Form.Select>
+              </FloatingLabel>
+            </>
+          )}
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        </Form>
       </Row>
     </Container>
   );

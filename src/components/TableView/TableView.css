@@ -1,3 +1,7 @@
+svg {
+  cursor: pointer;
+}
+
 .pagination {
   display: flex;
   flex-flow: row;
@@ -16,7 +20,7 @@ img:hover {
 }
 
 #table-div {
-  display: flex ;
+  display: flex;
   flex-flow: column;
 }
 
@@ -24,14 +28,16 @@ table {
   border: 2px solid black;
 }
 
-td,th {
+td,
+th {
   border: 2px solid black !important;
   padding: 0.6rem;
   font-size: medium;
 }
 
 @media (max-width: 500px) {
-  td,th {
+  td,
+  th {
     border: 2px solid black !important;
     padding: 0.2rem;
     font-size: small;
