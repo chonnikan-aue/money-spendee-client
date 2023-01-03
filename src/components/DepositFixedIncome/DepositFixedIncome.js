@@ -40,7 +40,7 @@ const DepositFixedIncome = (props) => {
           placeholder="Name"
           onChange={handleChange}
           defaultValue="Fixed Income"
-          disabled={true}
+          disabled
         />
       </FloatingLabel>
       <FloatingLabel label="Amount" className="mb-3">
@@ -50,7 +50,7 @@ const DepositFixedIncome = (props) => {
           placeholder="Amount"
           onChange={handleChange}
           defaultValue={props.userData.fixedIncome}
-          disabled={true}
+          disabled
         />
       </FloatingLabel>
       <FloatingLabel label="Date" className="mb-3">

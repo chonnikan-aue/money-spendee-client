@@ -38,6 +38,7 @@ const FixedIncome = (props) => {
           name="fixedIncome"
           type="number"
           min={0}
+          step="any"
           placeholder="Fixed Income"
           onChange={handleChange}
           defaultValue={props.userData.fixedIncome}

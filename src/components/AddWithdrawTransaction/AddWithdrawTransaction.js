@@ -1,145 +1,96 @@
-import React, { useState } from "react"
-import axios from "axios"
-import { Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
+import React, { useState, useRef } from "react";
+import axios from "axios";
+import { Form, Button, FloatingLabel, Alert } from "react-bootstrap";
 
 const AddWithdrawTransaction = (props) => {
-  const userId = props.userData.id
-  console.log(props.userData)
-  const [data, setData] = useState({
-    userId: userId
-  })
-  const [formData, setFormData] = useState({
-    withdrawFromId: 0,
-    typeId: 0,
-  });
+  const amount = useRef();
+  const withdrawType = useRef();
+  const depositType = useRef();
+  const [data, setData] = useState({});
   const [show, setShow] = useState(false);
-  const [alertAmount, setAlertAmount] = useState('')
 
   const handleChange = (e) => {
-    let value = e.target.value;
-    let matchType;
-    let totalAmount;
-    let matchWithdrawType;
-    let budgetAmount = 0;
-
-    if (e.target.name === "typeId" || e.target.name === "withdrawFromId") {
-      setFormData((prevState) => ({
-        ...prevState,
-        withdrawFromId: value,
-        typeId: value,
-      }));
-    }
-
-    console.log(formData);
-
-    let { withdrawFromId, typeId } = formData;
-    if (withdrawFromId != 0 && typeId != 0) {
-      matchType = props.userData.Deposits.filter(
-        (deposit) => deposit.typeId == withdrawFromId
+    setData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+      userId: props.userData.id,
+    }));
+    if (
+      amount.current.value &&
+      withdrawType.current.value &&
+      depositType.current.value
+    ) {
+      const depositTypeValue = depositType.current.value;
+      const sumAmountDepositType = props.userData.DepositTypes.filter(
+        (depositType) => {
+          return depositType.id == depositTypeValue;
+        }
+      )[0].sumAmount;
+      const withdrawTypeValue = withdrawType.current.value;
+      const withdrawTypeSelected = props.userData.WithdrawTypes.filter(
+        (withdrawType) => {
+          return withdrawType.id == withdrawTypeValue;
+        }
       );
-
-      totalAmount = matchType.reduce(
-        (total, deposit) => total + deposit.amount,
-        0
-      );
-      console.log(`this is total ${totalAmount}`);
-
-      matchWithdrawType = props.userData.WithdrawTypes.find(
-        (withdrawType) => withdrawType.id == typeId
-      );
-      console.log(matchWithdrawType);
-      budgetAmount = totalAmount * (matchWithdrawType.budgetPercent / 100);
-      console.log(`this is budget ${budgetAmount}`);
-
-      const alertBudget = budgetAmount * (matchWithdrawType.alertPercent / 100);
-      console.log(`this is alert ${alertBudget}`);
-      setAlertAmount(alertBudget);
-    }
-
-    value = parseInt(value, 10);
-    console.log(value);
-    console.log(alertAmount);
-    if (formData.typeId != 0 && formData.withdrawFromId != 0) {
-      if (value > alertAmount) {
+      const sumAmountWithdrawType = withdrawTypeSelected[0].sumAmount;
+      const budgetPercent = withdrawTypeSelected[0].budgetPercent;
+      const alertPercent = withdrawTypeSelected[0].alertPercent;
+      const canUseMoney = (budgetPercent / 100) * sumAmountDepositType;
+      if (
+        parseFloat(amount.current.value) + sumAmountWithdrawType >
+        (alertPercent / 100) * canUseMoney
+      ) {
         setShow(true);
       } else {
         setShow(false);
       }
     }
+  };
 
-    setData((prevState) => ({
-      ...prevState,
-      [e.target.name]: value,
-      userId: props.userData.id,
-    }));
-  }
-
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let token = localStorage.getItem("jwt");
-
-    axios.post(`http://localhost:3001/withdraw/user/${props.userData.id}`, data,
-      {
+    axios
+      .post(`http://localhost:3001/withdraw/user/${props.userData.id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then(res => {
+      .then((res) => {
         props.getUserData();
         alert("Transaction has been withdrawn.");
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
       {show && (
         <Alert variant="warning" onClose={() => setShow(false)}>
-          `Your transaction is over the budget limit which is {alertAmount} THB`
+          Your transaction is over the budget limit
         </Alert>
       )}
-      <FloatingLabel label="Title" className="mb-3">
+      <FloatingLabel label="Name" className="mb-3">
         <Form.Control
           name="name"
           type="text"
-          placeholder="What did you pay?"
+          placeholder="Name"
           onChange={handleChange}
+          required
         />
       </FloatingLabel>
       <FloatingLabel label="Amount" className="mb-3">
         <Form.Control
           name="amount"
-          type="text"
+          type="number"
+          min={0.01}
+          step="any"
           placeholder="Amount"
           onChange={handleChange}
+          ref={amount}
+          required
         />
       </FloatingLabel>
-      <FloatingLabel label="Type" className="mb-3">
-        <Form.Select name="typeId" onChange={handleChange} required>
-          <option value="">Select Type</option>
-          {props.userData.WithdrawTypes
-            ? props.userData.WithdrawTypes.map((type, index) => (
-              <option key={index} value={type.id}>
-                {type.name}
-              </option>
-            ))
-            : null}
-        </Form.Select>
-      </FloatingLabel>
-
-      <FloatingLabel label="Account:" className="mb-3">
-        <Form.Select name="withdrawFromId" onChange={handleChange} required>
-          <option value="">Select Account</option>
-          {props.userData.DepositTypes
-            ? props.userData.DepositTypes.map((account, index) => (
-              <option key={index} value={account.id}>
-                {account.name}
-              </option>
-            ))
-            : null}
-        </Form.Select>
-      </FloatingLabel>
-
       <FloatingLabel label="Date" className="mb-3">
         <Form.Control
           name="date"
@@ -148,9 +99,44 @@ const AddWithdrawTransaction = (props) => {
           required
         />
       </FloatingLabel>
-
-      <Button color="primary" type="submit">Submit</Button>
+      <FloatingLabel label="Withdraw Type" className="mb-3">
+        <Form.Select
+          name="typeId"
+          onChange={handleChange}
+          ref={withdrawType}
+          required
+        >
+          <option value="">Select Withdraw Type</option>
+          {props.userData.WithdrawTypes
+            ? props.userData.WithdrawTypes.map((withdrawType, index) => (
+                <option key={index} value={withdrawType.id}>
+                  {withdrawType.name}
+                </option>
+              ))
+            : null}
+        </Form.Select>
+      </FloatingLabel>
+      <FloatingLabel label="Withdraw from Account" className="mb-3">
+        <Form.Select
+          name="withdrawFromId"
+          onChange={handleChange}
+          ref={depositType}
+          required
+        >
+          <option value="">Select Account</option>
+          {props.userData.DepositTypes
+            ? props.userData.DepositTypes.map((account, index) => (
+                <option key={index} value={account.id}>
+                  {account.name}
+                </option>
+              ))
+            : null}
+        </Form.Select>
+      </FloatingLabel>
+      <Button color="primary" type="submit">
+        Submit
+      </Button>
     </Form>
-  )
-}
-export default AddWithdrawTransaction
+  );
+};
+export default AddWithdrawTransaction;

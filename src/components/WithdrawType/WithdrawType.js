@@ -63,8 +63,9 @@ const WithdrawType = (props) => {
               <Form.Control
                 name="budgetPercent"
                 type="number"
-                min={1}
+                min={0.1}
                 max={100}
+                step="any"
                 placeholder="Budget (%)"
                 onChange={handleChange}
                 required
@@ -77,8 +78,9 @@ const WithdrawType = (props) => {
               <Form.Control
                 name="alertPercent"
                 type="number"
-                min={1}
+                min={0.1}
                 max={100}
+                step="any"
                 placeholder="Alert when exceed __% of budget"
                 onChange={handleChange}
                 required
