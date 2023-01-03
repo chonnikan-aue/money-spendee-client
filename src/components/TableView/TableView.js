@@ -163,6 +163,7 @@ const TableView = (props) => {
         data-toggle="table"
         data-search="true"
         data-show-columns="true"
+        data-pagination="true"
       >
         <thead>
           <tr className="tr-class-1">
@@ -223,11 +224,6 @@ const TableView = (props) => {
           {withdrawsList}
         </tbody>
       </table>
-
-      {/* <script>
-        {const $table = $('#table')}
-        {$table.bootstrapTable({data: data})}
-      </script> */}
     </div>
   )
 }
