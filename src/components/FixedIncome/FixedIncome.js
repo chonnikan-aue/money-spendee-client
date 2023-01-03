@@ -32,23 +32,27 @@ const FixedIncome = (props) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FloatingLabel label="Fixed Income" className="mb-3">
-        <Form.Control
-          name="fixedIncome"
-          type="number"
-          min={0}
-          step="any"
-          placeholder="Fixed Income"
-          onChange={handleChange}
-          defaultValue={props.userData.fixedIncome}
-          required
-        />
-      </FloatingLabel>
-      <Button variant="primary" type="submit">
-        Save Changes
-      </Button>
-    </Form>
+    <>
+      {props.userData ? (
+        <Form onSubmit={handleSubmit}>
+          <FloatingLabel label="Fixed Income" className="mb-3">
+            <Form.Control
+              name="fixedIncome"
+              type="number"
+              min={0}
+              step="any"
+              placeholder="Fixed Income"
+              onChange={handleChange}
+              defaultValue={props.userData.fixedIncome}
+              required
+            />
+          </FloatingLabel>
+          <Button variant="primary" type="submit">
+            Save Changes
+          </Button>
+        </Form>
+      ) : null}
+    </>
   );
 };
 

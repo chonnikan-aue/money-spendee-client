@@ -1,13 +1,12 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Form, Button, FloatingLabel, Alert } from "react-bootstrap";
 
 const AddWithdrawTransaction = (props) => {
-  const amount = useRef();
-  const withdrawType = useRef();
-  const depositType = useRef();
+  const amountRef = useRef();
+  const withdrawTypeRef = useRef();
+  const depositTypeRef = useRef();
   const [data, setData] = useState({});
-  const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
     setData((prevState) => ({
@@ -16,36 +15,21 @@ const AddWithdrawTransaction = (props) => {
       userId: props.userData.id,
     }));
     if (
-      amount.current.value &&
-      withdrawType.current.value &&
-      depositType.current.value
+      amountRef.current.value &&
+      withdrawTypeRef.current.value &&
+      depositTypeRef.current.value
     ) {
-      const depositTypeValue = depositType.current.value;
-      const sumAmountDepositType = props.userData.DepositTypes.filter(
-        (depositType) => {
-          return depositType.id == depositTypeValue;
-        }
-      )[0].sumAmount;
-      const withdrawTypeValue = withdrawType.current.value;
-      const withdrawTypeSelected = props.userData.WithdrawTypes.filter(
-        (withdrawType) => {
-          return withdrawType.id == withdrawTypeValue;
-        }
+      props.alertBudget(
+        depositTypeRef.current.value,
+        withdrawTypeRef.current.value,
+        amountRef.current.value
       );
-      const sumAmountWithdrawType = withdrawTypeSelected[0].sumAmount;
-      const budgetPercent = withdrawTypeSelected[0].budgetPercent;
-      const alertPercent = withdrawTypeSelected[0].alertPercent;
-      const canUseMoney = (budgetPercent / 100) * sumAmountDepositType;
-      if (
-        parseFloat(amount.current.value) + sumAmountWithdrawType >
-        (alertPercent / 100) * canUseMoney
-      ) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
     }
   };
+
+  useEffect(() => {
+    props.setShow(false);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,9 +49,9 @@ const AddWithdrawTransaction = (props) => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      {show && (
-        <Alert variant="warning" onClose={() => setShow(false)}>
-          Your transaction is over the budget limit
+      {props.show && (
+        <Alert variant="warning">
+          Your transaction is about to over the budget limit.
         </Alert>
       )}
       <FloatingLabel label="Name" className="mb-3">
@@ -87,7 +71,7 @@ const AddWithdrawTransaction = (props) => {
           step="any"
           placeholder="Amount"
           onChange={handleChange}
-          ref={amount}
+          ref={amountRef}
           required
         />
       </FloatingLabel>
@@ -103,7 +87,7 @@ const AddWithdrawTransaction = (props) => {
         <Form.Select
           name="typeId"
           onChange={handleChange}
-          ref={withdrawType}
+          ref={withdrawTypeRef}
           required
         >
           <option value="">Select Withdraw Type</option>
@@ -120,7 +104,7 @@ const AddWithdrawTransaction = (props) => {
         <Form.Select
           name="withdrawFromId"
           onChange={handleChange}
-          ref={depositType}
+          ref={depositTypeRef}
           required
         >
           <option value="">Select Account</option>
