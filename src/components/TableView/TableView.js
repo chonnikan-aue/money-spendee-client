@@ -168,6 +168,8 @@ const TableView = (props) => {
               data-sortable="true"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="left"
             >
               Date
             </th>
@@ -176,6 +178,8 @@ const TableView = (props) => {
               data-sortable="true"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="left"
             >
               Title
             </th>
@@ -184,6 +188,8 @@ const TableView = (props) => {
               data-sortable="true"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="left"
             >
               Type
             </th>
@@ -192,6 +198,8 @@ const TableView = (props) => {
               data-sortable="true"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="left"
             >
               Amount
             </th>
@@ -200,6 +208,8 @@ const TableView = (props) => {
               data-sortable="true"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="center"
             >
               Edit/ Delete
             </th>

@@ -7,7 +7,7 @@ const SummaryView = (props) => {
     <Table striped bordered responsive>
       <thead>
         <tr>
-          <th colSpan={2}>
+          <th colSpan={2} className="summary-view">
             Total:{" "}
             {props.userData.sumDepositAmount + props.userData.sumWithdrawAmount}
           </th>
@@ -15,8 +15,8 @@ const SummaryView = (props) => {
       </thead>
       <tbody>
         <tr>
-          <th>Balance: {props.userData.sumDepositAmount}</th>
-          <td>
+          <th className="summary-view">Balance: {props.userData.sumDepositAmount}</th>
+          <td className="summary-view">
             {props.userData.DepositTypes
               ? props.userData.DepositTypes.map((depositType, index) => (
                   <div key={index}>
@@ -28,8 +28,8 @@ const SummaryView = (props) => {
           </td>
         </tr>
         <tr>
-          <th>Expenses: {props.userData.sumWithdrawAmount}</th>
-          <td>
+          <th className="summary-view">Expenses: {props.userData.sumWithdrawAmount}</th>
+          <td className="summary-view">
             {props.userData.WithdrawTypes
               ? props.userData.WithdrawTypes.map((withdrawType, index) => (
                   <div key={index}>
