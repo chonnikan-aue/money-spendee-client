@@ -36,13 +36,14 @@ const TableView = (props) => {
   };
 
   const depositsList = props.userData.Deposits.map((deposit, index) => {
-    let type = "deposit";
+
+    let type = "deposit"
+
+    let indexPlusOne = index + 1
 
     return (
-      <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
-        <td id={`td-id-${index}`} className={`td-class-${index}`}>
-          {deposit.date}
-        </td>
+      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} deposit`}>
+        <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>{deposit.date}</td>
         <td>{deposit.name}</td>
         <td>{findDepositType(deposit.typeId)}</td>
         <td>{deposit.amount}</td>
@@ -75,13 +76,14 @@ const TableView = (props) => {
   };
 
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
-    let type = "withdraw";
+
+    let type = "withdraw"
+
+    let indexPlusOne = index + 1
 
     return (
-      <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
-        <td id={`td-id-${index}`} className={`td-class-${index}`}>
-          {withdraw.date}
-        </td>
+      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} withdraw`}>
+        <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>{withdraw.date}</td>
         <td>{withdraw.name}</td>
         <td>{findWithdrawType(withdraw.typeId)}</td>
         <td>{withdraw.amount}</td>
@@ -134,34 +136,42 @@ const TableView = (props) => {
         <thead>
           <tr className="tr-class-1">
             <th
-              data-field="date"
               data-sortable="true"
+              data-field="date"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="center"
             >
               Date
             </th>
             <th
-              data-field="title"
               data-sortable="true"
+              data-field="title"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="center"
             >
               Title
             </th>
             <th
-              data-field="type"
               data-sortable="true"
+              data-field="type"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="center"
             >
               Type
             </th>
             <th
-              data-field="amount"
               data-sortable="true"
+              data-field="amount"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="center"
             >
               Amount
             </th>
@@ -170,6 +180,8 @@ const TableView = (props) => {
               data-sortable="true"
               colspan="1"
               data-valign="middle"
+              data-halign="center" 
+              data-align="center"
             >
               Edit/ Delete
             </th>
@@ -180,6 +192,11 @@ const TableView = (props) => {
           {withdrawsList}
         </tbody>
       </table>
+
+      {/* <script>
+        {const $table = $('#table')}
+        {$table.bootstrapTable({data: data})}
+      </script> */}
     </div>
   );
 };

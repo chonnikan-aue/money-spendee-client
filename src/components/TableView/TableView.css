@@ -20,8 +20,8 @@ img:hover {
 }
 
 #table-div {
-  display: flex;
-  flex-flow: column;
+  display: flex !important;
+  flex-flow: column !important;
 }
 
 table {
@@ -31,8 +31,9 @@ table {
 td,
 th {
   border: 2px solid black !important;
-  padding: 0.6rem;
+  padding: 0.4rem ;
   font-size: medium;
+  text-align: center;
 }
 
 @media (max-width: 500px) {
@@ -46,6 +47,15 @@ th {
 
 th {
   background-color: lightgrey;
+  text-align: center !important;
+}
+
+tr.deposit {
+  color: rgb(0, 178, 0);
+}
+
+tr.withdraw {
+  color: rgb(255, 0, 0);
 }
 
 tr:hover {
