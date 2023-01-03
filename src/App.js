@@ -151,6 +151,7 @@ function App() {
               <>
                 <Header userData={userData} />
                 <EditTransaction
+                  userData={userData}
                   selectedTransaction={selectedTransaction}
                   setSelectedTransaction={setSelectedTransaction}
                 />
