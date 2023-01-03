@@ -14,3 +14,34 @@ img {
 img:hover {
   opacity: 0.3;
 }
+
+#table-div {
+  display: flex ;
+  flex-flow: column;
+}
+
+table {
+  border: 2px solid black;
+}
+
+td,th {
+  border: 2px solid black !important;
+  padding: 0.6rem;
+  font-size: medium;
+}
+
+@media (max-width: 500px) {
+  td,th {
+    border: 2px solid black !important;
+    padding: 0.2rem;
+    font-size: small;
+  }
+}
+
+th {
+  background-color: lightgrey;
+}
+
+tr:hover {
+  background-color: rgb(240, 236, 236);
+}

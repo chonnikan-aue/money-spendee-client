@@ -121,6 +121,31 @@ function App() {
                   setUserData={setUserData}
                   transactions={transactions}
                   setTransactions={setTransactions}
+                  getUserData={getUserData}
+                />
+              </>
+            }
+          />
+          <Route
+            path="/add-transaction"
+            element={
+              <>
+                <Header userData={userData} />
+                <AddTransaction userData={userData} getUserData={getUserData} />
+              </>
+            }
+          />
+          <Route
+            path="/update-info"
+            element={
+              <>
+                <Header userData={userData} />
+                <UpdateInfo
+                  handleProfileChange={handleProfileChange}
+                  profileData={profileData}
+                  setProfileData={setProfileData}
+                  userData={userData}
+                  getUserData={getUserData}
                 />
               </>
             }
@@ -154,7 +179,11 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <EditTransaction />
+                <EditTransaction
+                  userData={userData}
+                  selectedTransaction={selectedTransaction}
+                  setSelectedTransaction={setSelectedTransaction}
+                />
               </>
             }
           />

@@ -4,47 +4,15 @@ import editIcon from "../../images/edit.png"
 import deleteIcon from "../../images/delete.png"
 import "./TableView.css"
 import { Container, Row, Col, Table, Pagination } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 const TableView = (props) => {
 
-  // Mai's recommendation
-  // const [div, setDiv] = useState();
-
-  // useEffect(()=>{
-  //   if (props.userData) {
-  //     setDiv(depositsList)
-  //   }
-  // }, [props.userData])
-  
-
-  // const [transactions, setTransactions] = useState({
-  //   deposits: [],
-  //   withdraws: []\
-  // })
-  // const [transactions, setTransactions] = useState([])
-
-  // // Mai's recommendation
-  // useEffect(()=>{
-  //   if (props.userData) {
-  //     console.log(props.userData);
-  //   }
-  // },[props.userData])
-
-  // return (
-  //   <h1>{props.userData.Deposits[0].name}</h1>
-  // )
-  //
-
-  // Start of Test 01: Static version
-  //
-  //
-
   const editTransaction = (type, id) => {
-    // selectedTransaction
+
     props.setSelectedTransaction({
       id: id, // Either depositId or withdrawId
-      type: type,
+      type: type, // Either deposit or withdraw
       name: props.userData[type].filter(
         (transaction) => transaction.id === id
       ).name,
@@ -61,34 +29,45 @@ const TableView = (props) => {
         (transaction) => transaction.id === id
       ).userId
     })
-
-    return console.log(`edit transaction <type: ${type}, ${type}Id: ${id}>`)
-  }
+      
+    return console.log(`Now editting transaction <type: ${type}, ${type}Id: ${id}>`)
+  }  
 
   const deleteTransaction = (type, id) => {
+
+    let token = localStorage.getItem("jwt");
+
     axios
-      .delete(`http://localhost:3001/${type}/${id}`)
+      .delete(`http://localhost:3001/${type}/${id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      })
       .then((res) => {
         console.log(res.data)
+        props.getUserData()
+        alert("Transaction has been deleted.");
       })
       .catch((err) => {
         console.log(err)
       })
     return console.log(`delete transaction <type: ${type}, id: ${id}>`)
   }
+  
+  const findDepositType = (depositTypeId) => {
+    let depositType = `${props.userData.DepositTypes.find(type => type.id === depositTypeId).name}`
 
-  // console.log(props.userData);
-  // console.log(props.userData.Deposits[0].date);
+    return depositType
+  }
 
   const depositsList = props.userData.Deposits.map((deposit, index) => {
 
     let type = "deposit"
 
     return (
-      <tr key={index}>
-        <th scope="row">{deposit.date}</th>
+      <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
+        <td id={`td-id-${index}`} className={`td-class-${index}`}>{deposit.date}</td>
         <td>{deposit.name}</td>
-        <td>{deposit.typeId === 1 ? "Checkings" : "Savings"}</td>
+        <td>{findDepositType(deposit.typeId)}</td>
         <td>{deposit.amount}</td>
         <td>
           <Col as={Link} to="/edit-transaction">
@@ -100,7 +79,6 @@ const TableView = (props) => {
                 editTransaction(type, deposit.id);
               }}
             ></img>
-            {/* TO DO: Use React-icon */}
           </Col>
           <img
             src={deleteIcon}
@@ -115,12 +93,21 @@ const TableView = (props) => {
     )
   })
 
+  const findWithdrawType = (withdrawTypeId) => {
+    let withdrawType = `${props.userData.WithdrawTypes.find(type => type.id === withdrawTypeId).name}`
+
+    return withdrawType
+  }
+
   const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
+
+    let type = "withdraw"
+
     return (
-      <tr key={index}>
-        <th scope="row">{withdraw.date}</th>
+      <tr key={index} id={`tr-id-${index}`} className={`tr-class-${index}`}>
+        <td id={`td-id-${index}`} className={`td-class-${index}`}>{withdraw.date}</td>
         <td>{withdraw.name}</td>
-        <td>{withdraw.typeId === 1 ? "Daily Expenses" : "Investment"}</td>
+        <td>{findWithdrawType(withdraw.typeId)}</td>
         <td>{withdraw.amount}</td>
         <td>
           <Col as={Link} to="/edit-transaction">
@@ -128,26 +115,23 @@ const TableView = (props) => {
               src={editIcon}
               alt="Edit icon"
               href=""
-              onClick={editTransaction}
+              onClick={() => {
+                editTransaction(type, withdraw.id);
+              }}
             ></img>
           </Col>
           <img
             src={deleteIcon}
             alt="Delete icon"
             href=""
-            onClick={deleteTransaction}
+            onClick={() => {
+              deleteTransaction(type, withdraw.id)}
+            }
           ></img>
         </td>
       </tr>
     )
   })
-  
-  // const [testSum, setTestSum] = useState()
-  // const sumCheckings = props.userData.Deposits
-  //   .filter((deposit) => deposit.typeId === 1)
-  //   .reduce((sum, deposit) => {
-  //     return sum + deposit.amount
-  //   }, 0)
 
   useEffect(() => {
     if (props.userData) {
@@ -155,22 +139,8 @@ const TableView = (props) => {
         deposits: depositsList,
         withdraws: withdrawsList
       })
-      // setTestSum(sumCheckings)
     }
   }, [props.userData])
-
-  // console.log(sumCheckings)
-  //
-  //
-  // End of Test 01
-
-  // Start of Test 02: Dynamic version
-  //
-  //
-
-  //
-  //
-  // End of Test 02
 
   let active = 1
   let items = []
@@ -183,34 +153,67 @@ const TableView = (props) => {
   }
 
   return (
-    <Container>
-      {/* {<script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>}  */}
-      <Row id="table-row">
-        <Table bordered responsive hover>
-          <thead>
-            <tr>
-              <th scope="col">Date</th>
-              <th scope="col">Title</th>
-              <th scope="col">Type</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Edit/ Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {depositsList}
-            {withdrawsList}
-          </tbody>
-        </Table>
-      </Row>
-      <br />
-      <Row id="pagination-row">
-        <Pagination text="dark">{items}</Pagination>
-      </Row>
-      {/* <Row>
-        Test: {sumCheckings}
-      </Row> */}
-    </Container>
+    <div id="table-div">
+      <table
+        id="table"
+        data-toggle="table"
+        data-search="true"
+        data-show-columns="true"
+        
+      >
+        <thead>
+          <tr className="tr-class-1">
+            <th
+              data-field="date"
+              data-sortable="true"
+              colspan="1"
+              data-valign="middle"
+            >
+              Date
+            </th>
+            <th
+              data-field="title"
+              data-sortable="true"
+              colspan="1"
+              data-valign="middle"
+            >
+              Title
+            </th>
+            <th
+              data-field="type"
+              data-sortable="true"
+              colspan="1"
+              data-valign="middle"
+            >
+              Type
+            </th>
+            <th
+              data-field="amount"
+              data-sortable="true"
+              colspan="1"
+              data-valign="middle"
+            >
+              Amount
+            </th>
+            <th
+              data-field="edit-delete"
+              data-sortable="true"
+              colspan="1"
+              data-valign="middle"
+            >
+              Edit/ Delete
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {depositsList}
+          {withdrawsList}
+        </tbody>
+      </table>
+    </div>
   )
+
+  
 }
 
 export default TableView
