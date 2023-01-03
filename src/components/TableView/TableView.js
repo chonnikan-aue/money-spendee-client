@@ -72,7 +72,7 @@ const TableView = (props) => {
         <td>{findDepositType(deposit.typeId)}</td>
         <td>{deposit.amount}</td>
         <td>
-          <Col as={Link} to="/edit-transaction">
+          <td as={Link} to="/edit-transaction">
             <img
               src={editIcon}
               alt="Edit icon"
@@ -81,7 +81,7 @@ const TableView = (props) => {
                 editTransaction(type, deposit.id);
               }}
             ></img>
-          </Col>
+          </td>
           <img
             src={deleteIcon}
             alt="Delete icon"
