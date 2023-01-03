@@ -8,8 +8,13 @@ import { Link, useNavigate } from "react-router-dom"
 
 const TableView = (props) => {
 
-  const editTransaction = (type, id) => {
+  const [sortType, setSortType] = useState(null);
 
+  const sortBy = (column) => {
+    setSortType(column);
+  }
+
+  const editTransaction = (type, id) => {
     props.setSelectedTransaction({
       id: id, // Either depositId or withdrawId
       type: type, // Either deposit or withdraw
@@ -29,9 +34,9 @@ const TableView = (props) => {
         (transaction) => transaction.id === id
       ).userId
     })
-      
+
     return console.log(`Now editting transaction <type: ${type}, ${type}Id: ${id}>`)
-  }  
+  }
 
   const deleteTransaction = (type, id) => {
 
@@ -39,9 +44,9 @@ const TableView = (props) => {
 
     axios
       .delete(`http://localhost:3001/${type}/${id}`,
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        })
       .then((res) => {
         console.log(res.data)
         props.getUserData()
@@ -52,18 +57,32 @@ const TableView = (props) => {
       })
     return console.log(`delete transaction <type: ${type}, id: ${id}>`)
   }
-  
+
   const findDepositType = (depositTypeId) => {
     let depositType = `${props.userData.DepositTypes.find(type => type.id === depositTypeId).name}`
 
     return depositType
   }
 
-  const depositsList = props.userData.Deposits.map((deposit, index) => {
+  const depositsList = props.userData.Deposits
+    .sort((a, b) => {
+      if (sortType === 'date') {
+        return a.date > b.date ? 1 : -1;
+      } else if (sortType === 'name') {
+        return a.name > b.name ? 1 : -1;
+      } else if (sortType === 'type') {
+        return findDepositType(a.typeId) > findDepositType(b.typeId) ? 1 : -1;
+      } else if (sortType === 'amount') {
+        return a.amount > b.amount ? 1 : -1;
+      } else {
+        return 0;
+      }
+    })
+    .map((deposit, index) => {
 
-    let type = "deposit"
+      let type = "deposit"
 
-    let indexPlusOne = index + 1
+      let indexPlusOne = index + 1
 
     return (
       <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} deposit`}>
@@ -72,16 +91,16 @@ const TableView = (props) => {
         <td>{findDepositType(deposit.typeId)}</td>
         <td>{deposit.amount}</td>
         <td>
-          <td as={Link} to="/edit-transaction">
+          <Col as={Link} to="/edit-transaction">
             <img
-              src={editIcon}
-              alt="Edit icon"
+              src={deleteIcon}
+              alt="Delete icon"
               href=""
               onClick={() => {
-                editTransaction(type, deposit.id);
+                deleteTransaction(type, deposit.id)
               }}
             ></img>
-          </td>
+          </Col>
           <img
             src={deleteIcon}
             alt="Delete icon"
@@ -93,7 +112,7 @@ const TableView = (props) => {
         </td>
       </tr>
     )
-  })
+  });
 
   const findWithdrawType = (withdrawTypeId) => {
     let withdrawType = `${props.userData.WithdrawTypes.find(type => type.id === withdrawTypeId).name}`
@@ -101,41 +120,55 @@ const TableView = (props) => {
     return withdrawType
   }
 
-  const withdrawsList = props.userData.Withdraws.map((withdraw, index) => {
+  const withdrawsList = props.userData.Withdraws
+    .sort((a, b) => {
+      if (sortType === 'date') {
+        return a.date > b.date ? 1 : -1;
+      } else if (sortType === 'name') {
+        return a.name > b.name ? 1 : -1;
+      } else if (sortType === 'type') {
+        return findWithdrawType(a.typeId) > findWithdrawType(b.typeId) ? 1 : -1;
+      } else if (sortType === 'amount') {
+        return a.amount > b.amount ? 1 : -1;
+      } else {
+        return 0;
+      }
+    })
+    .map((withdraw, index) => {
 
-    let type = "withdraw"
+      let type = "withdraw"
+      let indexPlusOne = index + 1
 
-    let indexPlusOne = index + 1
-
-    return (
-      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} withdraw`}>
-        <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>{withdraw.date}</td>
-        <td>{withdraw.name}</td>
-        <td>{findWithdrawType(withdraw.typeId)}</td>
-        <td>{withdraw.amount}</td>
-        <td>
-          <Col as={Link} to="/edit-transaction">
+      return (
+        <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} withdraw`}>
+          <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>{withdraw.date}</td>
+          <td>{withdraw.name}</td>
+          <td>{findWithdrawType(withdraw.typeId)}</td>
+          <td>{withdraw.amount}</td>
+          <td>
+            <Col as={Link} to="/edit-transaction">
+              <img
+                src={editIcon}
+                alt="Edit icon"
+                href=""
+                onClick={() => {
+                  editTransaction(type, withdraw.id);
+                }}
+              ></img>
+            </Col>
             <img
-              src={editIcon}
-              alt="Edit icon"
+              src={deleteIcon}
+              alt="Delete icon"
               href=""
               onClick={() => {
-                editTransaction(type, withdraw.id);
-              }}
+                deleteTransaction(type, withdraw.id)
+              }
+              }
             ></img>
-          </Col>
-          <img
-            src={deleteIcon}
-            alt="Delete icon"
-            href=""
-            onClick={() => {
-              deleteTransaction(type, withdraw.id)}
-            }
-          ></img>
-        </td>
-      </tr>
-    )
-  })
+          </td>
+        </tr>
+      )
+    });
 
   useEffect(() => {
     if (props.userData) {
@@ -166,55 +199,24 @@ const TableView = (props) => {
         data-pagination="true"
       >
         <thead>
-          <tr className="tr-class-1">
-            <th
-              data-sortable="true"
-              data-field="date"
-              colspan="1"
-              data-valign="middle"
-              data-halign="center" 
-              data-align="center"
-            >
+          <tr>
+            <th id={`th-id-date`}>
               Date
+              <button onClick={() => sortBy('date')}>sort</button>
             </th>
-            <th
-              data-sortable="true"
-              data-field="title"
-              colspan="1"
-              data-valign="middle"
-              data-halign="center" 
-              data-align="center"
-            >
-              Title
+            <th id={`th-id-name`}>
+              Name
+              <button onClick={() => sortBy('name')}>sort</button>
             </th>
-            <th
-              data-sortable="true"
-              data-field="type"
-              colspan="1"
-              data-valign="middle"
-              data-halign="center" 
-              data-align="center"
-            >
+            <th id={`th-id-type`}>
               Type
+              <button onClick={() => sortBy('type')}>sort</button>
             </th>
-            <th
-              data-sortable="true"
-              data-field="amount"
-              colspan="1"
-              data-valign="middle"
-              data-halign="center" 
-              data-align="center"
-            >
+            <th id={`th-id-amount`}>
               Amount
+              <button onClick={() => sortBy('amount')}>sort</button>
             </th>
-            <th
-              data-field="edit-delete"
-              data-sortable="true"
-              colspan="1"
-              data-valign="middle"
-              data-halign="center" 
-              data-align="center"
-            >
+            <th>
               Edit/ Delete
             </th>
           </tr>
