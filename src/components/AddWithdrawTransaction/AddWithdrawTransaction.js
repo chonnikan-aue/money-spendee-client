@@ -3,9 +3,9 @@ import axios from "axios";
 import { Form, Button, FloatingLabel, Alert } from "react-bootstrap";
 
 const AddWithdrawTransaction = (props) => {
-  const amount = useRef();
-  const withdrawType = useRef();
-  const depositType = useRef();
+  const amountRef = useRef();
+  const withdrawTypeRef = useRef();
+  const depositTypeRef = useRef();
   const [data, setData] = useState({});
 
   const handleChange = (e) => {
@@ -15,14 +15,14 @@ const AddWithdrawTransaction = (props) => {
       userId: props.userData.id,
     }));
     if (
-      amount.current.value &&
-      withdrawType.current.value &&
-      depositType.current.value
+      amountRef.current.value &&
+      withdrawTypeRef.current.value &&
+      depositTypeRef.current.value
     ) {
       props.alertBudget(
-        depositType.current.value,
-        withdrawType.current.value,
-        amount.current.value
+        depositTypeRef.current.value,
+        withdrawTypeRef.current.value,
+        amountRef.current.value
       );
     }
   };
@@ -51,7 +51,7 @@ const AddWithdrawTransaction = (props) => {
     <Form onSubmit={handleSubmit}>
       {props.show && (
         <Alert variant="warning">
-          Your transaction is over the budget limit
+          Your transaction is about to over the budget limit.
         </Alert>
       )}
       <FloatingLabel label="Name" className="mb-3">
@@ -71,7 +71,7 @@ const AddWithdrawTransaction = (props) => {
           step="any"
           placeholder="Amount"
           onChange={handleChange}
-          ref={amount}
+          ref={amountRef}
           required
         />
       </FloatingLabel>
@@ -87,7 +87,7 @@ const AddWithdrawTransaction = (props) => {
         <Form.Select
           name="typeId"
           onChange={handleChange}
-          ref={withdrawType}
+          ref={withdrawTypeRef}
           required
         >
           <option value="">Select Withdraw Type</option>
@@ -104,7 +104,7 @@ const AddWithdrawTransaction = (props) => {
         <Form.Select
           name="withdrawFromId"
           onChange={handleChange}
-          ref={depositType}
+          ref={depositTypeRef}
           required
         >
           <option value="">Select Account</option>

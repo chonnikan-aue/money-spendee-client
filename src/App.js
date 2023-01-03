@@ -4,15 +4,12 @@ import axios from "axios";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/Header";
 import ViewTransaction from "./components/ViewTransaction/ViewTransaction";
-import TableView from "./components/TableView/TableView";
-import DashboardView from "./components/DashboardView/DashboardView";
-import SummaryView from "./components/SummaryView/SummaryView";
 import AddTransaction from "./components/AddTransaction/AddTransaction";
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo";
 import EditTransaction from "./components/EditTransaction/EditTransaction";
-import { Route, Routes, Link, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 function App() {
   const [profileData, setProfileData] = useState({});
@@ -79,11 +76,9 @@ function App() {
   };
 
   const alertBudget = (depositTypeValue, withdrawTypeValue, amountValue) => {
-    const sumAmountDepositType = userData.DepositTypes.filter(
-      (depositType) => {
-        return depositType.id == depositTypeValue;
-      }
-    )[0].sumAmount;
+    const sumAmountDepositType = userData.DepositTypes.filter((depositType) => {
+      return depositType.id == depositTypeValue;
+    })[0].sumAmount;
     const withdrawTypeSelected = userData.WithdrawTypes.filter(
       (withdrawType) => {
         return withdrawType.id == withdrawTypeValue;
@@ -107,6 +102,9 @@ function App() {
     if (localStorage.getItem("userData")) {
       setUserData(JSON.parse(localStorage.getItem("userData")));
     }
+    if (localStorage.getItem("profileData")) {
+      setProfileData(JSON.parse(localStorage.getItem("profileData")));
+    }
   }, []);
 
   useEffect(() => {
@@ -114,6 +112,15 @@ function App() {
       localStorage.setItem("userData", JSON.stringify(userData));
     }
   }, [userData]);
+
+  useEffect(() => {
+    if (Object.keys(profileData).length !== 0) {
+      localStorage.setItem(
+        "profileData",
+        JSON.stringify({ username: profileData.username })
+      );
+    }
+  }, [profileData]);
 
   return (
     <div className="App">
@@ -206,6 +213,9 @@ function App() {
                 <EditTransaction
                   userData={userData}
                   getUserData={getUserData}
+                  alertBudget={alertBudget}
+                  show={show}
+                  setShow={setShow}
                 />
               </>
             }

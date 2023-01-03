@@ -13,13 +13,13 @@ const ViewTransaction = (props) => {
           <Accordion.Item eventKey="0">
             <Accordion.Header>Table View</Accordion.Header>
             <Accordion.Body>
-              <TableView
+              {/* <TableView
                 userData={props.userData}
                 setUserData={props.setUserData}
                 transactions={props.transactions}
                 setTransactions={props.setTransactions}
                 getUserData={props.getUserData}
-              />
+              /> */}
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
