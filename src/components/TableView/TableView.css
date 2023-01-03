@@ -45,11 +45,11 @@ th {
 }
 
 tr.deposit {
-  background-color: rgb(181, 255, 181);
+  color: rgb(0, 178, 0);
 }
 
 tr.withdraw {
-  background-color: rgb(255, 152, 188);
+  color: rgb(255, 0, 0);
 }
 
 tr:hover {
