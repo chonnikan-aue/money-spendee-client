@@ -4,6 +4,12 @@
   --bs-body-bg: #fcf7f3;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 .App {
   text-align: center;
   font-family: "Exo", sans-serif;

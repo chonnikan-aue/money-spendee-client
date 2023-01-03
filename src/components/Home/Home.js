@@ -40,11 +40,11 @@ const Home = (props) => {
 
   return (
     <Row className="home">
-      <Col>
-        <Row className="title">MONey Spendee</Row>
-        <Row className="sub-title">
+      <Col sm>
+        <Col className="title">MONey Spendee</Col>
+        <Col className="sub-title">
           MONey Spendee helps you track spending and follow your budget.
-        </Row>
+        </Col>
         <br />
       </Col>
       <Col>

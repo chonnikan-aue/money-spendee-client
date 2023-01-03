@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./DashboardView.css";
 import CanvasJSReact from "../../lib/canvasjs.react";
 
 const DashboardView = (props) => {
@@ -23,6 +22,7 @@ const DashboardView = (props) => {
       if (props.userData.DepositTypes && props.userData.WithdrawTypes) {
         const option = {
           exportEnabled: true,
+          theme: "light1",
           animationEnabled: true,
           data: [
             {
@@ -42,7 +42,15 @@ const DashboardView = (props) => {
     }
   }, [props.userData]);
 
-  return <CanvasJSChart options={options} />;
+  return (
+    <>
+      {props.userData ? (
+        props.userData.DepositTypes && props.userData.WithdrawTypes ? (
+          <CanvasJSChart className="chart" options={options} />
+        ) : null
+      ) : null}
+    </>
+  );
 };
 
 export default DashboardView;

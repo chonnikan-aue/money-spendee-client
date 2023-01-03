@@ -70,7 +70,6 @@ function App() {
             0
           );
         }
-        console.log(res.data);
         setUserData(res.data);
       });
   };
