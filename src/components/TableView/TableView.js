@@ -66,7 +66,7 @@ const TableView = (props) => {
     let indexPlusOne = index + 1
 
     return (
-      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne}`}>
+      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} deposit`}>
         <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>{deposit.date}</td>
         <td>{deposit.name}</td>
         <td>{findDepositType(deposit.typeId)}</td>
@@ -108,7 +108,7 @@ const TableView = (props) => {
     let indexPlusOne = index + 1
 
     return (
-      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne}`}>
+      <tr key={index} id={`tr-id-${indexPlusOne}`} className={`tr-class-${indexPlusOne} withdraw`}>
         <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>{withdraw.date}</td>
         <td>{withdraw.name}</td>
         <td>{findWithdrawType(withdraw.typeId)}</td>
@@ -159,7 +159,7 @@ const TableView = (props) => {
   return (
     <div id="table-div">
       <table
-        // id="table"
+        id="table"
         data-toggle="table"
         data-search="true"
         data-show-columns="true"
@@ -223,6 +223,11 @@ const TableView = (props) => {
           {withdrawsList}
         </tbody>
       </table>
+
+      {/* <script>
+        {const $table = $('#table')}
+        {$table.bootstrapTable({data: data})}
+      </script> */}
     </div>
   )
 }

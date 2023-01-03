@@ -44,6 +44,14 @@ th {
   text-align: center !important;
 }
 
+tr.deposit {
+  background-color: rgb(181, 255, 181);
+}
+
+tr.withdraw {
+  background-color: rgb(255, 152, 188);
+}
+
 tr:hover {
   background-color: rgb(240, 236, 236);
 }
