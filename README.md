@@ -47,7 +47,12 @@ runs the application
 
 ### Planning wireframe
 
-
+![image](https://user-images.githubusercontent.com/116058313/210303185-92344558-ae85-4532-94ce-d73cbfbcf65c.png)
+![image (1)](https://user-images.githubusercontent.com/116058313/210303197-6af6836e-21db-4e93-83fd-fc2bde05330a.png)
+![image (2)](https://user-images.githubusercontent.com/116058313/210303195-9adeb045-71b2-4ecd-a391-f51d7c09021f.png)
+![image (3)](https://user-images.githubusercontent.com/116058313/210303192-31e6c147-85c9-49ac-9164-c5647c367525.png)
+![image (4)](https://user-images.githubusercontent.com/116058313/210303191-a0742c6c-9d1e-4a43-a78f-8ff661c3f7ac.png)
+![image (5)](https://user-images.githubusercontent.com/116058313/210303190-842f0eb2-5277-449b-a0f3-2c63dcc3f3ce.png)
 
 ### Actual wireframe
 
