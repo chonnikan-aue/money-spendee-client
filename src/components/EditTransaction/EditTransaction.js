@@ -1,18 +1,24 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { Button, Form, FloatingLabel, Container, Row, Col} from 'react-bootstrap'
+import {
+  Button,
+  Form,
+  FloatingLabel,
+  Container,
+  Row,
+  Col,
+} from "react-bootstrap";
 
-const EditTransaction = props => {
-
+const EditTransaction = (props) => {
   const handleChange = (e) => {
     // setLogInData((prevState) => ({
     //   ...prevState,
     //   [e.target.type === "text" ? "username" : e.target.type]: e.target.value
     // }))
-  }
+  };
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = (e) => {
+    e.preventDefault();
     // /:depositId/user/:userId"
     let token = localStorage.getItem("jwt");
 
@@ -34,14 +40,13 @@ const EditTransaction = props => {
         console.error(err);
       });
 
-    return console.log(props.selectedTransaction.date)
-  }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    return console.log(props.selectedTransaction.date);
+  };
 
   useEffect(() => {
     if (props.selectedTransaction) {
-      
     }
-  }, [props.selectedTransaction])
+  }, [props.selectedTransaction]);
 
   return (
     <Container>
@@ -53,17 +58,19 @@ const EditTransaction = props => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="date">
               <FloatingLabel label="Date">
-                <Form.Control required
-                  type="date" 
+                <Form.Control
+                  required
+                  type="date"
                   onChange={handleChange}
-                  defaultValue={props.selectedTransaction.date} 
+                  defaultValue={props.selectedTransaction.date}
                 />
               </FloatingLabel>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="title">
               <FloatingLabel label="Title">
-                <Form.Control required  
+                <Form.Control
+                  required
                   type="text"
                   onChange={handleChange}
                   placeholder="Enter Title"
@@ -86,11 +93,13 @@ const EditTransaction = props => {
 
             <Form.Group className="mb-3" controlId="amount">
               <FloatingLabel label="Amount">
-                <Form.Control required  
+                <Form.Control
+                  required
                   type="number"
-                  onChange={handleChange} 
+                  onChange={handleChange}
                   defaultValue={props.selectedTransaction.amount}
-                  min={0.1}  
+                  min={0.01}
+                  step="any"
                 />
               </FloatingLabel>
             </Form.Group>
@@ -102,8 +111,7 @@ const EditTransaction = props => {
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-
-export default EditTransaction
+export default EditTransaction;

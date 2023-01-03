@@ -22,16 +22,16 @@ const AddTransaction = (props) => {
           <Accordion.Item eventKey="1">
             <Accordion.Header>Add Deposit</Accordion.Header>
             <Accordion.Body>
-              <AddDepositTransaction                 
+              <AddDepositTransaction
                 userData={props.userData}
                 getUserData={props.getUserData}
               />
-              </Accordion.Body>
+            </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
             <Accordion.Header>Add Withdrawal</Accordion.Header>
             <Accordion.Body>
-                <AddWithdrawTransaction                 
+              <AddWithdrawTransaction
                 userData={props.userData}
                 getUserData={props.getUserData}
               />
