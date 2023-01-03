@@ -5,18 +5,17 @@ import DashboardView from "../DashboardView/DashboardView";
 import SummaryView from "../SummaryView/SummaryView";
 
 const ViewTransaction = (props) => {
-
   return (
-    <Container>
+    <Container className="content">
       <Row className="header">View Transaction</Row>
       <Row className="mb-3">
-        <Accordion>
+        <Accordion defaultActiveKey="0">
           <Accordion.Item eventKey="0">
             <Accordion.Header>Table View</Accordion.Header>
             <Accordion.Body>
               <TableView
                 userData={props.userData}
-                setUserData={props.setUserData} 
+                setUserData={props.setUserData}
                 transactions={props.transactions}
                 setTransactions={props.setTransactions}
                 getUserData={props.getUserData}
@@ -26,26 +25,19 @@ const ViewTransaction = (props) => {
           <Accordion.Item eventKey="1">
             <Accordion.Header>Dashboard View</Accordion.Header>
             <Accordion.Body>
-              <DashboardView
-                userData={props.userData}
-                
-              />
+              <DashboardView userData={props.userData} />
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
             <Accordion.Header>Summary View</Accordion.Header>
             <Accordion.Body>
-              <p>To insert SummaryView</p>
-              {/* <SummaryView
-                transactions={props.transactions}
-                setTransactions={props.setTransactions}
-              /> */}
+              <SummaryView userData={props.userData} />
             </Accordion.Body>
           </Accordion.Item>
         </Accordion>
       </Row>
     </Container>
-  )
+  );
 };
 
 export default ViewTransaction;
