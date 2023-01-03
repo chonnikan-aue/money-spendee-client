@@ -86,18 +86,18 @@ We use react as a foudation of the application and mainly use react-bootrap for 
 
 ### Frontend application
 
-    We can create the application which is able to CRUD with our created database by interact from the front end website and users are also able to signup, login, signout. Our application is also responsive and has variety function such as dropdown, accordion, alert, etc.
+We can create the application which is able to CRUD with our created database by interact from the front end website and users are also able to signup, login, signout. Our application is also responsive and has variety function such as dropdown, accordion, alert, etc.
 
 ### Backend application
 
-    We can create our own database that is able to CRUD from frontend and export the database as a API and JSON format. Our website is also define the authorization to access the database.
+We can create our own database that is able to CRUD from frontend and export the database as a API and JSON format. Our website is also define the authorization to access the database.
 
 ## What left?
 
 ### Frontend application
 
-    We want our app to have more features such as table filter, other dash board style and more dynamics.
+We want our app to have more features such as table filter, other dash board style and more dynamics.
 
 ### Backend application.
 
-    We want to create a group or event that allow many user the access and CRUD the same event
+We want to create a group or event that allow many user the access and CRUD the same event
