@@ -40,9 +40,9 @@ runs the application
 
 ## Link
 
-[Deploy Link]()
+[Deploy Link](https://github.com/chonnikan-aue/money-spendee-client)
 
-[Github Link]()
+[Github Link](https://github.com/chonnikan-aue/money-spendee-client)
 
 ## Wirefram and User Interface
 
