@@ -35,10 +35,19 @@ function App() {
   const getUserData = () => {
     let token = localStorage.getItem("jwt");
     axios
-      .get(`https://kind-ruby-hen-hem.cyclic.app/user/username/${profileData.username}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
+      .get(
+        `https://kind-ruby-hen-hem.cyclic.app/user/username/${profileData.username}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      )
       .then((res) => {
+        for (let i = 0; i < res.data.Deposits.length; i++) {
+          res.data.Deposits[i].date = res.data.Deposits[i].date.split("T")[0];
+        }
+        for (let i = 0; i < res.data.Withdraws.length; i++) {
+          res.data.Withdraws[i].date = res.data.Withdraws[i].date.split("T")[0];
+        }
         res.data.WithdrawTypes.sort((a, b) => b.id - a.id);
         res.data.sumDepositAmount = res.data.Deposits.reduce(
           (sum, deposit) => sum + deposit.amount,
