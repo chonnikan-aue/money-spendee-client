@@ -18,7 +18,7 @@ const NewDepositType = (props) => {
     let token = localStorage.getItem("jwt");
     axios
       .post(
-        `http://localhost:3001/deposit-type/user/${props.userData.id}`,
+        `https://kind-ruby-hen-hem.cyclic.app/deposit-type/user/${props.userData.id}`,
         data,
         {
           headers: { Authorization: `Bearer ${token}` },

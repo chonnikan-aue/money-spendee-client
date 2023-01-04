@@ -17,7 +17,7 @@ const FixedIncome = (props) => {
     e.preventDefault();
     let token = localStorage.getItem("jwt");
     axios
-      .put(`http://localhost:3001/user/${props.userData.id}`, data, {
+      .put(`https://kind-ruby-hen-hem.cyclic.app/user/${props.userData.id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

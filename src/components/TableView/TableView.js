@@ -22,7 +22,7 @@ const TableView = (props) => {
     let token = localStorage.getItem("jwt");
 
     axios
-      .delete(`http://localhost:3001/${type}/${id}`, {
+      .delete(`https://kind-ruby-hen-hem.cyclic.app/${type}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

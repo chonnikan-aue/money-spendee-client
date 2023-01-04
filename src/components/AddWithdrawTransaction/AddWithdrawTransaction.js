@@ -35,7 +35,7 @@ const AddWithdrawTransaction = (props) => {
     e.preventDefault();
     let token = localStorage.getItem("jwt");
     axios
-      .post(`http://localhost:3001/withdraw/user/${props.userData.id}`, data, {
+      .post(`https://kind-ruby-hen-hem.cyclic.app/withdraw/user/${props.userData.id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

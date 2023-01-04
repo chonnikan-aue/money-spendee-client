@@ -19,7 +19,7 @@ const WithdrawType = (props) => {
     let token = localStorage.getItem("jwt");
     axios
       .put(
-        `http://localhost:3001/withdraw-type/${data.withdrawTypeId}/user/${props.userData.id}`,
+        `https://kind-ruby-hen-hem.cyclic.app/withdraw-type/${data.withdrawTypeId}/user/${props.userData.id}`,
         {
           name: data.name,
           budgetPercent: data.budgetPercent,
