@@ -174,10 +174,6 @@ const TableView = (props) => {
   return (
     <div id="table-div">
       <table
-        id="table"
-        data-toggle="table"
-        data-search="true"
-        data-show-columns="true"
       >
         <thead>
           <tr>
@@ -209,7 +205,9 @@ const TableView = (props) => {
                 onClick={() => sortBy("amount")}
               />
             </th>
-            <th></th>
+            <th>
+              Edit/ Delete
+            </th>
           </tr>
         </thead>
         <tbody>

@@ -15,6 +15,7 @@ Ougrid's Read Me
 - https://canvasjs.com/react-charts/pie-chart-index-data-label-inside/
 - https://stackoverflow.com/questions/4244896/accessing-an-object-property-with-a-dynamically-computed-name
 - https://stackoverflow.com/questions/34521797/how-to-add-multiple-classes-to-a-reactjs-component
+- https://www.smashingmagazine.com/2020/03/sortable-tables-react/
 
 ## DB:
 INSERT INTO "Deposits" VALUES (DEFAULT,'Fixed Income',10000,'2023-01-04',1,1);
