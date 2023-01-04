@@ -182,11 +182,6 @@ const TableView = (props) => {
   return (
     <div id="table-div">
       <table
-        id="table"
-        data-toggle="table"
-        data-search="true"
-        data-show-columns="true"
-        data-pagination="true"
       >
         <thead>
           <tr>
