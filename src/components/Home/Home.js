@@ -11,7 +11,7 @@ const Home = (props) => {
     e.preventDefault();
     if (e.nativeEvent.submitter.id === "login") {
       axios
-        .get("http://localhost:3001/auth", { params: props.profileData })
+        .get("https://kind-ruby-hen-hem.cyclic.app/auth", { params: props.profileData })
         .then((res) => {
           let token = res.data;
           localStorage.setItem("jwt", token);
@@ -24,7 +24,7 @@ const Home = (props) => {
         });
     } else if (e.nativeEvent.submitter.id === "signup") {
       axios
-        .post("http://localhost:3001/auth", props.profileData)
+        .post("https://kind-ruby-hen-hem.cyclic.app/auth", props.profileData)
         .then((res) => {
           if (res.data.name === "SequelizeUniqueConstraintError") {
             alert("This username is already taken. Please try another.");

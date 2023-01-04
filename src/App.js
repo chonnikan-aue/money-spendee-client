@@ -35,7 +35,7 @@ function App() {
   const getUserData = () => {
     let token = localStorage.getItem("jwt");
     axios
-      .get(`http://localhost:3001/user/username/${profileData.username}`, {
+      .get(`https://kind-ruby-hen-hem.cyclic.app/user/username/${profileData.username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

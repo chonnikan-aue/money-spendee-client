@@ -33,7 +33,7 @@ const EditTransaction = (props) => {
     let token = localStorage.getItem("jwt");
     axios
       .put(
-        `http://localhost:3001/${type}/${id}/user/${props.userData.id}`,
+        `https://kind-ruby-hen-hem.cyclic.app/${type}/${id}/user/${props.userData.id}`,
         data,
         {
           headers: { Authorization: `Bearer ${token}` },

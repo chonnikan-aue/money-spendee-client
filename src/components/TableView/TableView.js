@@ -10,8 +10,9 @@ import { BsSortNumericDown } from "react-icons/bs";
 
 const TableView = (props) => {
   const navigate = useNavigate();
-
   const [sortType, setSortType] = useState(null);
+  const [depositsList, setDepositsList] = useState();
+  const [withdrawsList, setWithdrawsList] = useState();
 
   const sortBy = (column) => {
     setSortType(column);
@@ -21,7 +22,7 @@ const TableView = (props) => {
     let token = localStorage.getItem("jwt");
 
     axios
-      .delete(`http://localhost:3001/${type}/${id}`, {
+      .delete(`https://kind-ruby-hen-hem.cyclic.app/${type}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -41,107 +42,13 @@ const TableView = (props) => {
     return depositType;
   };
 
-  const depositsList = props.userData.Deposits.sort((a, b) => {
-    if (sortType === "date") {
-      return a.date > b.date ? 1 : -1;
-    } else if (sortType === "name") {
-      return a.name > b.name ? 1 : -1;
-    } else if (sortType === "type") {
-      return findDepositType(a.typeId) > findDepositType(b.typeId) ? 1 : -1;
-    } else if (sortType === "amount") {
-      return a.amount > b.amount ? 1 : -1;
-    } else {
-      return 0;
-    }
-  }).map((deposit, index) => {
-    let type = "deposit";
-
-    let indexPlusOne = index + 1;
-
-    return (
-      <tr
-        key={index}
-        id={`tr-id-${indexPlusOne}`}
-        className={`tr-class-${indexPlusOne} deposit`}
-      >
-        <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>
-          {deposit.date}
-        </td>
-        <td>{deposit.name}</td>
-        <td>{findDepositType(deposit.typeId)}</td>
-        <td>{deposit.amount}</td>
-        <td>
-          <FiEdit
-            className="edit-btn"
-            onClick={() => {
-              navigate(`/edit-transaction/${type}/${deposit.id}`);
-            }}
-          />
-          <RiDeleteBinLine
-            className="delete-btn"
-            onClick={() => {
-              deleteTransaction(type, deposit.id);
-            }}
-          />
-        </td>
-      </tr>
-    );
-  });
-
   const findWithdrawType = (withdrawTypeId) => {
     let withdrawType = `${
       props.userData.WithdrawTypes.find((type) => type.id === withdrawTypeId)
         .name
     }`;
-
     return withdrawType;
   };
-
-  const withdrawsList = props.userData.Withdraws.sort((a, b) => {
-    if (sortType === "date") {
-      return a.date > b.date ? 1 : -1;
-    } else if (sortType === "name") {
-      return a.name > b.name ? 1 : -1;
-    } else if (sortType === "type") {
-      return findWithdrawType(a.typeId) > findWithdrawType(b.typeId) ? 1 : -1;
-    } else if (sortType === "amount") {
-      return a.amount > b.amount ? 1 : -1;
-    } else {
-      return 0;
-    }
-  }).map((withdraw, index) => {
-    let type = "withdraw";
-    let indexPlusOne = index + 1;
-
-    return (
-      <tr
-        key={index}
-        id={`tr-id-${indexPlusOne}`}
-        className={`tr-class-${indexPlusOne} withdraw`}
-      >
-        <td id={`td-id-${indexPlusOne}`} className={`td-class-${indexPlusOne}`}>
-          {withdraw.date}
-        </td>
-        <td>{withdraw.name}</td>
-        <td>{findWithdrawType(withdraw.typeId)}</td>
-        <td>{withdraw.amount}</td>
-        <td>
-          <FiEdit
-            className="edit-btn"
-            onClick={() => {
-              navigate(`/edit-transaction/${type}/${withdraw.id}`);
-            }}
-          />
-          <RiDeleteBinLine
-            className="delete-btn"
-            onClick={() => {
-              deleteTransaction(type, withdraw.id);
-            }}
-          />
-        </td>
-      </tr>
-    );
-  });
 
   useEffect(() => {
     if (props.userData) {
@@ -149,6 +56,108 @@ const TableView = (props) => {
         deposits: depositsList,
         withdraws: withdrawsList,
       });
+      if (props.userData.Deposits && props.userData.Withdraws) {
+        const deposits = props.userData.Deposits.sort((a, b) => {
+          if (sortType === "date") {
+            return a.date > b.date ? 1 : -1;
+          } else if (sortType === "name") {
+            return a.name > b.name ? 1 : -1;
+          } else if (sortType === "type") {
+            return findDepositType(a.typeId) > findDepositType(b.typeId)
+              ? 1
+              : -1;
+          } else if (sortType === "amount") {
+            return a.amount > b.amount ? 1 : -1;
+          } else {
+            return 0;
+          }
+        }).map((deposit, index) => {
+          let type = "deposit";
+          let indexPlusOne = index + 1;
+          return (
+            <tr
+              key={index}
+              id={`tr-id-${indexPlusOne}`}
+              className={`tr-class-${indexPlusOne} deposit`}
+            >
+              <td
+                id={`td-id-${indexPlusOne}`}
+                className={`td-class-${indexPlusOne}`}
+              >
+                {deposit.date}
+              </td>
+              <td>{deposit.name}</td>
+              <td>{findDepositType(deposit.typeId)}</td>
+              <td>{deposit.amount}</td>
+              <td>
+                <FiEdit
+                  className="edit-btn"
+                  onClick={() => {
+                    navigate(`/edit-transaction/${type}/${deposit.id}`);
+                  }}
+                />
+                <RiDeleteBinLine
+                  className="delete-btn"
+                  onClick={() => {
+                    deleteTransaction(type, deposit.id);
+                  }}
+                />
+              </td>
+            </tr>
+          );
+        });
+        setDepositsList(deposits);
+        const withdraws = props.userData.Withdraws.sort((a, b) => {
+          if (sortType === "date") {
+            return a.date > b.date ? 1 : -1;
+          } else if (sortType === "name") {
+            return a.name > b.name ? 1 : -1;
+          } else if (sortType === "type") {
+            return findWithdrawType(a.typeId) > findWithdrawType(b.typeId)
+              ? 1
+              : -1;
+          } else if (sortType === "amount") {
+            return a.amount > b.amount ? 1 : -1;
+          } else {
+            return 0;
+          }
+        }).map((withdraw, index) => {
+          let type = "withdraw";
+          let indexPlusOne = index + 1;
+          return (
+            <tr
+              key={index}
+              id={`tr-id-${indexPlusOne}`}
+              className={`tr-class-${indexPlusOne} withdraw`}
+            >
+              <td
+                id={`td-id-${indexPlusOne}`}
+                className={`td-class-${indexPlusOne}`}
+              >
+                {withdraw.date}
+              </td>
+              <td>{withdraw.name}</td>
+              <td>{findWithdrawType(withdraw.typeId)}</td>
+              <td>{withdraw.amount}</td>
+              <td>
+                <FiEdit
+                  className="edit-btn"
+                  onClick={() => {
+                    navigate(`/edit-transaction/${type}/${withdraw.id}`);
+                  }}
+                />
+                <RiDeleteBinLine
+                  className="delete-btn"
+                  onClick={() => {
+                    deleteTransaction(type, withdraw.id);
+                  }}
+                />
+              </td>
+            </tr>
+          );
+        });
+        setWithdrawsList(withdraws);
+      }
     }
   }, [props.userData]);
 
