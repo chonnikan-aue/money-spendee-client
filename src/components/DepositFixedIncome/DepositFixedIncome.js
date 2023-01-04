@@ -19,7 +19,7 @@ const DepositFixedIncome = (props) => {
     e.preventDefault();
     let token = localStorage.getItem("jwt");
     axios
-      .post(`http://localhost:3001/deposit/user/${props.userData.id}`, data, {
+      .post(`https://kind-ruby-hen-hem.cyclic.app/deposit/user/${props.userData.id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {

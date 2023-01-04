@@ -1,3 +1,16 @@
+svg {
+  cursor: pointer;
+}
+
+.edit-btn,
+.delete-btn {
+  margin: 5px 10px 5px 10px;
+}
+
+.sort-btn {
+  margin-left: 10px;
+}
+
 .pagination {
   display: flex;
   flex-flow: row;
@@ -24,15 +37,17 @@ table {
   border: 2px solid black;
 }
 
-td,th {
+td,
+th {
   border: 2px solid black !important;
-  padding: 0.4rem ;
+  padding: 0.4rem;
   font-size: medium;
   text-align: center;
 }
 
 @media (max-width: 500px) {
-  td,th {
+  td,
+  th {
     border: 2px solid black !important;
     padding: 0.2rem;
     font-size: small;
@@ -55,4 +70,3 @@ tr.withdraw {
 tr:hover {
   background-color: rgb(240, 236, 236);
 }
-

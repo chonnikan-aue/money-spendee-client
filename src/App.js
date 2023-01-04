@@ -4,33 +4,23 @@ import axios from "axios";
 import Home from "./components/Home/Home";
 import Header from "./components/Header/Header";
 import ViewTransaction from "./components/ViewTransaction/ViewTransaction";
-import TableView from "./components/TableView/TableView";
-import DashboardView from "./components/DashboardView/DashboardView";
-import SummaryView from "./components/SummaryView/SummaryView";
 import AddTransaction from "./components/AddTransaction/AddTransaction";
 import UpdateInfo from "./components/UpdateInfo/UpdateInfo";
 import EditTransaction from "./components/EditTransaction/EditTransaction";
-import { Route, Routes, Link, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Container, Row, Col, Dropdown } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 
 function App() {
   const [profileData, setProfileData] = useState({});
   const [userData, setUserData] = useState({});
+  const [show, setShow] = useState(false);
 
   // Ougrid's Section Starts
   //
   const [transactions, setTransactions] = useState({
     deposits: [],
     withdraws: [],
-  });
-  const [selectedTransaction, setSelectedTransaction] = useState({
-    id: 0, // Either depositId or withdrawId
-    name: "",
-    amount: 0,
-    date: "2023-01-05",
-    typeId: 0,
-    userId: 0,
   });
   //
   // Ougrid's Section Ends
@@ -45,7 +35,7 @@ function App() {
   const getUserData = () => {
     let token = localStorage.getItem("jwt");
     axios
-      .get(`http://localhost:3001/user/username/${profileData.username}`, {
+      .get(`https://kind-ruby-hen-hem.cyclic.app/user/username/${profileData.username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -80,14 +70,39 @@ function App() {
             0
           );
         }
-        console.log(res.data);
         setUserData(res.data);
       });
+  };
+
+  const alertBudget = (depositTypeValue, withdrawTypeValue, amountValue) => {
+    const sumAmountDepositType = userData.DepositTypes.filter((depositType) => {
+      return depositType.id == depositTypeValue;
+    })[0].sumAmount;
+    const withdrawTypeSelected = userData.WithdrawTypes.filter(
+      (withdrawType) => {
+        return withdrawType.id == withdrawTypeValue;
+      }
+    );
+    const sumAmountWithdrawType = withdrawTypeSelected[0].sumAmount;
+    const budgetPercent = withdrawTypeSelected[0].budgetPercent;
+    const alertPercent = withdrawTypeSelected[0].alertPercent;
+    const canUseMoney = (budgetPercent / 100) * sumAmountDepositType;
+    if (
+      parseFloat(amountValue) + sumAmountWithdrawType >
+      (alertPercent / 100) * canUseMoney
+    ) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
   };
 
   useEffect(() => {
     if (localStorage.getItem("userData")) {
       setUserData(JSON.parse(localStorage.getItem("userData")));
+    }
+    if (localStorage.getItem("profileData")) {
+      setProfileData(JSON.parse(localStorage.getItem("profileData")));
     }
   }, []);
 
@@ -96,6 +111,15 @@ function App() {
       localStorage.setItem("userData", JSON.stringify(userData));
     }
   }, [userData]);
+
+  useEffect(() => {
+    if (Object.keys(profileData).length !== 0) {
+      localStorage.setItem(
+        "profileData",
+        JSON.stringify({ username: profileData.username })
+      );
+    }
+  }, [profileData]);
 
   return (
     <div className="App">
@@ -131,7 +155,13 @@ function App() {
             element={
               <>
                 <Header userData={userData} />
-                <AddTransaction userData={userData} getUserData={getUserData} />
+                <AddTransaction
+                  userData={userData}
+                  getUserData={getUserData}
+                  alertBudget={alertBudget}
+                  show={show}
+                  setShow={setShow}
+                />
               </>
             }
           />
@@ -175,14 +205,16 @@ function App() {
             }
           />
           <Route
-            path="/edit-transaction"
+            path="/edit-transaction/:type/:id"
             element={
               <>
                 <Header userData={userData} />
                 <EditTransaction
                   userData={userData}
-                  selectedTransaction={selectedTransaction}
-                  setSelectedTransaction={setSelectedTransaction}
+                  getUserData={getUserData}
+                  alertBudget={alertBudget}
+                  show={show}
+                  setShow={setShow}
                 />
               </>
             }

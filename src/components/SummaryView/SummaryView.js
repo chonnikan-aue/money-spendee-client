@@ -15,7 +15,9 @@ const SummaryView = (props) => {
       </thead>
       <tbody>
         <tr>
-          <th className="summary-view">Balance: {props.userData.sumDepositAmount}</th>
+          <th className="summary-view">
+            Balance: {props.userData.sumDepositAmount}
+          </th>
           <td className="summary-view">
             {props.userData.DepositTypes
               ? props.userData.DepositTypes.map((depositType, index) => (
@@ -28,7 +30,9 @@ const SummaryView = (props) => {
           </td>
         </tr>
         <tr>
-          <th className="summary-view">Expenses: {props.userData.sumWithdrawAmount}</th>
+          <th className="summary-view">
+            Expenses: {props.userData.sumWithdrawAmount}
+          </th>
           <td className="summary-view">
             {props.userData.WithdrawTypes
               ? props.userData.WithdrawTypes.map((withdrawType, index) => (
