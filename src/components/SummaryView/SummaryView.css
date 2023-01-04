@@ -1,8 +1,4 @@
-table {
-  text-align: left;
-}
-
-th.summary-view,
-td.summary-view {
+.summary-view {
+  text-align: left !important;
   padding: 20px !important;
 }

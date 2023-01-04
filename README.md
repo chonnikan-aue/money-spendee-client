@@ -57,6 +57,16 @@ runs the application
 
 ### Actual wireframe
 
+![Login](https://user-images.githubusercontent.com/116058313/210388011-3ab854d9-d12b-46fc-892c-e202cb57fe2f.jpg)
+![dashboard](https://user-images.githubusercontent.com/116058313/210388020-f974c385-1b90-472f-803a-00770d39c798.jpg)
+![summary](https://user-images.githubusercontent.com/116058313/210388025-0886c4a6-234c-47d5-8653-37e552f651cb.jpg)
+![deposit fix income](https://user-images.githubusercontent.com/116058313/210388027-9f378c61-cf7e-4fcc-9770-3c81807a808c.jpg)
+![adddeposit](https://user-images.githubusercontent.com/116058313/210388032-a1cc653c-ed6f-4f2e-ad67-0288ca22709d.jpg)
+![add withdraw and alert](https://user-images.githubusercontent.com/116058313/210388036-828263c6-3944-49d3-af3a-d6977336e5eb.jpg)
+![edit fix income](https://user-images.githubusercontent.com/116058313/210388038-8e759d6e-d50a-4aef-a744-4f3859d49c78.jpg)
+![add account](https://user-images.githubusercontent.com/116058313/210388044-71900324-2e03-4ae1-b1e2-8297a24b1d96.jpg)
+![add withdraw type](https://user-images.githubusercontent.com/116058313/210388046-12165c57-04c5-4e53-8ef7-18c8e7855075.jpg)
+![edit withdraw type](https://user-images.githubusercontent.com/116058313/210388050-0004a506-f11e-4f27-bc32-509d959817da.jpg)
 
 
 ## Teachnology used

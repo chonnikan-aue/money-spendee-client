@@ -17,7 +17,7 @@ const FixedIncome = (props) => {
     e.preventDefault();
     let token = localStorage.getItem("jwt");
     axios
-      .put(`http://localhost:3001/user/${props.userData.id}`, data, {
+      .put(`https://kind-ruby-hen-hem.cyclic.app/user/${props.userData.id}`, data, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -32,23 +32,27 @@ const FixedIncome = (props) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <FloatingLabel label="Fixed Income" className="mb-3">
-        <Form.Control
-          name="fixedIncome"
-          type="number"
-          min={0}
-          step="any"
-          placeholder="Fixed Income"
-          onChange={handleChange}
-          defaultValue={props.userData.fixedIncome}
-          required
-        />
-      </FloatingLabel>
-      <Button variant="primary" type="submit">
-        Save Changes
-      </Button>
-    </Form>
+    <>
+      {props.userData ? (
+        <Form onSubmit={handleSubmit}>
+          <FloatingLabel label="Fixed Income" className="mb-3">
+            <Form.Control
+              name="fixedIncome"
+              type="number"
+              min={0}
+              step="any"
+              placeholder="Fixed Income"
+              onChange={handleChange}
+              defaultValue={props.userData.fixedIncome}
+              required
+            />
+          </FloatingLabel>
+          <Button variant="primary" type="submit">
+            Save Changes
+          </Button>
+        </Form>
+      ) : null}
+    </>
   );
 };
 

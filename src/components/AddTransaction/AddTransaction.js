@@ -34,6 +34,9 @@ const AddTransaction = (props) => {
               <AddWithdrawTransaction
                 userData={props.userData}
                 getUserData={props.getUserData}
+                alertBudget={props.alertBudget}
+                show={props.show}
+                setShow={props.setShow}
               />
             </Accordion.Body>
           </Accordion.Item>

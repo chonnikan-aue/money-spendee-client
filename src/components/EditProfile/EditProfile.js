@@ -8,7 +8,7 @@ const EditProfile = (props) => {
     let token = localStorage.getItem("jwt");
     axios
       .put(
-        `http://localhost:3001/user/${props.userData.id}`,
+        `https://kind-ruby-hen-hem.cyclic.app/user/${props.userData.id}`,
         props.profileData,
         {
           headers: { Authorization: `Bearer ${token}` },
